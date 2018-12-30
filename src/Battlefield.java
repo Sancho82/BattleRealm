@@ -1,10 +1,12 @@
 import javax.annotation.processing.RoundEnvironment;
 import javax.swing.*;
+import javax.swing.border.EtchedBorder;
 import javax.swing.border.SoftBevelBorder;
 import java.awt.*;
 
 public class Battlefield extends JFrame {
 
+    private final int size = 10;
     private JButton[][] buttons;
 
     public Battlefield() {
@@ -16,7 +18,6 @@ public class Battlefield extends JFrame {
         field.setLayout(null);
         field.setBorder(new SoftBevelBorder(SoftBevelBorder.LOWERED));
         add(field);
-        int size = 10;
 
         buttons = new JButton[size][size];
         for (int i = 0; i < size; i++) {
@@ -74,7 +75,7 @@ public class Battlefield extends JFrame {
         ButtonGroup directions = new ButtonGroup();
 
         JButton up = new JButton();
-        up.setBounds(840, 380, 80, 70);
+        up.setBounds(840, 330, 80, 70);
         up.setFont(new Font("Arial", Font.BOLD, 20));
         up.setBorder(new SoftBevelBorder(SoftBevelBorder.RAISED));
         up.setText("UP");
@@ -83,7 +84,7 @@ public class Battlefield extends JFrame {
         field.add(up);
 
         JButton left = new JButton();
-        left.setBounds(750, 470, 80, 70);
+        left.setBounds(750, 420, 80, 70);
         left.setFont(new Font("Arial", Font.BOLD, 20));
         left.setBorder(new SoftBevelBorder(SoftBevelBorder.RAISED));
         left.setText("LEFT");
@@ -92,7 +93,7 @@ public class Battlefield extends JFrame {
         field.add(left);
 
         JButton right = new JButton();
-        right.setBounds(930, 470, 80, 70);
+        right.setBounds(930, 420, 80, 70);
         right.setFont(new Font("Arial", Font.BOLD, 20));
         right.setBorder(new SoftBevelBorder(SoftBevelBorder.RAISED));
         right.setText("RIGHT");
@@ -101,13 +102,25 @@ public class Battlefield extends JFrame {
         field.add(right);
 
         JButton down = new JButton();
-        down.setBounds(840, 560, 80, 70);
+        down.setBounds(840, 510, 80, 70);
         down.setFont(new Font("Arial", Font.BOLD, 20));
         down.setBorder(new SoftBevelBorder(SoftBevelBorder.RAISED));
         down.setText("DOWN");
         down.setBackground(Color.YELLOW);
         directions.add(down);
         field.add(down);
+
+        JLabel dataBoard = new JLabel();
+        dataBoard.setBounds(750, 600, 260, 95);
+        dataBoard.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
+        dataBoard.setFont(new Font("Verdana", Font.ITALIC, 15));
+        dataBoard.setHorizontalAlignment(SwingConstants.CENTER);
+        dataBoard.setVerticalAlignment(SwingConstants.TOP);
+        dataBoard.setText("Information Board");
+        dataBoard.setForeground(Color.WHITE);
+        dataBoard.setOpaque(true);
+        dataBoard.setBackground(Color.GRAY);
+        field.add(dataBoard);
     }
 
         // buttons[2][2].setText("clue");
