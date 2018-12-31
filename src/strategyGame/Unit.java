@@ -1,9 +1,11 @@
+package strategyGame;
+
 public class Unit {
 
-    private String name;
-    private int hp;
-    private int cost;
-    private boolean isInPlay = true;
+    protected String name;
+    protected int hp;
+    protected int cost;
+    protected boolean isInPlay = true;
 
     //region Getters
 
@@ -27,6 +29,10 @@ public class Unit {
 
 
     //region Setters
+
+    public void takeDamage(int damage) {
+        hp -= damage;
+    }
 
     public void kill() {
         isInPlay = false;

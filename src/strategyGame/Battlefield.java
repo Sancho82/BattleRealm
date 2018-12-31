@@ -1,3 +1,5 @@
+package strategyGame;
+
 import javax.annotation.processing.RoundEnvironment;
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
@@ -8,9 +10,10 @@ public class Battlefield extends JFrame {
 
     private final int size = 10;
     private JButton[][] buttons;
+    private Table table;
 
     public Battlefield() {
-        setTitle("Battlefield");
+        setTitle("strategyGame.Battlefield");
         setBounds(100,100, 1100, 800);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -121,8 +124,23 @@ public class Battlefield extends JFrame {
         dataBoard.setOpaque(true);
         dataBoard.setBackground(Color.GRAY);
         field.add(dataBoard);
+
+        table = new Table();
+        table.matrixLoader();
+        tableDrawer();
     }
+
 
         // buttons[2][2].setText("clue");
         // buttons[2][2].setBackground(Color.red);
+
+    public void tableDrawer() {
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                if (table.getCell(i, j).getUnit() != null) {
+                    buttons[i][j].setText(table.getCell(i,j).getUnit().getName());
+                }
+            }
+        }
+    }
 }

@@ -1,4 +1,4 @@
-import java.awt.*;
+package strategyGame;
 
 public class Game {
     public static void main(String[] args) {
@@ -6,8 +6,5 @@ public class Game {
         Battlefield battlefield = new Battlefield();
         battlefield.setVisible(true);
 
-        Table table = new Table();
-        table.matrixLoader();
-        table.matrixDisplayer();
     }
 }

@@ -1,12 +1,9 @@
+package strategyGame;
+
 public class Cell {
 
-    private String name = "E";
     private boolean isOccupied = false;
     private Unit unit = null;
-
-    public String getName() {
-        return name;
-    }
 
     public boolean getIsOccupied() {
         return isOccupied;
@@ -14,6 +11,10 @@ public class Cell {
 
     public Unit getUnit() {
         return unit;
+    }
+
+    public void setUnit(Unit unit) {
+        this.unit = unit;
     }
 
     public void changeOccupancy() {
