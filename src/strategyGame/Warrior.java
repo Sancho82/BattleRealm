@@ -8,8 +8,11 @@ public class Warrior extends Unit implements Attacker, Mobile{
     private int damage;
 
     Warrior() {
+        owner = null;
         name = "Warrior";
-        hp = 35 + (int)(Math.random() * 10 + 1);
+        prefix = 'W';
+        MAX_HP = 35 + (int)(Math.random() * 10 + 1);
+        hp = MAX_HP;
         cost = 40;
         steppesLeft = STEPRANGE;
         attackRange = 1;
@@ -35,6 +38,10 @@ public class Warrior extends Unit implements Attacker, Mobile{
 
     @Override
     public void step() {
+        steppesLeft--;
+    }
 
+    public void freshStart() {
+        steppesLeft = STEPRANGE;
     }
 }

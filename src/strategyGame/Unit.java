@@ -2,7 +2,10 @@ package strategyGame;
 
 public class Unit {
 
+    protected String owner;
     protected String name;
+    protected char prefix;
+    protected int MAX_HP;
     protected int hp;
     protected int cost;
     protected boolean isInPlay = true;
@@ -11,6 +14,18 @@ public class Unit {
 
     public String getName() {
         return name;
+    }
+
+    public char getPrefix() {
+        return prefix;
+    }
+
+    public String getOwner() {
+        return owner;
+    }
+
+    public int getMAX_HP() {
+        return MAX_HP;
     }
 
     public int getHp() {
@@ -32,6 +47,15 @@ public class Unit {
 
     public void takeDamage(int damage) {
         hp -= damage;
+    }
+
+    public void heal() {
+        if (MAX_HP - hp > 0 && MAX_HP - hp < 10) {
+            hp = MAX_HP;
+
+        } else if (MAX_HP - hp > 0) {
+            hp += 10;
+        }
     }
 
     public void kill() {

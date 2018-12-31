@@ -6,5 +6,6 @@ public class Game {
         Battlefield battlefield = new Battlefield();
         battlefield.setVisible(true);
 
+        battlefield.getTable().matrixDisplayer();
     }
 }

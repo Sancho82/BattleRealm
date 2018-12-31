@@ -8,8 +8,11 @@ public class Archer extends Unit implements Attacker, Mobile{
     private int damage;
 
     Archer() {
+        owner = null;
         name = "Archer";
-        hp = 25 + (int)(Math.random() * 5 + 1);
+        prefix = 'A';
+        MAX_HP = 25 + (int)(Math.random() * 5 + 1);
+        hp = MAX_HP;
         cost = 70;
         attackRange = 4;
         damage = 35 + (int)(Math.random() * 5 + 1);
@@ -34,6 +37,10 @@ public class Archer extends Unit implements Attacker, Mobile{
 
     @Override
     public void step() {
+        steppesLeft--;
+    }
 
+    public void freshStart() {
+        steppesLeft = STEPRANGE;
     }
 }

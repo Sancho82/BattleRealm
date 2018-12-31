@@ -134,11 +134,15 @@ public class Battlefield extends JFrame {
         // buttons[2][2].setText("clue");
         // buttons[2][2].setBackground(Color.red);
 
+    public Table getTable() {
+        return this.table;
+    }
+
     public void tableDrawer() {
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
-                if (table.getCell(i, j).getUnit() != null) {
-                    buttons[i][j].setText(table.getCell(i,j).getUnit().getName());
+                if (table.getUnit(i, j) != null) {
+                    buttons[i][j].setText(table.getUnit(i, j).getName());
                 }
             }
         }

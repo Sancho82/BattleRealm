@@ -8,8 +8,11 @@ public class Paladin extends Unit implements Attacker, Mobile {
     private int damage;
 
     Paladin() {
+        owner = null;
         name = "Paladin";
-        hp = 65 + (int)(Math.random() * 5 + 1);
+        prefix = 'P';
+        MAX_HP = 65 + (int)(Math.random() * 5 + 1);
+        hp = MAX_HP;
         cost = 90;
         attackRange = 1;
         damage = 35 + (int)(Math.random() * 10 + 1);;
@@ -34,6 +37,10 @@ public class Paladin extends Unit implements Attacker, Mobile {
 
     @Override
     public void step() {
+        steppesLeft--;
+    }
 
+    public void freshStart() {
+        steppesLeft = STEPRANGE;
     }
 }
