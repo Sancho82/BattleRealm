@@ -7,8 +7,8 @@ public class Archer extends Unit implements Attacker, Mobile{
     private int attackRange;
     private int damage;
 
-    Archer() {
-        owner = null;
+    Archer(String color) {
+        super(color);
         name = "Archer";
         prefix = 'A';
         MAX_HP = 25 + (int)(Math.random() * 5 + 1);
@@ -17,6 +17,8 @@ public class Archer extends Unit implements Attacker, Mobile{
         attackRange = 4;
         damage = 35 + (int)(Math.random() * 5 + 1);
     }
+
+    //region Getters
 
     public int getSteppesLeft() {
         return steppesLeft;
@@ -30,6 +32,8 @@ public class Archer extends Unit implements Attacker, Mobile{
         return damage;
     }
 
+    //endregion
+
     @Override
     public void Attack(Unit otherUnit) {
         otherUnit.takeDamage(this.damage);
@@ -42,5 +46,12 @@ public class Archer extends Unit implements Attacker, Mobile{
 
     public void freshStart() {
         steppesLeft = STEPRANGE;
+    }
+
+    public String toString() {
+        return super.toString() + "\n" +
+                "Steppes left: " + steppesLeft + "\n" +
+                "Attack range: " + attackRange + "\n" +
+                "Damage: " + damage;
     }
 }

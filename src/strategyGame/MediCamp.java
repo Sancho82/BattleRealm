@@ -2,8 +2,8 @@ package strategyGame;
 
 public class MediCamp extends Unit{
 
-    MediCamp() {
-        owner = null;
+    MediCamp(String color) {
+        super(color);
         name = "MediCamp";
         prefix = '+';
         MAX_HP = 80;

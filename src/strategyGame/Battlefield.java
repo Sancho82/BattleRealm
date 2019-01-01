@@ -13,7 +13,7 @@ public class Battlefield extends JFrame {
     private Table table;
 
     public Battlefield() {
-        setTitle("strategyGame.Battlefield");
+        setTitle("Battlefield");
         setBounds(100,100, 1100, 800);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -126,7 +126,6 @@ public class Battlefield extends JFrame {
         field.add(dataBoard);
 
         table = new Table();
-        table.matrixLoader();
         tableDrawer();
     }
 

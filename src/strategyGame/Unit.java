@@ -1,14 +1,20 @@
 package strategyGame;
 
-public class Unit {
+public abstract class Unit {
 
-    protected String owner;
+    protected String color;
     protected String name;
     protected char prefix;
     protected int MAX_HP;
     protected int hp;
     protected int cost;
-    protected boolean isInPlay = true;
+    protected boolean isSelected = false;
+    protected boolean isAvailable = false;
+    protected boolean isAlive = true;
+
+    public Unit(String color) {
+        this.color = color;
+    }
 
     //region Getters
 
@@ -20,8 +26,8 @@ public class Unit {
         return prefix;
     }
 
-    public String getOwner() {
-        return owner;
+    public String getColor() {
+        return color;
     }
 
     public int getMAX_HP() {
@@ -36,8 +42,16 @@ public class Unit {
         return cost;
     }
 
-    public boolean getIsInPlay() {
-        return isInPlay;
+    public boolean getIsSelected() {
+        return isSelected;
+    }
+
+    public boolean getIsAvailable() {
+        return isAvailable;
+    }
+
+    public boolean getIsAlive() {
+        return isAlive;
     }
 
     //endregion
@@ -58,10 +72,23 @@ public class Unit {
         }
     }
 
+    public void setAvailable() {
+        isAvailable = true;
+    }
+
+    public void setUnAvailable() {
+        isAvailable = true;
+    }
+
     public void kill() {
-        isInPlay = false;
+        isAlive = false;
     }
 
     //endregion
 
+    public String toString() {
+        return "Team: " + color + "\n" +
+               "Unit: " + name + "\n" +
+               "Hp: " + hp;
+    }
 }
