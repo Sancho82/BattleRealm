@@ -9,18 +9,10 @@ public class Game {
     public static void main(String[] args) {
 
         battlefield.setVisible(true);
-        battlefield.getTable().matrixDisplayer();
-    }
+        redPlayer.createStartingUnits(battlefield);
+        bluePlayer.createStartingUnits(battlefield);
+        battlefield.consoleDisplayer();
+        battlefield.visualDisplayer();
 
-    public static void setPlayerStarterTeams() {
-        redPlayer.getUnitList().add(new Warrior("Red"));
-        redPlayer.getUnitList().add(new Warrior("Red"));
-        redPlayer.getUnitList().add(new Warrior("Red"));
-        redPlayer.getUnitList().add(new HeadQuarters("Red"));
-
-        bluePlayer.getUnitList().add(new Warrior("Blue"));
-        bluePlayer.getUnitList().add(new Warrior("Blue"));
-        bluePlayer.getUnitList().add(new Warrior("Blue"));
-        bluePlayer.getUnitList().add(new HeadQuarters("Blue"));
     }
 }

@@ -4,16 +4,21 @@ public abstract class Unit {
 
     protected String color;
     protected String name;
-    protected char prefix;
+    protected String prefix;
     protected int MAX_HP;
     protected int hp;
     protected int cost;
-    protected boolean isSelected = false;
-    protected boolean isAvailable = false;
-    protected boolean isAlive = true;
+    protected int[] position;
+    protected boolean isSelected;
+    protected boolean isAvailable;
+    protected boolean isAlive;
 
-    public Unit(String color) {
+    public Unit(String color, int x, int y) {
         this.color = color;
+        isSelected = false;
+        isAvailable = false;
+        isAlive = true;
+        position = new int[]{x, y};
     }
 
     //region Getters
@@ -22,12 +27,12 @@ public abstract class Unit {
         return name;
     }
 
-    public char getPrefix() {
-        return prefix;
-    }
-
     public String getColor() {
         return color;
+    }
+
+    public String getPrefix() {
+        return prefix;
     }
 
     public int getMAX_HP() {
@@ -40,6 +45,10 @@ public abstract class Unit {
 
     public int getCost() {
         return cost;
+    }
+
+    public int[] getPosition() {
+        return position;
     }
 
     public boolean getIsSelected() {
@@ -87,8 +96,9 @@ public abstract class Unit {
     //endregion
 
     public String toString() {
-        return "Team: " + color + "\n" +
-               "Unit: " + name + "\n" +
-               "Hp: " + hp;
+        return "<html><font color=white><Strong>Team:&nbsp</Strong></font>" + color + "<br>" +
+                "<font color=white><Strong>Name:&nbsp</Strong></font>" + name + "<br>" +
+                "<font color=white><Strong>Hp:&nbsp</Strong></font>" + hp +
+                "</html>";
     }
 }

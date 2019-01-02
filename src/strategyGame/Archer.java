@@ -7,10 +7,10 @@ public class Archer extends Unit implements Attacker, Mobile{
     private int attackRange;
     private int damage;
 
-    Archer(String color) {
-        super(color);
+    Archer(String color, int x, int y) {
+        super(color, x, y);
         name = "Archer";
-        prefix = 'A';
+        prefix = "Au";
         MAX_HP = 25 + (int)(Math.random() * 5 + 1);
         hp = MAX_HP;
         cost = 70;
@@ -50,8 +50,8 @@ public class Archer extends Unit implements Attacker, Mobile{
 
     public String toString() {
         return super.toString() + "\n" +
-                "Steppes left: " + steppesLeft + "\n" +
-                "Attack range: " + attackRange + "\n" +
+                "Steppes left: " + steppesLeft + " \n" +
+                "Attack range: " + attackRange + " \n" +
                 "Damage: " + damage;
     }
 }

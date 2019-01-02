@@ -7,10 +7,10 @@ public class Warrior extends Unit implements Attacker, Mobile{
     private int attackRange;
     private int damage;
 
-    Warrior(String color) {
-        super(color);
+    Warrior(String color, int x, int y) {
+        super(color, x, y);
         name = "Warrior";
-        prefix = 'W';
+        prefix = "Wu";
         MAX_HP = 35 + (int)(Math.random() * 10 + 1);
         hp = MAX_HP;
         cost = 40;
@@ -49,10 +49,14 @@ public class Warrior extends Unit implements Attacker, Mobile{
         steppesLeft = STEPRANGE;
     }
 
+    //steppesLeft, attackRange, damage
     public String toString() {
-        return super.toString() + "\n" +
-                "Steppes left: " + steppesLeft + "\n" +
-                "Attack range: " + attackRange + "\n" +
-                "Damage: " + damage;
+        return "<html><font color=white><Strong>Team:&nbsp</Strong></font>" + color + "<br>" +
+                "<font color=white><Strong>Name:&nbsp</Strong></font>" + name + "<br>" +
+                "<font color=white><Strong>Hp:&nbsp</Strong></font>" + hp + "<br>" +
+                "<font color=white><Strong>Damage:&nbsp</Strong></font>" + damage + "<br>" +
+                "<font color=white><Strong>Attack Range:&nbsp</Strong></font>" + attackRange + "<br>" +
+                "<font color=white><Strong>Steppes Left:&nbsp</Strong></font>" + steppesLeft +
+                "</html>";
     }
 }

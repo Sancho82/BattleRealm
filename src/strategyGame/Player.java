@@ -37,7 +37,37 @@ public class Player {
 
     //endregion
 
-    public void healAll(){
+    //region Creators
+
+    public void createHeadQuarters(Battlefield battlefield, int positionX, int positionY) {
+        HeadQuarters headQuarters = new HeadQuarters(this.color, positionX, positionY);
+        unitList.add(headQuarters);
+        battlefield.setUnit(headQuarters, headQuarters.position[0], headQuarters.position[1]);
+    }
+
+    public void createWarrior(Battlefield battlefield, int positionX, int positionY) {
+        Warrior warrior = new Warrior(this.color, positionX, positionY);
+        unitList.add(warrior);
+        battlefield.setUnit(warrior, warrior.position[0], warrior.position[1]);
+    }
+
+    public void createStartingUnits(Battlefield battlefield) {
+        if (color.equals("Red")) {
+            createHeadQuarters(battlefield, 0, 0);
+            createWarrior(battlefield, 0, 1);
+            createWarrior(battlefield, 1, 0);
+            createWarrior(battlefield, 1, 1);
+
+        } else if (color.equals("Blue")) {
+            createHeadQuarters(battlefield, 9, 9);
+            createWarrior(battlefield, 8, 9);
+            createWarrior(battlefield, 9, 8);
+            createWarrior(battlefield, 8, 8);
+        }
+    }
+    //endregion
+
+    public void regenerate(){
         int mediCampCounter = 0;
         for (int i = 0; i < unitList.size(); i++) {
             if (unitList.get(i) instanceof MediCamp) {
@@ -66,7 +96,7 @@ public class Player {
     public void beginTurn() {
         isPlaying = true;
         gold += 50;
-        healAll();
+        regenerate();
 
     }
 }
