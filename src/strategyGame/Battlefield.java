@@ -138,10 +138,6 @@ public class Battlefield extends JFrame {
 
     }
 
-
-        // buttons[2][2].setText("clue");
-        // buttons[2][2].setBackground(Color.red);
-
     public Unit[][] getMatrix() {
         return this.matrix;
     }

@@ -35,8 +35,8 @@ public class Archer extends Unit implements Attacker, Mobile{
     //endregion
 
     @Override
-    public void Attack(Unit otherUnit) {
-        otherUnit.takeDamage(this.damage);
+    public void attack(Unit otherUnit) {
+        otherUnit.hp -= damage;
     }
 
     @Override
@@ -49,9 +49,12 @@ public class Archer extends Unit implements Attacker, Mobile{
     }
 
     public String toString() {
-        return super.toString() + "\n" +
-                "Steppes left: " + steppesLeft + " \n" +
-                "Attack range: " + attackRange + " \n" +
-                "Damage: " + damage;
+        return "<html><font color=white><Strong>Team:&nbsp</Strong></font>" + color + "<br>" +
+               "<font color=white><Strong>Name:&nbsp</Strong></font>" + name + "<br>" +
+               "<font color=white><Strong>Hp:&nbsp</Strong></font>" + hp + "<br>" +
+               "<font color=white><Strong>Damage:&nbsp</Strong></font>" + damage + "<br>" +
+               "<font color=white><Strong>Attack Range:&nbsp</Strong></font>" + attackRange + "<br>" +
+               "<font color=white><Strong>Steppes Left:&nbsp</Strong></font>" + steppesLeft +
+               "</html>";
     }
 }

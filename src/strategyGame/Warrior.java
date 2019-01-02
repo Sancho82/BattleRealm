@@ -36,8 +36,8 @@ public class Warrior extends Unit implements Attacker, Mobile{
     //endregion
 
     @Override
-    public void Attack(Unit otherUnit) {
-        otherUnit.takeDamage(this.damage);
+    public void attack(Unit otherUnit) {
+        otherUnit.hp -= damage;
     }
 
     @Override

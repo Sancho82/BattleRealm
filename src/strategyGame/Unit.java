@@ -68,10 +68,6 @@ public abstract class Unit {
 
     //region Setters
 
-    public void takeDamage(int damage) {
-        hp -= damage;
-    }
-
     public void heal() {
         if (MAX_HP - hp > 0 && MAX_HP - hp < 10) {
             hp = MAX_HP;

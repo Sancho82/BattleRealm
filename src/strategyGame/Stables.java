@@ -10,4 +10,10 @@ public class Stables extends Unit{
         hp = MAX_HP;
         cost = 200;
     }
+
+    public void createPaladin(Player player, int positionX, int positionY) {
+        Paladin paladin = new Paladin(color, positionX, positionY);
+        player.addUnit(paladin);
+        Game.battlefield.setUnit(paladin, paladin.position[0], paladin.position[1]);
+    }
 }

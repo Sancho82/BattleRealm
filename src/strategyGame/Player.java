@@ -9,12 +9,14 @@ public class Player {
     private int gold;
     private boolean isPlaying;
     private List<Unit> unitList;
+    private HeadQuarters headQuarters;
 
     public Player(String color) {
         this.color = color;
         gold = 100;
         isPlaying = false;
         unitList = new ArrayList<>();
+        createHeadQuarters();
     }
 
     //region Getters
@@ -35,68 +37,57 @@ public class Player {
         return unitList;
     }
 
+    public HeadQuarters getHeadQuarters() {
+        return headQuarters;
+    }
+
     //endregion
 
     //region Creators
 
-    public void createHeadQuarters(Battlefield battlefield, int positionX, int positionY) {
-        HeadQuarters headQuarters = new HeadQuarters(this.color, positionX, positionY);
-        unitList.add(headQuarters);
-        battlefield.setUnit(headQuarters, headQuarters.position[0], headQuarters.position[1]);
-    }
-
-    public void createWarrior(Battlefield battlefield, int positionX, int positionY) {
-        Warrior warrior = new Warrior(this.color, positionX, positionY);
-        unitList.add(warrior);
-        battlefield.setUnit(warrior, warrior.position[0], warrior.position[1]);
-    }
-
-    public void createStartingUnits(Battlefield battlefield) {
+    public void createHeadQuarters() {
         if (color.equals("Red")) {
-            createHeadQuarters(battlefield, 0, 0);
-            createWarrior(battlefield, 0, 1);
-            createWarrior(battlefield, 1, 0);
-            createWarrior(battlefield, 1, 1);
+            headQuarters = new HeadQuarters(color, 0, 0);
+            unitList.add(headQuarters);
+            Game.battlefield.setUnit(headQuarters, headQuarters.position[0], headQuarters.position[1]);
 
         } else if (color.equals("Blue")) {
-            createHeadQuarters(battlefield, 9, 9);
-            createWarrior(battlefield, 8, 9);
-            createWarrior(battlefield, 9, 8);
-            createWarrior(battlefield, 8, 8);
+            headQuarters = new HeadQuarters(color, 9, 9);
+            unitList.add(headQuarters);
+            Game.battlefield.setUnit(headQuarters, headQuarters.position[0], headQuarters.position[1]);
         }
     }
+
     //endregion
 
-    public void regenerate(){
-        int mediCampCounter = 0;
-        for (int i = 0; i < unitList.size(); i++) {
-            if (unitList.get(i) instanceof MediCamp) {
-                mediCampCounter++;
-            }
-        }
-        for (int i = 0; i < unitList.size(); i++) {
-            if (unitList.get(i).isAlive == true) {
-                unitList.get(i).heal();
-            }
-        }
+    public void addUnit(Unit unit) {
+        unitList.add(unit);
     }
 
     public void openUnits() {
-        for(int i = 0; i < unitList.size(); i++) {
+        for (int i = 0; i < unitList.size(); i++) {
             unitList.get(i).setAvailable();
         }
     }
 
     public void closeUnits() {
         for(int i = 0; i < unitList.size(); i++) {
-            unitList.get(i).setUnAvailable();
+            if (unitList.get(i) instanceof MediCamp) {
+                ((MediCamp) unitList.get(i)).healAll(this);
+                unitList.get(i).setUnAvailable();
+
+            } else {
+                unitList.get(i).setUnAvailable();
+            }
         }
     }
 
     public void beginTurn() {
         isPlaying = true;
         gold += 50;
-        regenerate();
+    }
+
+    public void  endTurn() {
 
     }
 }
