@@ -85,6 +85,14 @@ public abstract class Unit {
         isAvailable = true;
     }
 
+    public void select() {
+        isSelected = true;
+    }
+
+    public void deselect() {
+        isSelected = false;
+    }
+
     public void kill() {
         isAlive = false;
     }
