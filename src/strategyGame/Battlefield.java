@@ -4,6 +4,7 @@ import javax.annotation.processing.RoundEnvironment;
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.SoftBevelBorder;
+import javax.swing.plaf.ColorUIResource;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,34 +15,54 @@ public class Battlefield extends JFrame implements ActionListener{
     private final int size = 10;
     private JButton[][] buttons;
     private Unit[][] matrix;
-    private JLabel dataBoard;
+    private JLabel unitData;
+    private JLabel playerData;
     private int k;
     private int l;
-    private int targetX;
-    private int targetY;
+    private int i;
+    private int j;
+    private Color alarm = new Color(210, 50, 50);
+    private Color roast = new Color(220, 90, 30);
+    private Color trepp = new Color(150, 220, 30);
+    private Color fog = new Color(120, 170, 170);
+    private Color drape = new Color(250, 240, 100);
+    private Color grass = new Color(90, 240, 70);
 
 
     public Battlefield() {
         setTitle("Battlefield");
-        setBounds(100,100, 1100, 800);
+        setBounds(0,0, 1165, 820);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         JPanel field = new JPanel();
         field.setLayout(null);
+        field.setBackground(drape);
         field.setBorder(new SoftBevelBorder(SoftBevelBorder.LOWERED));
         add(field);
 
-        dataBoard = new JLabel();
-        dataBoard.setBounds(750, 550, 260, 145);
-        dataBoard.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
-        dataBoard.setFont(new Font("Verdana", Font.ITALIC, 15));
-        dataBoard.setHorizontalAlignment(SwingConstants.LEFT);
-        dataBoard.setVerticalAlignment(SwingConstants.TOP);
-        dataBoard.setText("Information Board");
-        dataBoard.setForeground(Color.WHITE);
-        dataBoard.setOpaque(true);
-        dataBoard.setBackground(Color.GRAY);
-        field.add(dataBoard);
+        playerData = new JLabel();
+        playerData.setBounds(775, 65, 305, 60);
+        playerData.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
+        playerData.setFont(new Font("Verdana", Font.BOLD, 15));
+        playerData.setHorizontalAlignment(SwingConstants.LEFT);
+        playerData.setVerticalAlignment(SwingConstants.TOP);
+        playerData.setText("Player Information");
+        playerData.setForeground(Color.white);
+        playerData.setOpaque(true);
+        playerData.setBackground(fog);
+        field.add(playerData);
+
+        unitData = new JLabel();
+        unitData.setBounds(775, 585, 305, 125);
+        unitData.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
+        unitData.setFont(new Font("Verdana", Font.BOLD, 15));
+        unitData.setHorizontalAlignment(SwingConstants.LEFT);
+        unitData.setVerticalAlignment(SwingConstants.TOP);
+        unitData.setText("Unit Information");
+        unitData.setForeground(Color.white);
+        unitData.setOpaque(true);
+        unitData.setBackground(fog);
+        field.add(unitData);
 
         matrix = new Unit[size][size];
         buttons = new JButton[size][size];
@@ -49,9 +70,9 @@ public class Battlefield extends JFrame implements ActionListener{
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 JButton button = new JButton();
-                button.setBounds(50 + i * 65, 50 + j * 65, 60, 60);
+                button.setBounds(65 + i * 65, 65 + j * 65, 60, 60);
                 button.setFont(new Font("Arial", Font.BOLD, 20));
-                button.setBackground(Color.green);
+                button.setBackground(grass);
                 // button.getInsets(new Insets(0, 0, 0, 0));
                 button.setBorder(new SoftBevelBorder(SoftBevelBorder.RAISED));
                 buttons[i][j] = button;
@@ -65,70 +86,77 @@ public class Battlefield extends JFrame implements ActionListener{
 
         ButtonGroup options = new ButtonGroup();
 
-        JButton move = new JButton();
-        move.setBounds(770, 50, 210, 60);
-        move.setFont(new Font("Arial", Font.BOLD, 25));
-        move.setBorder(new SoftBevelBorder(SoftBevelBorder.RAISED));
-        move.setText("Move");
-        move.setBackground(Color.orange);
-        options.add(move);
-        field.add(move);
-
         JButton attack = new JButton();
-        attack.setBounds(770, 115, 210, 60);
-        attack.setFont(new Font("Arial", Font.BOLD, 25));
+        attack.setBounds(775, 195, 305, 60);
+        attack.setFont(new Font("Verdana", Font.BOLD, 25));
         attack.setBorder(new SoftBevelBorder(SoftBevelBorder.RAISED));
         attack.setText("Attack");
-        attack.setBackground(Color.orange);
+        attack.setBackground(alarm);
         options.add(attack);
         field.add(attack);
 
-        JButton create = new JButton();
-        create.setBounds(770, 180, 210, 60);
-        create.setFont(new Font("Arial", Font.BOLD, 25));
-        create.setBorder(new SoftBevelBorder(SoftBevelBorder.RAISED));
-        create.setText("Create");
-        create.setBackground(Color.orange);
-        options.add(create);
-        field.add(create);
+        JButton move = new JButton();
+        move.setBounds(775, 260, 305, 60);
+        move.setFont(new Font("Verdana", Font.BOLD, 25));
+        move.setBorder(new SoftBevelBorder(SoftBevelBorder.RAISED));
+        move.setText("Move");
+        move.setBackground(roast);
+        options.add(move);
+        field.add(move);
 
-        ButtonGroup directions = new ButtonGroup();
+        JButton createWarrior = new JButton();
+        createWarrior.setBounds(775, 325, 150, 60);
+        createWarrior.setFont(new Font("Verdana", Font.BOLD, 15));
+        createWarrior.setBorder(new SoftBevelBorder(SoftBevelBorder.RAISED));
+        createWarrior.setText("Create Warrior");
+        createWarrior.setBackground(trepp);
+        options.add(createWarrior);
+        field.add(createWarrior);
 
-        JButton up = new JButton();
-        up.setBounds(840, 270, 80, 70);
-        up.setFont(new Font("Arial", Font.BOLD, 20));
-        up.setBorder(new SoftBevelBorder(SoftBevelBorder.RAISED));
-        up.setText("UP");
-        up.setBackground(Color.YELLOW);
-        directions.add(up);
-        field.add(up);
+        JButton createArcher = new JButton();
+        createArcher.setBounds(775, 390, 150, 60);
+        createArcher.setFont(new Font("Verdana", Font.BOLD, 15));
+        createArcher.setBorder(new SoftBevelBorder(SoftBevelBorder.RAISED));
+        createArcher.setText("Create Archer");
+        createArcher.setBackground(trepp);
+        options.add(createArcher);
+        field.add(createArcher);
 
-        JButton left = new JButton();
-        left.setBounds(750, 360, 80, 70);
-        left.setFont(new Font("Arial", Font.BOLD, 20));
-        left.setBorder(new SoftBevelBorder(SoftBevelBorder.RAISED));
-        left.setText("LEFT");
-        left.setBackground(Color.YELLOW);
-        directions.add(left);
-        field.add(left);
+        JButton createPaladin = new JButton();
+        createPaladin.setBounds(775, 455, 150, 60);
+        createPaladin.setFont(new Font("Verdana", Font.BOLD, 15));
+        createPaladin.setBorder(new SoftBevelBorder(SoftBevelBorder.RAISED));
+        createPaladin.setText("Create Paladin");
+        createPaladin.setBackground(trepp);
+        options.add(createPaladin);
+        field.add(createPaladin);
 
-        JButton right = new JButton();
-        right.setBounds(930, 360, 80, 70);
-        right.setFont(new Font("Arial", Font.BOLD, 20));
-        right.setBorder(new SoftBevelBorder(SoftBevelBorder.RAISED));
-        right.setText("RIGHT");
-        right.setBackground(Color.YELLOW);
-        directions.add(right);
-        field.add(right);
+        JButton createMedicamp = new JButton();
+        createMedicamp.setBounds(930, 325, 150, 60);
+        createMedicamp.setFont(new Font("Verdana", Font.BOLD, 15));
+        createMedicamp.setBorder(new SoftBevelBorder(SoftBevelBorder.RAISED));
+        createMedicamp.setText("Create Medicamp");
+        createMedicamp.setBackground(trepp);
+        options.add(createMedicamp);
+        field.add(createMedicamp);
 
-        JButton down = new JButton();
-        down.setBounds(840, 450, 80, 70);
-        down.setFont(new Font("Arial", Font.BOLD, 20));
-        down.setBorder(new SoftBevelBorder(SoftBevelBorder.RAISED));
-        down.setText("DOWN");
-        down.setBackground(Color.YELLOW);
-        directions.add(down);
-        field.add(down);
+        JButton createArchery = new JButton();
+        createArchery.setBounds(930, 390, 150, 60);
+        createArchery.setFont(new Font("Verdana", Font.BOLD, 15));
+        createArchery.setBorder(new SoftBevelBorder(SoftBevelBorder.RAISED));
+        createArchery.setText("Create Archery");
+        createArchery.setBackground(trepp);
+        options.add(createArchery);
+        field.add(createArchery);
+
+        JButton createStables = new JButton();
+        createStables.setBounds(930, 455, 150, 60);
+        createStables.setFont(new Font("Verdana", Font.BOLD, 15));
+        createStables.setBorder(new SoftBevelBorder(SoftBevelBorder.RAISED));
+        createStables.setText("Create Stables");
+        createStables.setBackground(trepp);
+        options.add(createStables);
+        field.add(createStables);
 
         k = -1;
         l = -1;
@@ -170,47 +198,48 @@ public class Battlefield extends JFrame implements ActionListener{
         }
     }
 
-    public int getTargetX() {
-        return targetX;
+    public int getI() {
+        return i;
     }
 
-    public int getTargetY() {
-        return targetY;
+    public int getJ() {
+        return j;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         String event = e.getActionCommand();
         String[] coords = event.split(" ");
-        int i = Integer.parseInt(coords[0]);
-        int j = Integer.parseInt(coords[1]);
-        System.out.println("\n\n" + e.getActionCommand());
+        int x = Integer.parseInt(coords[0]);
+        int y = Integer.parseInt(coords[1]);
+        i = x;
+        j = y;
 
         if (matrix[j][i] != null && !matrix[j][i].getIsSelected() && k == -1) {
             buttons[i][j].setBackground(Color.orange);
             matrix[j][i].select();
-            dataBoard.setText(matrix[j][i].toString());
+            unitData.setText(matrix[j][i].toString());
             k = i;
             l = j;
 
         } else if (matrix[j][i] != null && !matrix[j][i].getIsSelected() && k != -1) {
-            buttons[k][l].setBackground(Color.green);
+            buttons[k][l].setBackground(grass);
             matrix[l][k].deselect();
             buttons[i][j].setBackground(Color.orange);
             matrix[j][i].select();
-            dataBoard.setText(matrix[j][i].toString());
+            unitData.setText(matrix[j][i].toString());
             k = i;
             l = j;
 
         } else if (matrix[j][i] != null && matrix[j][i].getIsSelected()) {
-            buttons[i][j].setBackground(Color.green);
+            buttons[i][j].setBackground(grass);
             matrix[j][i].deselect();
-            dataBoard.setText("Information Board");
+            unitData.setText("Unit Information");
             k = -1;
             l = -1;
 
         } else if (matrix[j][i] == null && matrix[l][k].isSelected) {
-            buttons[k][l].setBackground(Color.green);
+            buttons[k][l].setBackground(grass);
             buttons[k][l].setText("");
             matrix[j][i] = matrix[l][k];
             buttons[i][j].setBackground(Color.orange);
