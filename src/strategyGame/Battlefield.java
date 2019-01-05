@@ -17,6 +17,9 @@ public class Battlefield extends JFrame implements ActionListener{
     private JLabel dataBoard;
     private int k;
     private int l;
+    private int targetX;
+    private int targetY;
+
 
     public Battlefield() {
         setTitle("Battlefield");
@@ -160,21 +163,19 @@ public class Battlefield extends JFrame implements ActionListener{
     public void visualDisplayer() {
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
-                if (this.getUnit(i, j) != null) {
-                    buttons[i][j].setText(this.getUnit(i, j).getPrefix());
+                if (this.getUnit(j, i) != null) {
+                    buttons[i][j].setText(this.getUnit(j, i).getPrefix());
                 }
             }
         }
     }
 
-    public Unit someOneSelected() {
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++)
-                if (matrix[i][j].getIsSelected()) {
-                    return matrix[i][j];
-                }
-        }
-        return null;
+    public int getTargetX() {
+        return targetX;
+    }
+
+    public int getTargetY() {
+        return targetY;
     }
 
     @Override
@@ -183,36 +184,42 @@ public class Battlefield extends JFrame implements ActionListener{
         String[] coords = event.split(" ");
         int i = Integer.parseInt(coords[0]);
         int j = Integer.parseInt(coords[1]);
+        System.out.println("\n\n" + e.getActionCommand());
 
-        if (matrix[i][j] != null && !matrix[i][j].getIsSelected() && k == -1) {
+        if (matrix[j][i] != null && !matrix[j][i].getIsSelected() && k == -1) {
             buttons[i][j].setBackground(Color.orange);
-            matrix[i][j].select();
-            dataBoard.setText(matrix[i][j].toString());
+            matrix[j][i].select();
+            dataBoard.setText(matrix[j][i].toString());
             k = i;
             l = j;
 
-        } else if (matrix[i][j] != null && !matrix[i][j].getIsSelected() && k != -1) {
+        } else if (matrix[j][i] != null && !matrix[j][i].getIsSelected() && k != -1) {
             buttons[k][l].setBackground(Color.green);
-            matrix[k][l].deselect();
+            matrix[l][k].deselect();
             buttons[i][j].setBackground(Color.orange);
-            matrix[i][j].select();
-            dataBoard.setText(matrix[i][j].toString());
+            matrix[j][i].select();
+            dataBoard.setText(matrix[j][i].toString());
             k = i;
             l = j;
 
-        } else if (matrix[i][j] != null && matrix[i][j].getIsSelected()) {
+        } else if (matrix[j][i] != null && matrix[j][i].getIsSelected()) {
             buttons[i][j].setBackground(Color.green);
-            matrix[i][j].deselect();
+            matrix[j][i].deselect();
             dataBoard.setText("Information Board");
             k = -1;
             l = -1;
 
-        } else if (matrix[i][j] == null && k != -1) {
+        } else if (matrix[j][i] == null && matrix[l][k].isSelected) {
             buttons[k][l].setBackground(Color.green);
-            matrix[k][l].deselect();
-            dataBoard.setText("Information Board");
-            k = -1;
-            l = -1;
+            buttons[k][l].setText("");
+            matrix[j][i] = matrix[l][k];
+            buttons[i][j].setBackground(Color.orange);
+            matrix[l][k] = null;
+            visualDisplayer();
+            System.out.println();
+            consoleDisplayer();
+            k = i;
+            l = j;
 
         }
     }

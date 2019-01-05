@@ -42,6 +42,7 @@ public class Warrior extends Unit implements Attacker, Mobile{
 
     @Override
     public void step() {
+
         steppesLeft--;
     }
 
