@@ -1,6 +1,6 @@
 package strategyGame;
 
-public class Archery extends Unit{
+public class Archery extends Unit implements Factory {
 
     public Archery (String color, int x, int y) {
         super(color, x, y);
@@ -11,7 +11,7 @@ public class Archery extends Unit{
         cost = 150;
     }
 
-    public void createArcher(Player player, int positionX, int positionY) {
+    public void createMobileUnit(Player player, int positionX, int positionY) {
         Archer archer = new Archer(color, positionX, positionY);
         player.addUnit(archer);
         Game.battlefield.setUnit(archer, archer.position[0], archer.position[1]);

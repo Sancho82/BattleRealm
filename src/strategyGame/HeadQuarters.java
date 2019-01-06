@@ -2,7 +2,7 @@ package strategyGame;
 
 import java.security.PublicKey;
 
-public class HeadQuarters extends Unit{
+public class HeadQuarters extends Unit implements Factory {
 
     public HeadQuarters(String color, int x, int y) {
         super(color, x, y);
@@ -13,7 +13,7 @@ public class HeadQuarters extends Unit{
         cost = 200;
     }
 
-    public void createWarrior(Player player, int positionX, int positionY) {
+    public void createMobileUnit(Player player, int positionX, int positionY) {
         Warrior warrior = new Warrior(color, positionX, positionY);
         player.addUnit(warrior);
         Game.battlefield.setUnit(warrior, warrior.position[0], warrior.position[1]);
@@ -21,14 +21,14 @@ public class HeadQuarters extends Unit{
 
     public void createStartingUnits() {
         if (color.equals("Red")) {
-            createWarrior(Game.redPlayer, 0, 1);
-            createWarrior(Game.redPlayer, 1, 0);
-            createWarrior(Game.redPlayer, 1, 1);
+            createMobileUnit(Game.redPlayer, 0, 1);
+            createMobileUnit(Game.redPlayer, 1, 0);
+            createMobileUnit(Game.redPlayer, 1, 1);
 
         } else if (color.equals("Blue")) {
-            createWarrior(Game.bluePlayer, 8, 9);
-            createWarrior(Game.bluePlayer, 9, 8);
-            createWarrior(Game.bluePlayer, 8, 8);
+            createMobileUnit(Game.bluePlayer, 8, 9);
+            createMobileUnit(Game.bluePlayer, 9, 8);
+            createMobileUnit(Game.bluePlayer, 8, 8);
         }
     }
 }

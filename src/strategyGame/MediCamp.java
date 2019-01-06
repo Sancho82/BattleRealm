@@ -1,6 +1,6 @@
 package strategyGame;
 
-public class MediCamp extends Unit{
+public class MediCamp extends Unit implements Healer{
 
     MediCamp(String color, int x, int y) {
         super(color, x, y);
@@ -11,7 +11,7 @@ public class MediCamp extends Unit{
         cost = 150;
     }
 
-    public void healAll(Player player){
+    public void heal(Player player){
         for (int i = 0; i < player.getUnitList().size(); i++) {
             player.getUnitList().get(i).heal();
         }

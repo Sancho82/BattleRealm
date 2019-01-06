@@ -1,6 +1,6 @@
 package strategyGame;
 
-public class Stables extends Unit{
+public class Stables extends Unit implements Factory{
 
     public Stables (String color, int x, int y) {
         super(color, x, y);
@@ -11,7 +11,7 @@ public class Stables extends Unit{
         cost = 200;
     }
 
-    public void createPaladin(Player player, int positionX, int positionY) {
+    public void createMobileUnit(Player player, int positionX, int positionY) {
         Paladin paladin = new Paladin(color, positionX, positionY);
         player.addUnit(paladin);
         Game.battlefield.setUnit(paladin, paladin.position[0], paladin.position[1]);
