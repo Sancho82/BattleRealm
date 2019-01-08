@@ -1,4 +1,6 @@
-package strategyGame;
+package strategyGame.interfaces;
+
+import strategyGame.mvp.Player;
 
 public interface Factory {
 

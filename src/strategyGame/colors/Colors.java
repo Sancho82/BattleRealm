@@ -1,4 +1,4 @@
-package strategyGame;
+package strategyGame.colors;
 
 import java.awt.*;
 

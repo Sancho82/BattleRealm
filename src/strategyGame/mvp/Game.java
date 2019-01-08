@@ -1,4 +1,4 @@
-package strategyGame;
+package strategyGame.mvp;
 
 import java.util.Random;
 
@@ -54,9 +54,6 @@ public class Game {
     }
 
     public static boolean gameOver() {
-        if (redPlayer.getHeadQuarters().getHp() == 0 || bluePlayer.getHeadQuarters().getHp() == 0) {
-            return true;
-        }
-        return false;
+        return redPlayer.getHeadQuarters().getHp() == 0 || bluePlayer.getHeadQuarters().getHp() == 0;
     }
 }

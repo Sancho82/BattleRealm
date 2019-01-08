@@ -1,4 +1,8 @@
-package strategyGame;
+package strategyGame.units;
+
+import strategyGame.interfaces.Mobile;
+import strategyGame.interfaces.Attacker;
+
 
 public class Soldier extends Unit implements Mobile, Attacker {
     protected static int STEPRANGE;

@@ -1,4 +1,8 @@
-package strategyGame;
+package strategyGame.units;
+
+import strategyGame.mvp.Game;
+import strategyGame.mvp.Player;
+import strategyGame.interfaces.Factory;
 
 public class Archery extends Unit implements Factory {
 

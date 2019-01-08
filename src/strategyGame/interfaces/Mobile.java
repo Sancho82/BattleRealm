@@ -1,4 +1,4 @@
-package strategyGame;
+package strategyGame.interfaces;
 
 public interface Mobile {
 

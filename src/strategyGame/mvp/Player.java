@@ -1,8 +1,9 @@
-package strategyGame;
+package strategyGame.mvp;
 
-import javax.swing.*;
-import java.awt.*;
-import java.sql.SQLOutput;
+import strategyGame.units.HeadQuarters;
+import strategyGame.units.MediCamp;
+import strategyGame.units.Unit;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,12 +53,12 @@ public class Player {
         if (color.equals("Red")) {
             headQuarters = new HeadQuarters(color, 0, 0);
             unitList.add(headQuarters);
-            Game.battlefield.setUnit(headQuarters, headQuarters.position[0], headQuarters.position[1]);
+            Game.battlefield.setUnit(headQuarters, headQuarters.getPosition()[0], headQuarters.getPosition()[1]);
 
         } else if (color.equals("Blue")) {
             headQuarters = new HeadQuarters(color, 9, 9);
             unitList.add(headQuarters);
-            Game.battlefield.setUnit(headQuarters, headQuarters.position[0], headQuarters.position[1]);
+            Game.battlefield.setUnit(headQuarters, headQuarters.getPosition()[0], headQuarters.getPosition()[1]);
         }
     }
 

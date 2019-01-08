@@ -1,4 +1,4 @@
-package strategyGame;
+package strategyGame.units;
 
 public abstract class Unit {
 

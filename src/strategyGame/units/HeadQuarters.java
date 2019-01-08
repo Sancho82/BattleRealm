@@ -1,6 +1,8 @@
-package strategyGame;
+package strategyGame.units;
 
-import java.security.PublicKey;
+import strategyGame.interfaces.Factory;
+import strategyGame.mvp.Game;
+import strategyGame.mvp.Player;
 
 public class HeadQuarters extends Unit implements Factory {
 

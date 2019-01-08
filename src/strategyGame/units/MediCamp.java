@@ -1,6 +1,9 @@
-package strategyGame;
+package strategyGame.units;
 
-public class MediCamp extends Unit implements Healer{
+import strategyGame.mvp.Player;
+import strategyGame.interfaces.Healer;
+
+public class MediCamp extends Unit implements Healer {
 
     MediCamp(String color, int x, int y) {
         super(color, x, y);

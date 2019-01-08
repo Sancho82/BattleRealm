@@ -1,14 +1,15 @@
-package strategyGame;
+package strategyGame.mvp;
 
-import javax.annotation.processing.RoundEnvironment;
+import strategyGame.colors.Colors;
+import strategyGame.units.Soldier;
+import strategyGame.units.Unit;
+
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.SoftBevelBorder;
-import javax.swing.plaf.ColorUIResource;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseListener;
 
 public class Battlefield extends JFrame implements ActionListener{
 
@@ -390,7 +391,7 @@ public class Battlefield extends JFrame implements ActionListener{
                 l = -1;
             }
 
-        } else if (k != -1 && matrix[l][k].isSelected && matrix[l][k] instanceof Soldier) {
+        } else if (k != -1 && matrix[l][k].getIsSelected() && matrix[l][k] instanceof Soldier) {
             if (((Soldier)(matrix[l][k])).getSteppesLeft() > 0) {
                 if (Math.abs(l - j) < 2 && Math.abs(k - i) < 2) {
                     buttons[k][l].setBackground(colors.getGrass());

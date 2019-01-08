@@ -1,6 +1,10 @@
-package strategyGame;
+package strategyGame.units;
 
-public class Stables extends Unit implements Factory{
+import strategyGame.mvp.Game;
+import strategyGame.mvp.Player;
+import strategyGame.interfaces.Factory;
+
+public class Stables extends Unit implements Factory {
 
     public Stables (String color, int x, int y) {
         super(color, x, y);
