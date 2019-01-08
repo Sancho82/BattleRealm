@@ -334,10 +334,10 @@ public class Battlefield extends JFrame implements ActionListener{
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 if (this.getUnit(j, i) != null) {
-                    buttons[i][j].setText(this.getUnit(j, i).getPrefix());
+                    buttons[i][j].setIcon(this.getUnit(j, i).getIcon());
 
                 } else {
-                    buttons[i][j].setText("");
+                    buttons[i][j].setIcon(null);
                 }
             }
         }

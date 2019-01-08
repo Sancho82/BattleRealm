@@ -1,5 +1,7 @@
 package strategyGame.units;
 
+import javax.swing.*;
+
 public abstract class Unit {
 
     protected String color;
@@ -12,6 +14,7 @@ public abstract class Unit {
     protected boolean isSelected;
     protected boolean isAvailable;
     protected boolean isAlive;
+    Icon icon;
 
     public Unit(String color, int x, int y) {
         this.color = color;
@@ -63,6 +66,10 @@ public abstract class Unit {
         return isAlive;
     }
 
+    public Icon getIcon() {
+        return icon;
+    }
+
     //endregion
 
 
@@ -91,6 +98,14 @@ public abstract class Unit {
 
     public void deselect() {
         isSelected = false;
+    }
+
+    public void setIcon(Icon icon) {
+        this.icon = icon;
+    }
+
+    public void removeIcon() {
+        icon = null;
     }
 
     public void kill() {

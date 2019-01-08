@@ -4,6 +4,8 @@ import strategyGame.interfaces.Factory;
 import strategyGame.mvp.Game;
 import strategyGame.mvp.Player;
 
+import javax.swing.*;
+
 public class HeadQuarters extends Unit implements Factory {
 
     public HeadQuarters(String color, int x, int y) {
@@ -13,6 +15,8 @@ public class HeadQuarters extends Unit implements Factory {
         MAX_HP = 300;
         hp = MAX_HP;
         cost = 200;
+        icon = new ImageIcon(getClass().getResource("../icons/Castle.png"));
+
     }
 
     public void createMobileUnit(Player player, int positionX, int positionY) {
