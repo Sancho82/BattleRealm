@@ -11,8 +11,8 @@ public class Game {
     public static void main(String[] args) {
 
         battlefield.setVisible(true);
-        redPlayer.getHeadQuarters().createStartingUnits();
-        bluePlayer.getHeadQuarters().createStartingUnits();
+        redPlayer.getCastle().createStartingUnits();
+        bluePlayer.getCastle().createStartingUnits();
         battlefield.visualDisplayer();
         battlefield.consoleDisplayer();
         startingPlayerSelector();
@@ -54,6 +54,6 @@ public class Game {
     }
 
     public static boolean gameOver() {
-        return redPlayer.getHeadQuarters().getHp() == 0 || bluePlayer.getHeadQuarters().getHp() == 0;
+        return redPlayer.getCastle().getHp() == 0 || bluePlayer.getCastle().getHp() == 0;
     }
 }

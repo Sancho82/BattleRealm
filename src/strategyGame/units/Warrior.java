@@ -8,6 +8,7 @@ public class Warrior extends Soldier {
         super(color, x, y);
         name = "Warrior";
         prefix = "Wu";
+        icon = new ImageIcon(getClass().getResource("../icons/Warrior_Rnd.png"));
         MAX_HP = 35 + (int)(Math.random() * 10 + 1);
         hp = MAX_HP;
         cost = 40;
@@ -15,6 +16,5 @@ public class Warrior extends Soldier {
         steppesLeft = STEPRANGE;
         attackRange = 1;
         damage = 15 + (int)(Math.random() * 10 + 1);
-        icon = new ImageIcon(getClass().getResource("../icons/Warrior.png"));
     }
 }

@@ -6,16 +6,16 @@ import strategyGame.mvp.Player;
 
 import javax.swing.*;
 
-public class HeadQuarters extends Unit implements Factory {
+public class Castle extends Unit implements Factory {
 
-    public HeadQuarters(String color, int x, int y) {
+    public Castle(String color, int x, int y) {
         super(color, x, y);
-        name = "Headquarters";
-        prefix = "HQ";
+        name = "Castle";
+        prefix = "C";
+        icon = new ImageIcon(getClass().getResource("../icons/Castle_Sq.png"));
         MAX_HP = 300;
         hp = MAX_HP;
         cost = 200;
-        icon = new ImageIcon(getClass().getResource("../icons/Castle.png"));
 
     }
 

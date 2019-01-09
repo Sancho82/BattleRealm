@@ -7,6 +7,7 @@ public abstract class Unit {
     protected String color;
     protected String name;
     protected String prefix;
+    protected Icon icon;
     protected int MAX_HP;
     protected int hp;
     protected int cost;
@@ -14,7 +15,6 @@ public abstract class Unit {
     protected boolean isSelected;
     protected boolean isAvailable;
     protected boolean isAlive;
-    Icon icon;
 
     public Unit(String color, int x, int y) {
         this.color = color;
@@ -36,6 +36,10 @@ public abstract class Unit {
 
     public String getPrefix() {
         return prefix;
+    }
+
+    public Icon getIcon() {
+        return icon;
     }
 
     public int getMAX_HP() {
@@ -64,10 +68,6 @@ public abstract class Unit {
 
     public boolean getIsAlive() {
         return isAlive;
-    }
-
-    public Icon getIcon() {
-        return icon;
     }
 
     //endregion

@@ -1,6 +1,6 @@
 package strategyGame.mvp;
 
-import strategyGame.units.HeadQuarters;
+import strategyGame.units.Castle;
 import strategyGame.units.MediCamp;
 import strategyGame.units.Unit;
 
@@ -13,14 +13,14 @@ public class Player {
     private int gold;
     private boolean isPlaying;
     private List<Unit> unitList;
-    private HeadQuarters headQuarters;
+    private Castle castle;
 
     public Player(String color) {
         this.color = color;
         gold = 50;
         isPlaying = false;
         unitList = new ArrayList<>();
-        createHeadQuarters();
+        createCastle();
     }
 
     //region Getters
@@ -41,24 +41,24 @@ public class Player {
         return unitList;
     }
 
-    public HeadQuarters getHeadQuarters() {
-        return headQuarters;
+    public Castle getCastle() {
+        return castle;
     }
 
     //endregion
 
     //region Creators
 
-    public void createHeadQuarters() {
+    public void createCastle() {
         if (color.equals("Red")) {
-            headQuarters = new HeadQuarters(color, 0, 0);
-            unitList.add(headQuarters);
-            Game.battlefield.setUnit(headQuarters, headQuarters.getPosition()[0], headQuarters.getPosition()[1]);
+            castle = new Castle(color, 0, 0);
+            unitList.add(castle);
+            Game.battlefield.setUnit(castle, castle.getPosition()[0], castle.getPosition()[1]);
 
         } else if (color.equals("Blue")) {
-            headQuarters = new HeadQuarters(color, 9, 9);
-            unitList.add(headQuarters);
-            Game.battlefield.setUnit(headQuarters, headQuarters.getPosition()[0], headQuarters.getPosition()[1]);
+            castle = new Castle(color, 9, 9);
+            unitList.add(castle);
+            Game.battlefield.setUnit(castle, castle.getPosition()[0], castle.getPosition()[1]);
         }
     }
 
