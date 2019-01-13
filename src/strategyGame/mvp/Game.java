@@ -159,12 +159,4 @@ public class Game {
         unit.deselect();
     }
 
-    public void moveUnit(Position from, Position to) {
-        Unit unit = matrix[from.getX()][from.getY()];
-        Unit target = matrix[to.getX()][to.getY()];
-
-        target = unit;
-        unit = null;
-
-    }
 }

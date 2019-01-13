@@ -9,6 +9,7 @@ public interface MainContract {
         void visualDisplayer();
         void consoleDisplayer();
         void showSelectedUnit();
+
         void highLightStepRange(Position position, Soldier soldier);
         void removeHighLight(Position position, Soldier soldier);
 
@@ -19,11 +20,11 @@ public interface MainContract {
         void setTipBoard(String text);
         void setTipBoardDefault();
 
-
     }
 
     interface Presenter {
         void clickField(Position position);
+        void moveUnit(Position from, Position to);
         Game getGame();
         void showActivePlayerStats();
     }

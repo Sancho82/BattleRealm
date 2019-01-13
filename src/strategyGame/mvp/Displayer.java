@@ -276,6 +276,7 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
 
     @Override
     public void consoleDisplayer() {
+        System.out.println();
         for (int i = 0; i < size; i++) {
             System.out.println();
             for (int j = 0; j < size; j++) {
@@ -283,7 +284,7 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
                     System.out.print(dashBoard.getGame().getMatrix()[i][j].getPrefix() + " ");
 
                 } else {
-                    System.out.print(" X ");
+                    System.out.print("XX ");
                 }
             }
         }
@@ -294,13 +295,11 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 Unit unit = dashBoard.getGame().getMatrix()[i][j];
-                if (unit != null) {
-                    if (unit.getIsSelected()) {
-                        buttons[j][i].setBackground(Color.orange);
+                if (unit != null && unit.getIsSelected()) {
+                    buttons[j][i].setBackground(Color.orange);
 
-                    } else {
-                        buttons[j][i].setBackground(colors.getGrass());
-                    }
+                } else {
+                    buttons[j][i].setBackground(colors.getGrass());
                 }
             }
         }
