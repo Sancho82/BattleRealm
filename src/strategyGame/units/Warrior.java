@@ -7,7 +7,7 @@ public class Warrior extends Soldier {
     public Warrior(String color) {
         super(color);
         name = "Warrior";
-        prefix = "Wu";
+        prefix = "Wr";
         icon = new ImageIcon(getClass().getResource("../icons/Warrior_Rnd.png"));
         MAX_HP = 35 + (int)(Math.random() * 10 + 1);
         hp = MAX_HP;

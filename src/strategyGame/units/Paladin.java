@@ -7,7 +7,7 @@ public class Paladin extends Soldier {
     public Paladin(String color) {
         super(color);
         name = "Paladin";
-        prefix = "Pu";
+        prefix = "Pa";
         icon = new ImageIcon(getClass().getResource("../icons/Paladin_Rnd.png"));
         MAX_HP = 65 + (int)(Math.random() * 5 + 1);
         hp = MAX_HP;

@@ -9,7 +9,7 @@ public class Castle extends Unit {
     public Castle(String color) {
         super(color);
         name = "Castle";
-        prefix = "C";
+        prefix = "CT";
         icon = new ImageIcon(getClass().getResource("../icons/Castle_Sq.png"));
         MAX_HP = 300;
         hp = MAX_HP;

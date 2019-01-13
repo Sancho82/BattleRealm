@@ -283,7 +283,7 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
                     System.out.print(dashBoard.getGame().getMatrix()[i][j].getPrefix() + " ");
 
                 } else {
-                    System.out.print("X ");
+                    System.out.print(" X ");
                 }
             }
         }
