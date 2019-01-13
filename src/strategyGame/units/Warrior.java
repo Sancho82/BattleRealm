@@ -4,8 +4,8 @@ import javax.swing.*;
 
 public class Warrior extends Soldier {
 
-    Warrior(String color, int x, int y) {
-        super(color, x, y);
+    public Warrior(String color) {
+        super(color);
         name = "Warrior";
         prefix = "Wu";
         icon = new ImageIcon(getClass().getResource("../icons/Warrior_Rnd.png"));

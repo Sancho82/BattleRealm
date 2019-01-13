@@ -1,20 +1,24 @@
 package strategyGame.units;
 
-import strategyGame.interfaces.Mobile;
-import strategyGame.interfaces.Attacker;
 
+public class Soldier extends Unit {
 
-public class Soldier extends Unit implements Mobile, Attacker {
     protected static int STEPRANGE;
     protected int steppesLeft;
     protected int attackRange;
     protected int damage;
 
-    Soldier(String color, int x, int y) {
-        super(color, x, y);
+    public Soldier(String color) {
+        super(color);
+        canMove = true;
+        canAttack = true;
     }
 
     //region Getters
+
+    public int getSTEPRANGE() {
+        return STEPRANGE;
+    }
 
     public int getSteppesLeft() {
         return steppesLeft;
@@ -30,21 +34,16 @@ public class Soldier extends Unit implements Mobile, Attacker {
 
     //endregion
 
-    @Override
-    public void attack(Unit otherUnit) {
-        otherUnit.hp -= damage;
+    //region Setters
+
+    public void reduceSteppes(int number) {
+        if (steppesLeft >= number) {
+            steppesLeft -= number;
+        }
     }
 
-    @Override
-    public void step() {
-        steppesLeft--;
-    }
+    //endregion
 
-    public void freshStart() {
-        steppesLeft = STEPRANGE;
-    }
-
-    //steppesLeft, attackRange, damage
     public String toString() {
         return "<html><font color=white><Strong>Team:&nbsp</Strong></font>" + color + "<br>" +
                 "<font color=white><Strong>Name:&nbsp</Strong></font>" + name + "<br>" +

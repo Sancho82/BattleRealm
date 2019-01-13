@@ -1,23 +1,18 @@
 package strategyGame.units;
 
-import strategyGame.mvp.Game;
-import strategyGame.mvp.Player;
-import strategyGame.interfaces.Factory;
+import javax.swing.*;
 
-public class Stables extends Unit implements Factory {
+public class Stables extends Unit {
 
-    public Stables (String color, int x, int y) {
-        super(color, x, y);
+    public Stables (String color) {
+        super(color);
         name = "Stables";
         prefix = "ST";
+        icon = new ImageIcon(getClass().getResource("../icons/Stables1_Sq.png"));
         MAX_HP = 100;
         hp = MAX_HP;
         cost = 200;
-    }
-
-    public void createMobileUnit(Player player, int positionX, int positionY) {
-        Paladin paladin = new Paladin(color, positionX, positionY);
-        player.addUnit(paladin);
-        Game.battlefield.setUnit(paladin, paladin.position[0], paladin.position[1]);
+        canMove = false;
+        canAttack = false;
     }
 }

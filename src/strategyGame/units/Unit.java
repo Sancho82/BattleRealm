@@ -11,17 +11,15 @@ public abstract class Unit {
     protected int MAX_HP;
     protected int hp;
     protected int cost;
-    protected int[] position;
     protected boolean isSelected;
     protected boolean isAvailable;
-    protected boolean isAlive;
+    protected boolean canMove;
+    protected boolean canAttack;
 
-    public Unit(String color, int x, int y) {
+    public Unit(String color) {
         this.color = color;
         isSelected = false;
         isAvailable = false;
-        isAlive = true;
-        position = new int[]{x, y};
     }
 
     //region Getters
@@ -54,10 +52,6 @@ public abstract class Unit {
         return cost;
     }
 
-    public int[] getPosition() {
-        return position;
-    }
-
     public boolean getIsSelected() {
         return isSelected;
     }
@@ -66,8 +60,12 @@ public abstract class Unit {
         return isAvailable;
     }
 
-    public boolean getIsAlive() {
-        return isAlive;
+    public boolean getCanMove() {
+        return canMove;
+    }
+
+    public boolean getCanAttack() {
+        return canAttack;
     }
 
     //endregion
@@ -106,10 +104,6 @@ public abstract class Unit {
 
     public void removeIcon() {
         icon = null;
-    }
-
-    public void kill() {
-        isAlive = false;
     }
 
     //endregion

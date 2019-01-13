@@ -1,11 +1,14 @@
 package strategyGame.units;
 
+import javax.swing.*;
+
 public class Archer extends Soldier {
 
-    Archer(String color, int x, int y) {
-        super(color, x, y);
+    public Archer(String color) {
+        super(color);
         name = "Archer";
         prefix = "Au";
+        icon = new ImageIcon(getClass().getResource("../icons/Archer_Rnd.png"));
         MAX_HP = 25 + (int)(Math.random() * 5 + 1);
         hp = MAX_HP;
         cost = 70;

@@ -14,6 +14,7 @@ public class Colors {
     private Color peach = new Color(240, 80, 60);
     private Color beige = new Color(230, 180, 250);
     private Color ocean = new Color(80, 80, 240);
+    private Color dream = new Color(250, 150, 150);
 
     public Color getAlarm() {
         return  alarm;
@@ -53,5 +54,9 @@ public class Colors {
 
     public Color getOcean() {
         return  ocean;
+    }
+
+    public Color getDream() {
+        return  dream;
     }
 }

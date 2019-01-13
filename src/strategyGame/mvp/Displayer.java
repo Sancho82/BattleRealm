@@ -11,12 +11,13 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Battlefield extends JFrame implements ActionListener{
+public class Displayer extends JFrame implements ActionListener, MainContract.View {
 
-    private final int size = 10;
+    private MainContract.Presenter dashBoard;
+
+    private final int size;
     public JButton[][] buttons;
 
-    private Unit[][] matrix;
     private JLabel unitBoard;
     private JLabel playerBoard;
     private JLabel tipBoard;
@@ -33,12 +34,10 @@ public class Battlefield extends JFrame implements ActionListener{
     private JButton createArchery;
     private JButton createStables;
 
-    private int k;
-    private int l;
-    private int i;
-    private int j;
+    public Displayer() {
+        dashBoard = new DashBoard(this);
+        size = dashBoard.getGame().getSize();
 
-    public Battlefield() {
         colors = new Colors();
 
         setTitle("Battlefield");
@@ -57,7 +56,6 @@ public class Battlefield extends JFrame implements ActionListener{
         tipBoard.setFont(new Font("Verdana", Font.BOLD, 15));
         tipBoard.setHorizontalAlignment(SwingConstants.LEFT);
         tipBoard.setVerticalAlignment(SwingConstants.TOP);
-        tipBoard.setText("Tips");
         tipBoard.setForeground(Color.white);
         tipBoard.setOpaque(true);
         tipBoard.setBackground(colors.getFog());
@@ -69,7 +67,6 @@ public class Battlefield extends JFrame implements ActionListener{
         playerBoard.setFont(new Font("Verdana", Font.BOLD, 15));
         playerBoard.setHorizontalAlignment(SwingConstants.LEFT);
         playerBoard.setVerticalAlignment(SwingConstants.TOP);
-        playerBoard.setText("Player Information");
         playerBoard.setForeground(Color.white);
         playerBoard.setOpaque(true);
         playerBoard.setBackground(colors.getFog());
@@ -81,13 +78,11 @@ public class Battlefield extends JFrame implements ActionListener{
         unitBoard.setFont(new Font("Verdana", Font.BOLD, 15));
         unitBoard.setHorizontalAlignment(SwingConstants.LEFT);
         unitBoard.setVerticalAlignment(SwingConstants.TOP);
-        unitBoard.setText("Unit Information");
         unitBoard.setForeground(Color.white);
         unitBoard.setOpaque(true);
         unitBoard.setBackground(colors.getFog());
         field.add(unitBoard);
 
-        matrix = new Unit[size][size];
         buttons = new JButton[size][size];
 
         ButtonGroup gameBoard = new ButtonGroup();
@@ -98,7 +93,6 @@ public class Battlefield extends JFrame implements ActionListener{
                 button.setBounds(65 + i * 65, 65 + j * 65, 60, 60);
                 button.setFont(new Font("Arial", Font.BOLD, 20));
                 button.setBackground(colors.getGrass());
-                // button.getInsets(new Insets(0, 0, 0, 0));
                 button.setBorder(new SoftBevelBorder(SoftBevelBorder.RAISED));
                 buttons[i][j] = button;
 
@@ -192,23 +186,19 @@ public class Battlefield extends JFrame implements ActionListener{
         options.add(createStables);
         field.add(createStables);
 
-        k = -1;
-        l = -1;
+        setTipBoardDefault();
+        dashBoard.showActivePlayerStats();
+        setUnitBoardDefault();
+
+        consoleDisplayer();
+        visualDisplayer();
 
     }
 
     //region Getters
 
-    public JButton[][] getButtons() {
-        return buttons;
-    }
-
-    public Unit[][] getMatrix() {
-        return this.matrix;
-    }
-
-    public Unit getUnit(int i, int j) {
-        return matrix[i][j];
+    public MainContract.Presenter getDashBoard() {
+        return dashBoard;
     }
 
     public JLabel getUnitBoard() {
@@ -223,196 +213,122 @@ public class Battlefield extends JFrame implements ActionListener{
         return tipBoard;
     }
 
-    public Colors getColors() {
-        return colors;
-    }
-
-    public JButton getAttack() {
-        return attack;
-    }
-
-    public JButton getMove() {
-        return move;
-    }
-
-    public JButton getEndTurn() {
-        return endTurn;
-    }
-
-    public JButton getCreateWarrior() {
-        return createWarrior;
-    }
-
-    public JButton getCreateArcher() {
-        return createArcher;
-    }
-
-    public JButton getCreatePaladin() {
-        return createPaladin;
-    }
-
-    public JButton getCreateMediCamp() {
-        return createMediCamp;
-    }
-
-    public JButton getCreateArchery() {
-        return createArchery;
-    }
-
-    public JButton getCreateStables() {
-        return createStables;
-    }
-
-    public int getI() {
-        return i;
-    }
-
-    public int getJ() {
-        return j;
-    }
-
-    public int getK() {
-        return k;
-    }
-
-    public int getL() {
-        return l;
-    }
-
     //endregion
 
     //region Setters
 
-    public void setUnit(Unit unit, int i, int j) {
-        matrix[i][j] = unit;
+    @Override
+    public void setUnitBoard(Unit unit) {
+        unitBoard.setText(unit.toString());
     }
 
-    public void setUnitBoard(String text) {
-        unitBoard.setText(text);
+    @Override
+    public void setUnitBoardDefault() {
+        unitBoard.setText("Unit information");
     }
 
-    public void setPlayerBoard(String text) {
-        playerBoard.setText(text);
+    @Override
+    public void setPlayerBoard(Player player) {
+        playerBoard.setText(player.toString());
     }
 
+    @Override
+    public void setPlayerBoardDefault() {
+        playerBoard.setText("Player Information");
+    }
+
+    @Override
     public void setTipBoard(String text) {
         tipBoard.setText(text);
     }
 
-    public void setI(int i) {
-        this.i = i;
-    }
-
-    public void setJ(int j) {
-        this.j = j;
-    }
-
-    public void setK(int k) {
-        this.k = k;
-    }
-
-    public void setL(int l) {
-        this.l = l;
+    @Override
+    public void setTipBoardDefault() {
+        tipBoard.setText("Tips");
     }
 
     //endregion
 
-    public void consoleDisplayer() {
-        for (int i = 0; i < size; i++) {
-            System.out.println();
-            for (int j = 0; j < size; j++) {
-                if (matrix[i][j] != null) {
-                    System.out.print(matrix[i][j].getPrefix() + " ");
-                } else {
-                    System.out.print(" X ");
-                }
-            }
-        }
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        String[] coords = e.getActionCommand().split(" ");
+
+        int x = Integer.valueOf(coords[1]);
+        int y = Integer.valueOf(coords[0]);
+
+        dashBoard.clickField(new Position(x, y));
+
     }
 
+    @Override
     public void visualDisplayer() {
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
-                if (this.getUnit(j, i) != null) {
-                    buttons[i][j].setIcon(this.getUnit(j, i).getIcon());
+                if (dashBoard.getGame().getMatrix()[i][j] != null) {
+                    buttons[j][i].setIcon(dashBoard.getGame().getMatrix()[i][j].getIcon());
 
                 } else {
-                    buttons[i][j].setIcon(null);
+                    buttons[j][i].setIcon(null);
                 }
             }
-        }
-    }
-
-    public void tipBoardResetter() {
-        if (!tipBoard.getText().equals("Tips")) {
-            tipBoard.setText("Tips");
-        }
-    }
-
-    public void unitBoardResetter() {
-        if (!unitBoard.getText().equals("Unit Information")) {
-            unitBoard.setText("Unit Information");
         }
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
-        String event = e.getActionCommand();
-        String[] coords = event.split(" ");
-        i = Integer.parseInt(coords[0]);
-        j = Integer.parseInt(coords[1]);
-
-        if (matrix[j][i] != null && matrix[j][i].getIsAvailable()) {
-            if (!matrix[j][i].getIsSelected()) {
-                if (k == -1) {
-                    buttons[i][j].setBackground(Color.orange);
-                    matrix[j][i].select();
-                    unitBoard.setText(matrix[j][i].toString());
-                    k = i;
-                    l = j;
+    public void consoleDisplayer() {
+        for (int i = 0; i < size; i++) {
+            System.out.println();
+            for (int j = 0; j < size; j++) {
+                if (dashBoard.getGame().getMatrix()[i][j] != null) {
+                    System.out.print(dashBoard.getGame().getMatrix()[i][j].getPrefix() + " ");
 
                 } else {
-                    buttons[k][l].setBackground(colors.getGrass());
-                    matrix[l][k].deselect();
-                    buttons[i][j].setBackground(Color.orange);
-                    matrix[j][i].select();
-                    unitBoard.setText(matrix[j][i].toString());
-                    tipBoardResetter();
-                    k = i;
-                    l = j;
+                    System.out.print("X ");
                 }
-
-            } else {
-                buttons[i][j].setBackground(colors.getGrass());
-                matrix[j][i].deselect();
-                unitBoardResetter();
-                tipBoardResetter();
-                k = -1;
-                l = -1;
             }
+        }
+    }
 
-        } else if (k != -1 && matrix[l][k].getIsSelected() && matrix[l][k] instanceof Soldier) {
-            if (((Soldier)(matrix[l][k])).getSteppesLeft() > 0) {
-                if (Math.abs(l - j) < 2 && Math.abs(k - i) < 2) {
-                    buttons[k][l].setBackground(colors.getGrass());
-                    matrix[j][i] = matrix[l][k];
-                    ((Soldier)(matrix[j][i])).step();
-                    buttons[i][j].setBackground(Color.orange);
-                    unitBoard.setText(matrix[j][i].toString());
-                    tipBoardResetter();
-                    matrix[l][k] = null;
-                    visualDisplayer();
-                    System.out.println();
-                    consoleDisplayer();
-                    k = i;
-                    l = j;
+    @Override
+    public void showSelectedUnit() {
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                Unit unit = dashBoard.getGame().getMatrix()[i][j];
+                if (unit != null) {
+                    if (unit.getIsSelected()) {
+                        buttons[j][i].setBackground(Color.orange);
 
-                } else {
-                    tipBoard.setText("Destination is too far.");
+                    } else {
+                        buttons[j][i].setBackground(colors.getGrass());
+                    }
                 }
+            }
+        }
+    }
 
-            } else {
-                tipBoard.setText("Soldier can't step any more.");
+    @Override
+    public void highLightStepRange(Position position, Soldier soldier) {
+        int x = position.getX();
+        int y = position.getY();
+        int s = soldier.getSteppesLeft();
+        for (int i = x - s; i <= x + s; i++) {
+            for (int j = x - s; j <= x + s; j++) {
+                if (i > 0 && j > 0 && i != j) {
+                    buttons[j][i].setBackground(colors.getDream());
+                }
+            }
+        }
+    }
+
+    public void removeHighLight(Position position, Soldier soldier) {
+        int x = position.getX();
+        int y = position.getY();
+        int s = soldier.getSteppesLeft();
+        for (int i = x - s; i <= x + s; i++) {
+            for (int j = x - s; j <= x + s; j++) {
+                if (i > 0 && j > 0 && i != j) {
+                    buttons[j][i].setBackground(colors.getGrass());
+                }
             }
         }
     }
