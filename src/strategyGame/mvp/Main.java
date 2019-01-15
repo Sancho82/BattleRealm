@@ -7,6 +7,7 @@ public class Main {
         Displayer displayer = new Displayer();
         displayer.setVisible(true);
 
-        System.out.println();
+        System.out.println("\n" + displayer.getBattlePanel().getComponents()[100]);
+
     }
 }

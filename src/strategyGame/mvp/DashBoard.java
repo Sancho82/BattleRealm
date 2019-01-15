@@ -8,9 +8,13 @@ public class DashBoard implements MainContract.Presenter {
     private Game game;
     private MainContract.View view;
 
+    private byte optionSelected;
+
     public DashBoard(MainContract.View view) {
         game = new Game();
         this.view = view;
+
+        optionSelected = -1;
     }
 
     //region Getters
@@ -26,6 +30,13 @@ public class DashBoard implements MainContract.Presenter {
     }
 
     //endregion
+
+    //region Setters
+
+
+
+    //endregion
+
 
     @Override
     public void clickField(Position position) {

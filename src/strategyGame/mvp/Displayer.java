@@ -15,6 +15,8 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
 
     private MainContract.Presenter dashBoard;
 
+    JPanel battlePanel;
+
     private final int size;
     public JButton[][] buttons;
 
@@ -38,54 +40,20 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
         dashBoard = new DashBoard(this);
         size = dashBoard.getGame().getSize();
 
+        buttons = new JButton[size][size];
+
         colors = new Colors();
 
         setTitle("Battlefield");
         setBounds(0,0, 1165, 820);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        JPanel field = new JPanel();
-        field.setLayout(null);
-        field.setBackground(colors.getDrape());
-        field.setBorder(new SoftBevelBorder(SoftBevelBorder.LOWERED));
-        add(field);
 
-        tipBoard = new JLabel();
-        tipBoard.setBounds(775, 65, 305, 60);
-        tipBoard.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
-        tipBoard.setFont(new Font("Verdana", Font.BOLD, 15));
-        tipBoard.setHorizontalAlignment(SwingConstants.LEFT);
-        tipBoard.setVerticalAlignment(SwingConstants.TOP);
-        tipBoard.setForeground(Color.white);
-        tipBoard.setOpaque(true);
-        tipBoard.setBackground(colors.getFog());
-        field.add(tipBoard);
-
-        playerBoard = new JLabel();
-        playerBoard.setBounds(775, 130, 305, 60);
-        playerBoard.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
-        playerBoard.setFont(new Font("Verdana", Font.BOLD, 15));
-        playerBoard.setHorizontalAlignment(SwingConstants.LEFT);
-        playerBoard.setVerticalAlignment(SwingConstants.TOP);
-        playerBoard.setForeground(Color.white);
-        playerBoard.setOpaque(true);
-        playerBoard.setBackground(colors.getFog());
-        field.add(playerBoard);
-
-        unitBoard = new JLabel();
-        unitBoard.setBounds(775, 520, 305, 125);
-        unitBoard.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
-        unitBoard.setFont(new Font("Verdana", Font.BOLD, 15));
-        unitBoard.setHorizontalAlignment(SwingConstants.LEFT);
-        unitBoard.setVerticalAlignment(SwingConstants.TOP);
-        unitBoard.setForeground(Color.white);
-        unitBoard.setOpaque(true);
-        unitBoard.setBackground(colors.getFog());
-        field.add(unitBoard);
-
-        buttons = new JButton[size][size];
-
-        ButtonGroup gameBoard = new ButtonGroup();
+        battlePanel = new JPanel();
+        battlePanel.setLayout(null);
+        battlePanel.setBackground(colors.getDrape());
+        battlePanel.setBorder(new SoftBevelBorder(SoftBevelBorder.LOWERED));
+        add(battlePanel);
 
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
@@ -98,12 +66,9 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
 
                 button.setActionCommand(i + " " + j);
                 button.addActionListener(this);
-                gameBoard.add(button);
-                field.add(button);
+                battlePanel.add(button);
             }
         }
-
-        ButtonGroup options = new ButtonGroup();
 
         attack = new JButton();
         attack.setBounds(775, 195, 305, 60);
@@ -111,8 +76,7 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
         attack.setBorder(new SoftBevelBorder(SoftBevelBorder.RAISED));
         attack.setText("Attack");
         attack.setBackground(colors.getAlarm());
-        options.add(attack);
-        field.add(attack);
+        battlePanel.add(attack);
 
         move = new JButton();
         move.setBounds(775, 260, 305, 60);
@@ -120,8 +84,7 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
         move.setBorder(new SoftBevelBorder(SoftBevelBorder.RAISED));
         move.setText("Move");
         move.setBackground(colors.getRoast());
-        options.add(move);
-        field.add(move);
+        battlePanel.add(move);
 
         endTurn = new JButton();
         endTurn.setBounds(775, 650, 305, 60);
@@ -129,8 +92,7 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
         endTurn.setBorder(new SoftBevelBorder(SoftBevelBorder.RAISED));
         endTurn.setText("End Turn");
         endTurn.setBackground(colors.getSolar());
-        options.add(endTurn);
-        field.add(endTurn);
+        battlePanel.add(endTurn);
 
         createWarrior = new JButton();
         createWarrior.setBounds(775, 325, 150, 60);
@@ -138,8 +100,7 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
         createWarrior.setBorder(new SoftBevelBorder(SoftBevelBorder.RAISED));
         createWarrior.setText("Create Warrior");
         createWarrior.setBackground(colors.getTrepp());
-        options.add(createWarrior);
-        field.add(createWarrior);
+        battlePanel.add(createWarrior);
 
         createArcher = new JButton();
         createArcher.setBounds(775, 390, 150, 60);
@@ -147,8 +108,7 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
         createArcher.setBorder(new SoftBevelBorder(SoftBevelBorder.RAISED));
         createArcher.setText("Create Archer");
         createArcher.setBackground(colors.getTrepp());
-        options.add(createArcher);
-        field.add(createArcher);
+        battlePanel.add(createArcher);
 
         createPaladin = new JButton();
         createPaladin.setBounds(775, 455, 150, 60);
@@ -156,8 +116,7 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
         createPaladin.setBorder(new SoftBevelBorder(SoftBevelBorder.RAISED));
         createPaladin.setText("Create Paladin");
         createPaladin.setBackground(colors.getTrepp());
-        options.add(createPaladin);
-        field.add(createPaladin);
+        battlePanel.add(createPaladin);
 
         createMediCamp = new JButton();
         createMediCamp.setBounds(930, 325, 150, 60);
@@ -165,8 +124,7 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
         createMediCamp.setBorder(new SoftBevelBorder(SoftBevelBorder.RAISED));
         createMediCamp.setText("Create Medicamp");
         createMediCamp.setBackground(colors.getTrepp());
-        options.add(createMediCamp);
-        field.add(createMediCamp);
+        battlePanel.add(createMediCamp);
 
         createArchery = new JButton();
         createArchery.setBounds(930, 390, 150, 60);
@@ -174,8 +132,7 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
         createArchery.setBorder(new SoftBevelBorder(SoftBevelBorder.RAISED));
         createArchery.setText("Create Archery");
         createArchery.setBackground(colors.getTrepp());
-        options.add(createArchery);
-        field.add(createArchery);
+        battlePanel.add(createArchery);
 
         createStables = new JButton();
         createStables.setBounds(930, 455, 150, 60);
@@ -183,8 +140,40 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
         createStables.setBorder(new SoftBevelBorder(SoftBevelBorder.RAISED));
         createStables.setText("Create Stables");
         createStables.setBackground(colors.getTrepp());
-        options.add(createStables);
-        field.add(createStables);
+        battlePanel.add(createStables);
+
+        tipBoard = new JLabel();
+        tipBoard.setBounds(775, 65, 305, 60);
+        tipBoard.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
+        tipBoard.setFont(new Font("Verdana", Font.BOLD, 15));
+        tipBoard.setHorizontalAlignment(SwingConstants.LEFT);
+        tipBoard.setVerticalAlignment(SwingConstants.TOP);
+        tipBoard.setForeground(Color.white);
+        tipBoard.setOpaque(true);
+        tipBoard.setBackground(colors.getFog());
+        battlePanel.add(tipBoard);
+
+        playerBoard = new JLabel();
+        playerBoard.setBounds(775, 130, 305, 60);
+        playerBoard.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
+        playerBoard.setFont(new Font("Verdana", Font.BOLD, 15));
+        playerBoard.setHorizontalAlignment(SwingConstants.LEFT);
+        playerBoard.setVerticalAlignment(SwingConstants.TOP);
+        playerBoard.setForeground(Color.white);
+        playerBoard.setOpaque(true);
+        playerBoard.setBackground(colors.getFog());
+        battlePanel.add(playerBoard);
+
+        unitBoard = new JLabel();
+        unitBoard.setBounds(775, 520, 305, 125);
+        unitBoard.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
+        unitBoard.setFont(new Font("Verdana", Font.BOLD, 15));
+        unitBoard.setHorizontalAlignment(SwingConstants.LEFT);
+        unitBoard.setVerticalAlignment(SwingConstants.TOP);
+        unitBoard.setForeground(Color.white);
+        unitBoard.setOpaque(true);
+        unitBoard.setBackground(colors.getFog());
+        battlePanel.add(unitBoard);
 
         setTipBoardDefault();
         dashBoard.showActivePlayerStats();
@@ -199,6 +188,10 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
 
     public MainContract.Presenter getDashBoard() {
         return dashBoard;
+    }
+
+    public JPanel getBattlePanel() {
+        return battlePanel;
     }
 
     public JLabel getUnitBoard() {
