@@ -1,5 +1,7 @@
 package strategyGame.mvp;
 
+import javax.swing.*;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -7,7 +9,6 @@ public class Main {
         Displayer displayer = new Displayer();
         displayer.setVisible(true);
 
-        System.out.println("\n" + displayer.getBattlePanel().getComponents()[100]);
-
+        // System.out.println("\n" + ((JButton)(displayer.getBattlePanel().getComponents()[100])).isSelected());
     }
 }

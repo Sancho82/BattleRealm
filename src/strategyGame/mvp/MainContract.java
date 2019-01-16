@@ -10,6 +10,10 @@ public interface MainContract {
         void consoleDisplayer();
         void showSelectedUnit();
 
+        void optionButtonsLoader();
+        void optionButtonsHighlighter(int selection);
+        void optionButtonsDefaultColorSetter();
+
         void highLightStepRange(Position position, Soldier soldier);
         void removeHighLight(Position position, Soldier soldier);
 
@@ -26,6 +30,8 @@ public interface MainContract {
         void clickField(Position position);
         void moveUnit(Position from, Position to);
         Game getGame();
+        int getOptionSelected();
+        void setOptionSelected(int b);
         void showActivePlayerStats();
     }
 

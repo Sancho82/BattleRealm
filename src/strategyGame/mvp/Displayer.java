@@ -15,10 +15,11 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
 
     private MainContract.Presenter dashBoard;
 
-    JPanel battlePanel;
+    private JPanel battlePanel;
 
     private final int size;
-    public JButton[][] buttons;
+    private JButton[][] buttons;
+    private JButton[] optionButtons;
 
     private JLabel unitBoard;
     private JLabel playerBoard;
@@ -41,6 +42,7 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
         size = dashBoard.getGame().getSize();
 
         buttons = new JButton[size][size];
+        optionButtons = new JButton[9];
 
         colors = new Colors();
 
@@ -75,72 +77,100 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
         attack.setFont(new Font("Verdana", Font.BOLD, 25));
         attack.setBorder(new SoftBevelBorder(SoftBevelBorder.RAISED));
         attack.setText("Attack");
-        attack.setBackground(colors.getAlarm());
         battlePanel.add(attack);
+        attack.addActionListener(e -> {
+            dashBoard.setOptionSelected(dashBoard.getOptionSelected() == -1 ? 0 : -1);
+            optionButtonsHighlighter(getDashBoard().getOptionSelected());
+            System.out.println("\n" + dashBoard.getOptionSelected());
+        });
 
         move = new JButton();
         move.setBounds(775, 260, 305, 60);
         move.setFont(new Font("Verdana", Font.BOLD, 25));
         move.setBorder(new SoftBevelBorder(SoftBevelBorder.RAISED));
         move.setText("Move");
-        move.setBackground(colors.getRoast());
         battlePanel.add(move);
+        move.addActionListener(e -> {
+            dashBoard.setOptionSelected(dashBoard.getOptionSelected() == -1 ? 1 : -1);
+            optionButtonsHighlighter(getDashBoard().getOptionSelected());
+            System.out.println("\n" + dashBoard.getOptionSelected());
+        });
 
         endTurn = new JButton();
         endTurn.setBounds(775, 650, 305, 60);
         endTurn.setFont(new Font("Verdana", Font.BOLD, 25));
         endTurn.setBorder(new SoftBevelBorder(SoftBevelBorder.RAISED));
         endTurn.setText("End Turn");
-        endTurn.setBackground(colors.getSolar());
         battlePanel.add(endTurn);
+        endTurn.addActionListener(e -> {
+            dashBoard.setOptionSelected(dashBoard.getOptionSelected() == -1 ? 2 : -1);
+            optionButtonsHighlighter(getDashBoard().getOptionSelected());
+            System.out.println("\n" + dashBoard.getOptionSelected());
+        });
 
         createWarrior = new JButton();
         createWarrior.setBounds(775, 325, 150, 60);
         createWarrior.setFont(new Font("Verdana", Font.BOLD, 15));
         createWarrior.setBorder(new SoftBevelBorder(SoftBevelBorder.RAISED));
         createWarrior.setText("Create Warrior");
-        createWarrior.setBackground(colors.getTrepp());
         battlePanel.add(createWarrior);
+        createWarrior.addActionListener(e -> {
+            dashBoard.setOptionSelected(3);
+        });
 
         createArcher = new JButton();
         createArcher.setBounds(775, 390, 150, 60);
         createArcher.setFont(new Font("Verdana", Font.BOLD, 15));
         createArcher.setBorder(new SoftBevelBorder(SoftBevelBorder.RAISED));
         createArcher.setText("Create Archer");
-        createArcher.setBackground(colors.getTrepp());
         battlePanel.add(createArcher);
+        createArcher.addActionListener(e -> {
+            dashBoard.setOptionSelected(4);
+        });
+
 
         createPaladin = new JButton();
         createPaladin.setBounds(775, 455, 150, 60);
         createPaladin.setFont(new Font("Verdana", Font.BOLD, 15));
         createPaladin.setBorder(new SoftBevelBorder(SoftBevelBorder.RAISED));
         createPaladin.setText("Create Paladin");
-        createPaladin.setBackground(colors.getTrepp());
         battlePanel.add(createPaladin);
+        createPaladin.addActionListener(e -> {
+            dashBoard.setOptionSelected(5);
+        });
 
         createMediCamp = new JButton();
         createMediCamp.setBounds(930, 325, 150, 60);
         createMediCamp.setFont(new Font("Verdana", Font.BOLD, 15));
         createMediCamp.setBorder(new SoftBevelBorder(SoftBevelBorder.RAISED));
         createMediCamp.setText("Create Medicamp");
-        createMediCamp.setBackground(colors.getTrepp());
         battlePanel.add(createMediCamp);
+        createMediCamp.addActionListener(e -> {
+            dashBoard.setOptionSelected(6);
+        });
 
         createArchery = new JButton();
         createArchery.setBounds(930, 390, 150, 60);
         createArchery.setFont(new Font("Verdana", Font.BOLD, 15));
         createArchery.setBorder(new SoftBevelBorder(SoftBevelBorder.RAISED));
         createArchery.setText("Create Archery");
-        createArchery.setBackground(colors.getTrepp());
         battlePanel.add(createArchery);
+        createArchery.addActionListener(e -> {
+            dashBoard.setOptionSelected(7);
+        });
 
         createStables = new JButton();
         createStables.setBounds(930, 455, 150, 60);
         createStables.setFont(new Font("Verdana", Font.BOLD, 15));
         createStables.setBorder(new SoftBevelBorder(SoftBevelBorder.RAISED));
         createStables.setText("Create Stables");
-        createStables.setBackground(colors.getTrepp());
         battlePanel.add(createStables);
+        createStables.addActionListener(e -> {
+            dashBoard.setOptionSelected(8);
+        });
+
+        optionButtonsLoader();
+        optionButtonsDefaultColorSetter();
 
         tipBoard = new JLabel();
         tipBoard.setBounds(775, 65, 305, 60);
@@ -250,7 +280,6 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
         int y = Integer.valueOf(coords[0]);
 
         dashBoard.clickField(new Position(x, y));
-
     }
 
     @Override
@@ -296,6 +325,78 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
                 }
             }
         }
+    }
+
+    @Override
+    public void optionButtonsLoader() {
+        optionButtons[0] = attack;
+        optionButtons[1] = move;
+        optionButtons[2] = endTurn;
+        optionButtons[3] = createWarrior;
+        optionButtons[4] = createArcher;
+        optionButtons[5] = createPaladin;
+        optionButtons[6] = createMediCamp;
+        optionButtons[7] = createArchery;
+        optionButtons[8] = createStables;
+    }
+
+    @Override
+    public void optionButtonsHighlighter(int selection) {
+        switch (selection) {
+            case -1: optionButtonsDefaultColorSetter();
+                     break;
+
+            case  0: optionButtonsDefaultColorSetter();
+                     attack.setBackground(colors.getOcean());
+                     break;
+
+            case  1: optionButtonsDefaultColorSetter();
+                     move.setBackground(colors.getOcean());
+                     break;
+
+            case  2: optionButtonsDefaultColorSetter();
+                     endTurn.setBackground(colors.getOcean());
+                     break;
+
+            case  3: optionButtonsDefaultColorSetter();
+                     createWarrior.setBackground(colors.getOcean());
+                     break;
+
+            case  4: optionButtonsDefaultColorSetter();
+                     createArcher.setBackground(colors.getOcean());
+                     break;
+
+            case  5: optionButtonsDefaultColorSetter();
+                     createPaladin.setBackground(colors.getOcean());
+                     break;
+
+            case  6: optionButtonsDefaultColorSetter();
+                     createMediCamp.setBackground(colors.getOcean());
+                     break;
+
+            case  7: optionButtonsDefaultColorSetter();
+                     createArchery.setBackground(colors.getOcean());
+                     break;
+
+            case  8: optionButtonsDefaultColorSetter();
+                     createStables.setBackground(colors.getOcean());
+                     break;
+
+        }
+    }
+
+    @Override
+    public void optionButtonsDefaultColorSetter() {
+        attack.setBackground(colors.getAlarm());
+        move.setBackground(colors.getRoast());
+        endTurn.setBackground(colors.getSolar());
+        createWarrior.setBackground(colors.getTrepp());
+        createArcher.setBackground(colors.getTrepp());
+        createPaladin.setBackground(colors.getTrepp());
+        createMediCamp.setBackground(colors.getTrepp());
+        createArchery.setBackground(colors.getTrepp());
+        createStables.setBackground(colors.getTrepp());
+
     }
 
     @Override

@@ -8,7 +8,7 @@ public class DashBoard implements MainContract.Presenter {
     private Game game;
     private MainContract.View view;
 
-    private byte optionSelected;
+    private int optionSelected;
 
     public DashBoard(MainContract.View view) {
         game = new Game();
@@ -23,6 +23,10 @@ public class DashBoard implements MainContract.Presenter {
         return game;
     }
 
+    public int getOptionSelected() {
+        return optionSelected;
+    }
+
     @Override
     public void showActivePlayerStats() {
         Player player = game.getPlayerList().get(game.getCurrentPlayerIndex());
@@ -33,7 +37,9 @@ public class DashBoard implements MainContract.Presenter {
 
     //region Setters
 
-
+    public void setOptionSelected(int b) {
+        optionSelected = b;
+    }
 
     //endregion
 
