@@ -4,7 +4,7 @@ import strategyGame.mvp.Main;
 
 import javax.swing.*;
 
-public class Castle extends Unit {
+public class Castle extends Building {
 
     public Castle(String color) {
         super(color);

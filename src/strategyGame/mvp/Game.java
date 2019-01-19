@@ -114,6 +114,13 @@ public class Game {
         player.deCreaseGold(paladin.getCost());
     }
 
+    /*public void addUnit(Unit unit, Position position, Player player) {
+        unit.setColor(player.getColor());
+        matrix[position.getX()][position.getY()] = unit;
+        player.getUnitList().add(unit);
+        player.deCreaseGold(unit.getCost());
+    }*/
+
     public void createStartingUnits() {
         createCastle(new Position(0, 0), redPlayer);
         createWarrior(new Position(0, 1), redPlayer);

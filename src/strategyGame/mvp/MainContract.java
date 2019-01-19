@@ -1,7 +1,10 @@
 package strategyGame.mvp;
 
-import strategyGame.units.Soldier;
+import strategyGame.colors.Colors;
 import strategyGame.units.Unit;
+
+import java.awt.*;
+
 
 public interface MainContract {
 
@@ -14,8 +17,10 @@ public interface MainContract {
         void optionButtonsHighlighter(int selection);
         void optionButtonsDefaultColorSetter();
 
-        void highLightStepRange(Position position, Soldier soldier);
-        void removeHighLight(Position position, Soldier soldier);
+        void highLightRange(Position position, int range, Color color);
+        void removeHighLight(Position position, int range);
+
+        Colors getColors();
 
         void setUnitBoard(Unit unit);
         void setUnitBoardDefault();
@@ -33,6 +38,7 @@ public interface MainContract {
         int getOptionSelected();
         void setOptionSelected(int b);
         void showActivePlayerStats();
+        void optionsHandler();
     }
 
 }

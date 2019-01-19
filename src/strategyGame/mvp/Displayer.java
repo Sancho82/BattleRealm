@@ -1,7 +1,6 @@
 package strategyGame.mvp;
 
 import strategyGame.colors.Colors;
-import strategyGame.units.Soldier;
 import strategyGame.units.Unit;
 
 import javax.swing.*;
@@ -10,6 +9,7 @@ import javax.swing.border.SoftBevelBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLOutput;
 
 public class Displayer extends JFrame implements ActionListener, MainContract.View {
 
@@ -76,24 +76,22 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
         attack.setBounds(775, 195, 305, 60);
         attack.setFont(new Font("Verdana", Font.BOLD, 25));
         attack.setBorder(new SoftBevelBorder(SoftBevelBorder.RAISED));
-        attack.setText("Attack");
+        attack.setText("Attackrange");
         battlePanel.add(attack);
         attack.addActionListener(e -> {
-            dashBoard.setOptionSelected(dashBoard.getOptionSelected() == -1 ? 0 : -1);
-            optionButtonsHighlighter(getDashBoard().getOptionSelected());
-            System.out.println("\n" + dashBoard.getOptionSelected());
+            dashBoard.setOptionSelected(dashBoard.getOptionSelected() == 0 ? -1 : 0);
+            dashBoard.optionsHandler();
         });
 
         move = new JButton();
         move.setBounds(775, 260, 305, 60);
         move.setFont(new Font("Verdana", Font.BOLD, 25));
         move.setBorder(new SoftBevelBorder(SoftBevelBorder.RAISED));
-        move.setText("Move");
+        move.setText("Moverange");
         battlePanel.add(move);
         move.addActionListener(e -> {
-            dashBoard.setOptionSelected(dashBoard.getOptionSelected() == -1 ? 1 : -1);
-            optionButtonsHighlighter(getDashBoard().getOptionSelected());
-            System.out.println("\n" + dashBoard.getOptionSelected());
+            dashBoard.setOptionSelected(dashBoard.getOptionSelected() == 1 ? -1 : 1);
+            dashBoard.optionsHandler();
         });
 
         endTurn = new JButton();
@@ -103,9 +101,8 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
         endTurn.setText("End Turn");
         battlePanel.add(endTurn);
         endTurn.addActionListener(e -> {
-            dashBoard.setOptionSelected(dashBoard.getOptionSelected() == -1 ? 2 : -1);
-            optionButtonsHighlighter(getDashBoard().getOptionSelected());
-            System.out.println("\n" + dashBoard.getOptionSelected());
+            dashBoard.setOptionSelected(dashBoard.getOptionSelected() == 2 ? -1 : 2);
+            dashBoard.optionsHandler();
         });
 
         createWarrior = new JButton();
@@ -115,7 +112,8 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
         createWarrior.setText("Create Warrior");
         battlePanel.add(createWarrior);
         createWarrior.addActionListener(e -> {
-            dashBoard.setOptionSelected(3);
+            dashBoard.setOptionSelected(dashBoard.getOptionSelected() == 3 ? -1 : 3);
+            dashBoard.optionsHandler();
         });
 
         createArcher = new JButton();
@@ -125,7 +123,8 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
         createArcher.setText("Create Archer");
         battlePanel.add(createArcher);
         createArcher.addActionListener(e -> {
-            dashBoard.setOptionSelected(4);
+            dashBoard.setOptionSelected(dashBoard.getOptionSelected() == 4 ? -1 : 4);
+            dashBoard.optionsHandler();
         });
 
 
@@ -136,7 +135,8 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
         createPaladin.setText("Create Paladin");
         battlePanel.add(createPaladin);
         createPaladin.addActionListener(e -> {
-            dashBoard.setOptionSelected(5);
+            dashBoard.setOptionSelected(dashBoard.getOptionSelected() == 5 ? -1 : 5);
+            dashBoard.optionsHandler();
         });
 
         createMediCamp = new JButton();
@@ -146,7 +146,8 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
         createMediCamp.setText("Create Medicamp");
         battlePanel.add(createMediCamp);
         createMediCamp.addActionListener(e -> {
-            dashBoard.setOptionSelected(6);
+            dashBoard.setOptionSelected(dashBoard.getOptionSelected() == 6 ? -1 : 6);
+            dashBoard.optionsHandler();
         });
 
         createArchery = new JButton();
@@ -156,7 +157,8 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
         createArchery.setText("Create Archery");
         battlePanel.add(createArchery);
         createArchery.addActionListener(e -> {
-            dashBoard.setOptionSelected(7);
+            dashBoard.setOptionSelected(dashBoard.getOptionSelected() == 7 ? -1 : 7);
+            dashBoard.optionsHandler();
         });
 
         createStables = new JButton();
@@ -166,7 +168,8 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
         createStables.setText("Create Stables");
         battlePanel.add(createStables);
         createStables.addActionListener(e -> {
-            dashBoard.setOptionSelected(8);
+            dashBoard.setOptionSelected(dashBoard.getOptionSelected() == 8 ? -1 : 8);
+            dashBoard.optionsHandler();
         });
 
         optionButtonsLoader();
@@ -234,6 +237,10 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
 
     public JLabel getTipBoard() {
         return tipBoard;
+    }
+
+    public Colors getColors() {
+        return colors;
     }
 
     //endregion
@@ -342,53 +349,54 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
 
     @Override
     public void optionButtonsHighlighter(int selection) {
+        optionButtonsDefaultColorSetter();
+
         switch (selection) {
-            case -1: optionButtonsDefaultColorSetter();
-                     break;
 
-            case  0: optionButtonsDefaultColorSetter();
-                     attack.setBackground(colors.getOcean());
-                     break;
+            case 0:
+                attack.setBackground(colors.getAlarm());
+                break;
 
-            case  1: optionButtonsDefaultColorSetter();
-                     move.setBackground(colors.getOcean());
-                     break;
+            case 1:
+                move.setBackground(colors.getRoast());
+                break;
 
-            case  2: optionButtonsDefaultColorSetter();
-                     endTurn.setBackground(colors.getOcean());
-                     break;
+            case 2:
+                endTurn.setBackground(colors.getPeach());
+                break;
 
-            case  3: optionButtonsDefaultColorSetter();
-                     createWarrior.setBackground(colors.getOcean());
-                     break;
+            case 3:
+                createWarrior.setBackground(colors.getOcean());
+                break;
 
-            case  4: optionButtonsDefaultColorSetter();
-                     createArcher.setBackground(colors.getOcean());
-                     break;
+            case 4:
+                createArcher.setBackground(colors.getOcean());
+                break;
 
-            case  5: optionButtonsDefaultColorSetter();
-                     createPaladin.setBackground(colors.getOcean());
-                     break;
+            case 5:
+                createPaladin.setBackground(colors.getOcean());
+                break;
 
-            case  6: optionButtonsDefaultColorSetter();
-                     createMediCamp.setBackground(colors.getOcean());
-                     break;
+            case 6:
+                createMediCamp.setBackground(colors.getOcean());
+                break;
 
-            case  7: optionButtonsDefaultColorSetter();
-                     createArchery.setBackground(colors.getOcean());
-                     break;
+            case 7:
+                createArchery.setBackground(colors.getOcean());
+                break;
 
-            case  8: optionButtonsDefaultColorSetter();
-                     createStables.setBackground(colors.getOcean());
-                     break;
-
+            case 8:
+                createStables.setBackground(colors.getOcean());
+                break;
         }
+
+        System.out.println("\n" + dashBoard.getOptionSelected());
     }
 
     @Override
     public void optionButtonsDefaultColorSetter() {
-        attack.setBackground(colors.getAlarm());
-        move.setBackground(colors.getRoast());
+        attack.setBackground(colors.getSolar());
+        move.setBackground(colors.getSolar());
         endTurn.setBackground(colors.getSolar());
         createWarrior.setBackground(colors.getTrepp());
         createArcher.setBackground(colors.getTrepp());
@@ -400,27 +408,26 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
     }
 
     @Override
-    public void highLightStepRange(Position position, Soldier soldier) {
+    public void highLightRange(Position position, int range, Color color) {
         int x = position.getX();
         int y = position.getY();
-        int s = soldier.getSteppesLeft();
-        for (int i = x - s; i <= x + s; i++) {
-            for (int j = x - s; j <= x + s; j++) {
-                if (i > 0 && j > 0 && i != j) {
-                    buttons[j][i].setBackground(colors.getDream());
+        for (int i = x - range; i <= x + range; i++) {
+            for (int j = y - range; j <= y + range; j++) {
+                if (i > -1 && j > -1 && i < 10 && j < 10) {
+                    buttons[j][i].setBackground(color);
                 }
             }
         }
     }
 
-    public void removeHighLight(Position position, Soldier soldier) {
+    public void removeHighLight(Position position, int range) {
         int x = position.getX();
         int y = position.getY();
-        int s = soldier.getSteppesLeft();
-        for (int i = x - s; i <= x + s; i++) {
-            for (int j = x - s; j <= x + s; j++) {
-                if (i > 0 && j > 0 && i != j) {
-                    buttons[j][i].setBackground(colors.getGrass());
+        for (int i = x - range; i <= x + range; i++) {
+            for (int j = y - range; j <= y + range; j++) {
+                if (i > -1 && j > -1 && i < 10 && j < 10) {
+                    buttons[j][i].setBackground(Color.orange);
+                    showSelectedUnit();
                 }
             }
         }
