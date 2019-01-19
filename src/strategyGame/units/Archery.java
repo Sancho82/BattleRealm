@@ -1,6 +1,6 @@
 package strategyGame.units;
 
-public class Archery extends Unit {
+public class Archery extends Building {
 
     public Archery (String color) {
         super(color);
