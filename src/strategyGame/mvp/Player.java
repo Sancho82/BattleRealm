@@ -9,13 +9,11 @@ public class Player {
 
     private String color;
     private int gold;
-    private boolean isPlaying;
     private List<Unit> unitList;
 
     public Player(String color) {
         this.color = color;
-        gold = 1000; //370
-        isPlaying = false;
+        gold = 2150;
         unitList = new ArrayList<>();
     }
 
@@ -27,10 +25,6 @@ public class Player {
 
     public int getGold() {
         return gold;
-    }
-
-    public boolean getPlaying() {
-        return isPlaying;
     }
 
     public List<Unit> getUnitList() {

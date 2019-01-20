@@ -15,6 +15,7 @@ public abstract class Unit {
     protected boolean isAvailable;
     protected boolean canMove;
     protected boolean canAttack;
+    protected boolean canCreate;
 
     public Unit(String color) {
         this.color = color;
@@ -68,6 +69,10 @@ public abstract class Unit {
         return canAttack;
     }
 
+    public boolean getCanCreate() {
+        return canCreate;
+    }
+
     //endregion
 
 
@@ -87,7 +92,7 @@ public abstract class Unit {
     }
 
     public void setUnAvailable() {
-        isAvailable = true;
+        isAvailable = false;
     }
 
     public void select() {

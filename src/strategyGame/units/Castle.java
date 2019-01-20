@@ -16,5 +16,6 @@ public class Castle extends Building {
         cost = 200;
         canMove = false;
         canAttack = false;
+        canCreate = true;
     }
 }

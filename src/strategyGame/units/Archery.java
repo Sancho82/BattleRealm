@@ -14,5 +14,6 @@ public class Archery extends Building {
         cost = 150;
         canMove = false;
         canAttack = false;
+        canCreate = true;
     }
 }

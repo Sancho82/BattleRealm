@@ -17,6 +17,7 @@ public class MediCamp extends Building implements Healer {
         cost = 150;
         canMove = false;
         canAttack = false;
+        canCreate = false;
         createRange = 0;
     }
 

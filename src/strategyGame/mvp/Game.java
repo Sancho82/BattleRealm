@@ -14,17 +14,13 @@ public class Game {
     private int currentPlayerIndex;
 
     private List<Player> playerList;
-    private Player redPlayer;
-    private Player bluePlayer;
 
     public Game() {
         size = 10;
         matrix = new Unit[size][size];
         playerList = new ArrayList<>();
-        redPlayer = new Player("Red");
-        bluePlayer = new Player("Blue");
-        playerList.add(redPlayer);
-        playerList.add(bluePlayer);
+        playerList.add(new Player("Red"));
+        playerList.add(new Player("Blue"));
         selectedPosition = null;
         createStartingUnits();
         currentPlayerIndex = new Random().nextInt(playerList.size());
@@ -53,14 +49,6 @@ public class Game {
         return playerList;
     }
 
-    public Player getRedPlayer() {
-        return redPlayer;
-    }
-
-    public Player getBluePlayer() {
-        return bluePlayer;
-    }
-
     //endregion
 
     //region Creators
@@ -69,14 +57,12 @@ public class Game {
         Castle castle = new Castle(player.getColor());
         matrix[position.getX()][position.getY()] = castle;
         player.getUnitList().add(castle);
-        player.deCreaseGold(castle.getCost());
     }
 
     public void createWarrior(Position position, Player player) {
         Warrior warrior = new Warrior(player.getColor());
         matrix[position.getX()][position.getY()] = warrior;
         player.getUnitList().add(warrior);
-        player.deCreaseGold(warrior.getCost());
     }
 
     public Unit createUnit(int optionSelected, Player player) {
@@ -107,15 +93,15 @@ public class Game {
     }
 
     public void createStartingUnits() {
-        createCastle(new Position(0, 0), redPlayer);
-        createWarrior(new Position(0, 1), redPlayer);
-        createWarrior(new Position(1, 0), redPlayer);
-        createWarrior(new Position(1, 1), redPlayer);
+        createCastle(new Position(0, 0), playerList.get(0));
+        createWarrior(new Position(0, 1), playerList.get(0));
+        createWarrior(new Position(1, 0), playerList.get(0));
+        createWarrior(new Position(1, 1), playerList.get(0));
 
-        createCastle(new Position(9, 9), bluePlayer);
-        createWarrior(new Position(8, 9), bluePlayer);
-        createWarrior(new Position(9, 8), bluePlayer);
-        createWarrior(new Position(8, 8), bluePlayer);
+        createCastle(new Position(9, 9), playerList.get(1));
+        createWarrior(new Position(8, 9), playerList.get(1));
+        createWarrior(new Position(9, 8), playerList.get(1));
+        createWarrior(new Position(8, 8), playerList.get(1));
     }
 
     //endregion
@@ -124,22 +110,23 @@ public class Game {
         selectedPosition = position;
     }
 
-    public void nextPlayer(int index) {
+    public void nextPlayer() {
+        deActivatePlayer(playerList.get(currentPlayerIndex));
         currentPlayerIndex = (currentPlayerIndex + 1) % playerList.size();
+        activatePlayer(playerList.get(currentPlayerIndex));
     }
 
     public void activatePlayer(Player player) {
         player.increaseGold();
         for (int i = 0; i < player.getUnitList().size(); i++) {
-            Unit unit = player.getUnitList().get(i);
-            unit.setAvailable();
+            player.getUnitList().get(i).setAvailable();
         }
     }
 
     public void deActivatePlayer(Player player) {
         for (int i = 0; i < player.getUnitList().size(); i++) {
-            Unit unit = player.getUnitList().get(i);
-            unit.setUnAvailable();
+            player.getUnitList().get(i).deselect();
+            player.getUnitList().get(i).setUnAvailable();
         }
     }
 

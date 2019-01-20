@@ -77,12 +77,12 @@ public class DashBoard implements MainContract.Presenter {
         } else if (game.getSelectedPosition() != null) {
             Unit selectedUnit = game.getMatrix()[game.getSelectedPosition().getX()][game.getSelectedPosition().getY()];
             if (selectedUnit.getCanMove()) {
-                if (((Soldier)(selectedUnit)).getSteppesLeft() > 0) {
+                if (((Soldier) (selectedUnit)).getSteppesLeft() > 0) {
                     int distX = Math.abs(position.getX() - game.getSelectedPosition().getX());
                     int distY = Math.abs(position.getY() - game.getSelectedPosition().getY());
                     int stepcost = differenceDecider(distX, distY);
 
-                    if ((((Soldier)(selectedUnit)).getSteppesLeft() >= stepcost)) {
+                    if ((((Soldier) (selectedUnit)).getSteppesLeft() >= stepcost)) {
 
                         moveUnit(game.getSelectedPosition(), position);
                         game.setSelectedPosition(position);
@@ -104,12 +104,12 @@ public class DashBoard implements MainContract.Presenter {
                 int distY = Math.abs(position.getY() - game.getSelectedPosition().getY());
                 int plannedCreateDistance = differenceDecider(distX, distY);
 
-                if (plannedCreateDistance <= ((Building)(selectedUnit)).getCreateRange()) {
+                if (plannedCreateDistance <= ((Building) (selectedUnit)).getCreateRange()) {
                     addUnit(position);
                     view.visualDisplayer();
                     view.setPlayerBoard(player);
-                    view.removeHighLight(game.getSelectedPosition(),3);
-                    view.highLightRange(game.getSelectedPosition(), ((Building)(selectedUnit)).getCreateRange(), view.getColors().getOcean());
+                    view.removeHighLight(game.getSelectedPosition(), 3);
+                    view.highLightRange(game.getSelectedPosition(), ((Building) (selectedUnit)).getCreateRange(), view.getColors().getOcean());
 
                 } else {
                     view.setTipBoard("You need to deploy unit closer.");
@@ -120,7 +120,7 @@ public class DashBoard implements MainContract.Presenter {
                 view.setTipBoard("This unit cannot move.");
             }
         }
-        
+
         view.consoleDisplayer();
     }
 
@@ -146,7 +146,7 @@ public class DashBoard implements MainContract.Presenter {
         int distX = Math.abs(to.getX() - from.getX());
         int distY = Math.abs(to.getY() - from.getY());
         int stepcost = differenceDecider(distX, distY);
-        ((Soldier)(unit)).reduceSteppes(stepcost);
+        ((Soldier) (unit)).reduceSteppes(stepcost);
 
         game.getMatrix()[to.getX()][to.getY()] = unit;
         game.getMatrix()[from.getX()][from.getY()] = null;
@@ -154,13 +154,25 @@ public class DashBoard implements MainContract.Presenter {
 
     public int differenceDecider(int a, int b) {
         if (a > b) {
-           return a;
+            return a;
         }
         return b;
     }
 
     public void optionsHandler() {
-        if (game.getSelectedPosition() != null) {
+        if (optionSelected == 2) {
+            game.nextPlayer();
+            view.setPlayerBoard(game.getPlayerList().get(game.getCurrentPlayerIndex()));
+            view.setTipBoardDefault();
+            view.setUnitBoardDefault();
+            setOptionSelected(-1);
+            if (game.getSelectedPosition() != null) {
+                game.setSelectedPosition(null);
+            }
+            view.showSelectedUnit();
+
+
+        } else if (game.getSelectedPosition() != null) {
             int x = game.getSelectedPosition().getX();
             int y = game.getSelectedPosition().getY();
             Unit unit = game.getMatrix()[x][y];
@@ -170,56 +182,88 @@ public class DashBoard implements MainContract.Presenter {
             if (optionSelected == -1) {
                 view.optionButtonsDefaultColorSetter();
 
-            } else if (optionSelected == 0 && unit.getCanAttack()) {
-                view.optionButtonsHighlighter(optionSelected);
-                view.highLightRange(game.getSelectedPosition(), ((Soldier)(unit)).getAttackRange(), view.getColors().getAlarm());
-
-            } else if (optionSelected == 1 && unit.getCanMove()) {
-                view.optionButtonsHighlighter(optionSelected);
-                view.highLightRange(game.getSelectedPosition(), ((Soldier)(unit)).getSteppesLeft(), view.getColors().getRoast());
-
-            } else if (!unit.getCanMove()) {
-
-                if (unit instanceof Castle && (optionSelected == 3 || optionSelected == 6 || optionSelected == 7 || optionSelected == 8)) {
+            } else if (optionSelected == 0) {
+                if (unit.getCanAttack()) {
                     view.optionButtonsHighlighter(optionSelected);
-                    view.highLightRange(game.getSelectedPosition(), ((Building)(unit)).getCreateRange(), view.getColors().getOcean());
+                    view.highLightRange(game.getSelectedPosition(), ((Soldier) (unit)).getAttackRange(), view.getColors().getAlarm());
                     view.setTipBoardDefault();
-
-                } else if (unit instanceof Archery && optionSelected == 4) {
-                    view.optionButtonsHighlighter(optionSelected);
-                    view.highLightRange(game.getSelectedPosition(), ((Building)(unit)).getCreateRange(), view.getColors().getOcean());
-                    view.setTipBoardDefault();
-
-                } else if (unit instanceof Stables && optionSelected == 5) {
-                    view.optionButtonsHighlighter(optionSelected);
-                    view.highLightRange(game.getSelectedPosition(), ((Building)(unit)).getCreateRange(), view.getColors().getOcean());
-                    view.setTipBoardDefault();
-
-                }  else if (unit instanceof MediCamp) {
-                    view.setTipBoard("Building cannot create any unit.");
 
                 } else {
-                    view.optionButtonsDefaultColorSetter();
-                    view.setTipBoard("Building cannot create this unit.");
+                    view.setTipBoard("Buildings have no attack-range.");
                     setOptionSelected(-1);
                 }
 
-            } else if (optionSelected == 0 && !unit.getCanAttack()) {
-                view.setTipBoard("This unit cannot attack.");
-                setOptionSelected(-1);
+            } else if (optionSelected == 1) {
+                if (unit.getCanMove()) {
+                    view.optionButtonsHighlighter(optionSelected);
+                    view.highLightRange(game.getSelectedPosition(), ((Soldier) (unit)).getSteppesLeft(), view.getColors().getRoast());
+                    view.setTipBoardDefault();
 
-            } else if (optionSelected == 1 && !unit.getCanMove()) {
-                view.setTipBoard("This unit cannot move.");
-                setOptionSelected(-1);
+                } else {
+                    view.setTipBoard("Buildings have no move-range.");
+                    setOptionSelected(-1);
+                }
 
-            } else if (unit.getCanMove()) {
-                view.setTipBoard("This unit cannot create units.");
-                setOptionSelected(-1);
+            } else if (optionSelected == 3 || optionSelected == 6 || optionSelected == 7 || optionSelected == 8) {
+                if (unit.getCanCreate()) {
+                    if (unit instanceof Castle) {
+                        view.optionButtonsHighlighter(optionSelected);
+                        view.highLightRange(game.getSelectedPosition(), ((Building) (unit)).getCreateRange(), view.getColors().getOcean());
+                        view.setTipBoardDefault();
 
+                    } else {
+                        view.setTipBoard("Building cannot create Warriors.");
+                        setOptionSelected(-1);
+                        view.optionButtonsDefaultColorSetter();
+                    }
+
+                } else {
+                    view.setTipBoard("This unit cannot create units.");
+                    view.optionButtonsDefaultColorSetter();
+                    setOptionSelected(-1);
+                }
+
+            } else if (optionSelected == 4) {
+                if (unit.getCanCreate()) {
+                    if (unit instanceof Archery) {
+                        view.optionButtonsHighlighter(optionSelected);
+                        view.highLightRange(game.getSelectedPosition(), ((Building) (unit)).getCreateRange(), view.getColors().getOcean());
+                        view.setTipBoardDefault();
+
+                    } else {
+                        view.setTipBoard("This unit cannot create Archers.");
+                        setOptionSelected(-1);
+                        view.optionButtonsDefaultColorSetter();
+                    }
+
+                } else {
+                    view.setTipBoard("This unit cannot create units.");
+                    setOptionSelected(-1);
+                    view.optionButtonsDefaultColorSetter();
+                }
+
+            } else if (optionSelected == 5) {
+                if (unit.getCanCreate()) {
+                    if (unit instanceof Stables) {
+                        view.optionButtonsHighlighter(optionSelected);
+                        view.highLightRange(game.getSelectedPosition(), ((Building) (unit)).getCreateRange(), view.getColors().getOcean());
+                        view.setTipBoardDefault();
+
+                    } else {
+                        view.setTipBoard("This unit cannot create Paladins.");
+                        setOptionSelected(-1);
+                        view.optionButtonsDefaultColorSetter();
+                    }
+
+                } else {
+                    view.setTipBoard("This unit cannot create units.");
+                    setOptionSelected(-1);
+                    view.optionButtonsDefaultColorSetter();
+                }
+
+            } else {
+                view.setTipBoard("No unit selected.");
             }
-
-        } else {
-            view.setTipBoard("No unit selected.");
         }
     }
 }
