@@ -2,6 +2,7 @@ package strategyGame.mvp;
 
 import strategyGame.colors.Colors;
 import strategyGame.units.Unit;
+import strategyGame.units.Warrior;
 
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
@@ -414,7 +415,11 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
         for (int i = x - range; i <= x + range; i++) {
             for (int j = y - range; j <= y + range; j++) {
                 if (i > -1 && j > -1 && i < 10 && j < 10) {
-                    buttons[j][i].setBackground(color);
+                    Unit unit = dashBoard.getGame().getMatrix()[i][j];
+                    Player player = dashBoard.getGame().getPlayerList().get(dashBoard.getGame().getCurrentPlayerIndex());
+                    if (unit == null || !unit.getColor().equals(player.getColor())) {
+                        buttons[j][i].setBackground(color);
+                    }
                 }
             }
         }

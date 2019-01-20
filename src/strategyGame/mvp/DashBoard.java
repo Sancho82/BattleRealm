@@ -47,6 +47,7 @@ public class DashBoard implements MainContract.Presenter {
     public void clickField(Position position) {
         view.setTipBoardDefault();
         Unit unit = game.getMatrix()[position.getX()][position.getY()];
+        Player player = game.getPlayerList().get(game.getCurrentPlayerIndex());
         if (unit != null) {
             if (unit.getIsAvailable()) {
                 setOptionSelected(-1);
@@ -73,53 +74,70 @@ public class DashBoard implements MainContract.Presenter {
                 view.setTipBoard("You cannot select this unit.");
             }
 
-        } else {
-            if (game.getSelectedPosition() != null) {
-                Unit selectedUnit = game.getMatrix()[game.getSelectedPosition().getX()][game.getSelectedPosition().getY()];
-                if (selectedUnit.getCanMove()) {
-                    if (((Soldier)(selectedUnit)).getSteppesLeft() > 0) {
-                        int distX = Math.abs(position.getX() - game.getSelectedPosition().getX());
-                        int distY = Math.abs(position.getY() - game.getSelectedPosition().getY());
-                        int stepcost = differenceDecider(distX, distY);
-
-                        if ((((Soldier)(selectedUnit)).getSteppesLeft() >= stepcost)) {
-
-                            moveUnit(game.getSelectedPosition(), position);
-                            game.setSelectedPosition(position);
-                            view.setUnitBoard(selectedUnit);
-                            view.showSelectedUnit();
-                            view.visualDisplayer();
-                            optionsHandler();
-
-                        } else {
-                            view.setTipBoard("Destination is too far.");
-                        }
-
-                    } else {
-                        view.setTipBoard("This unit is too tired.");
-                    }
-
-                } else if (optionSelected > 2) {
+        } else if (game.getSelectedPosition() != null) {
+            Unit selectedUnit = game.getMatrix()[game.getSelectedPosition().getX()][game.getSelectedPosition().getY()];
+            if (selectedUnit.getCanMove()) {
+                if (((Soldier)(selectedUnit)).getSteppesLeft() > 0) {
                     int distX = Math.abs(position.getX() - game.getSelectedPosition().getX());
                     int distY = Math.abs(position.getY() - game.getSelectedPosition().getY());
-                    int plannedCreateDistance = differenceDecider(distX, distY);
+                    int stepcost = differenceDecider(distX, distY);
 
-                    if (plannedCreateDistance <= ((Building)(selectedUnit)).getCreateRange()) {
-                        //TODO
+                    if ((((Soldier)(selectedUnit)).getSteppesLeft() >= stepcost)) {
+
+                        moveUnit(game.getSelectedPosition(), position);
+                        game.setSelectedPosition(position);
+                        view.setUnitBoard(selectedUnit);
+                        view.showSelectedUnit();
+                        view.visualDisplayer();
+                        optionsHandler();
 
                     } else {
-                        view.setTipBoard("You need to deploy unit closer.");
+                        view.setTipBoard("Destination is too far.");
                     }
 
-
                 } else {
-                    view.setTipBoard("This unit cannot move.");
+                    view.setTipBoard("This unit is too tired.");
                 }
 
+            } else if (optionSelected > 2) {
+                int distX = Math.abs(position.getX() - game.getSelectedPosition().getX());
+                int distY = Math.abs(position.getY() - game.getSelectedPosition().getY());
+                int plannedCreateDistance = differenceDecider(distX, distY);
+
+                if (plannedCreateDistance <= ((Building)(selectedUnit)).getCreateRange()) {
+                    addUnit(position);
+                    view.visualDisplayer();
+                    view.setPlayerBoard(player);
+                    view.removeHighLight(game.getSelectedPosition(),3);
+                    view.highLightRange(game.getSelectedPosition(), ((Building)(selectedUnit)).getCreateRange(), view.getColors().getOcean());
+
+                } else {
+                    view.setTipBoard("You need to deploy unit closer.");
+                }
+
+
+            } else {
+                view.setTipBoard("This unit cannot move.");
             }
         }
-
+        
         view.consoleDisplayer();
+    }
+
+    public void addUnit(Position position) {
+
+        Player player = game.getPlayerList().get(game.getCurrentPlayerIndex());
+        Unit unit = game.createUnit(optionSelected, player);
+
+        if (player.getGold() > unit.getCost()) {
+            game.getMatrix()[position.getX()][position.getY()] = unit;
+            game.getMatrix()[position.getX()][position.getY()].setAvailable();
+            player.getUnitList().add(game.getMatrix()[position.getX()][position.getY()]);
+            player.deCreaseGold(game.getMatrix()[position.getX()][position.getY()].getCost());
+
+        } else {
+            view.setTipBoard("You don't have enough gold.");
+        }
     }
 
     public void moveUnit(Position from, Position to) {
@@ -160,39 +178,48 @@ public class DashBoard implements MainContract.Presenter {
                 view.optionButtonsHighlighter(optionSelected);
                 view.highLightRange(game.getSelectedPosition(), ((Soldier)(unit)).getSteppesLeft(), view.getColors().getRoast());
 
-            } else if (optionSelected > 1 && !unit.getCanMove()) {
-                view.optionButtonsHighlighter(optionSelected);
+            } else if (!unit.getCanMove()) {
 
-                if (optionSelected == 3 || optionSelected == 6 || optionSelected == 7 || optionSelected == 8 && unit instanceof Castle) {
+                if (unit instanceof Castle && (optionSelected == 3 || optionSelected == 6 || optionSelected == 7 || optionSelected == 8)) {
+                    view.optionButtonsHighlighter(optionSelected);
                     view.highLightRange(game.getSelectedPosition(), ((Building)(unit)).getCreateRange(), view.getColors().getOcean());
                     view.setTipBoardDefault();
 
-                } else if (optionSelected == 4 && unit instanceof Archery) {
+                } else if (unit instanceof Archery && optionSelected == 4) {
+                    view.optionButtonsHighlighter(optionSelected);
                     view.highLightRange(game.getSelectedPosition(), ((Building)(unit)).getCreateRange(), view.getColors().getOcean());
                     view.setTipBoardDefault();
 
-                } else if (optionSelected == 5 && unit instanceof Stables) {
+                } else if (unit instanceof Stables && optionSelected == 5) {
+                    view.optionButtonsHighlighter(optionSelected);
                     view.highLightRange(game.getSelectedPosition(), ((Building)(unit)).getCreateRange(), view.getColors().getOcean());
                     view.setTipBoardDefault();
+
+                }  else if (unit instanceof MediCamp) {
+                    view.setTipBoard("Building cannot create any unit.");
 
                 } else {
                     view.optionButtonsDefaultColorSetter();
                     view.setTipBoard("Building cannot create this unit.");
+                    setOptionSelected(-1);
                 }
-
-            } else if (optionSelected < 9 && optionSelected > 1 && unit.getCanMove()) {
-                view.setTipBoard("This unit cannot create new units.");
 
             } else if (optionSelected == 0 && !unit.getCanAttack()) {
                 view.setTipBoard("This unit cannot attack.");
+                setOptionSelected(-1);
 
             } else if (optionSelected == 1 && !unit.getCanMove()) {
                 view.setTipBoard("This unit cannot move.");
-        }
+                setOptionSelected(-1);
+
+            } else if (unit.getCanMove()) {
+                view.setTipBoard("This unit cannot create units.");
+                setOptionSelected(-1);
+
+            }
 
         } else {
             view.setTipBoard("No unit selected.");
         }
-
     }
 }

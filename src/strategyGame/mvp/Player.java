@@ -14,7 +14,7 @@ public class Player {
 
     public Player(String color) {
         this.color = color;
-        gold = 370;
+        gold = 1000; //370
         isPlaying = false;
         unitList = new ArrayList<>();
     }

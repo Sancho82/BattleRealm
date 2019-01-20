@@ -15,6 +15,6 @@ public class Paladin extends Soldier {
         STEPRANGE = 3;
         steppesLeft = STEPRANGE;
         attackRange = 1;
-        damage = 35 + (int)(Math.random() * 10 + 1);;
+        damage = 35 + (int)(Math.random() * 10 + 1);
     }
 }

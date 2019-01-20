@@ -5,7 +5,7 @@ import strategyGame.interfaces.Healer;
 
 import javax.swing.*;
 
-public class MediCamp extends Unit implements Healer {
+public class MediCamp extends Building implements Healer {
 
     public MediCamp(String color) {
         super(color);
@@ -17,6 +17,7 @@ public class MediCamp extends Unit implements Healer {
         cost = 150;
         canMove = false;
         canAttack = false;
+        createRange = 0;
     }
 
     public void heal(Player player){

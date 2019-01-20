@@ -33,12 +33,13 @@ public interface MainContract {
 
     interface Presenter {
         void clickField(Position position);
+        void optionsHandler();
+        void addUnit(Position position);
         void moveUnit(Position from, Position to);
         Game getGame();
         int getOptionSelected();
         void setOptionSelected(int b);
         void showActivePlayerStats();
-        void optionsHandler();
     }
 
 }

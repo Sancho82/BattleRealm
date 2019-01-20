@@ -72,27 +72,6 @@ public class Game {
         player.deCreaseGold(castle.getCost());
     }
 
-    public void createArchery(Position position, Player player) {
-        Archery archery = new Archery(player.getColor());
-        matrix[position.getX()][position.getY()] = archery;
-        player.getUnitList().add(archery);
-        player.deCreaseGold(archery.getCost());
-    }
-
-    public void createStables(Position position, Player player) {
-        Stables stables = new Stables(player.getColor());
-        matrix[position.getX()][position.getY()] = stables;
-        player.getUnitList().add(stables);
-        player.deCreaseGold(stables.getCost());
-    }
-
-    public void createMedicamp(Position position, Player player) {
-        MediCamp mediCamp = new MediCamp(player.getColor());
-        matrix[position.getX()][position.getY()] = mediCamp;
-        player.getUnitList().add(mediCamp);
-        player.deCreaseGold(mediCamp.getCost());
-    }
-
     public void createWarrior(Position position, Player player) {
         Warrior warrior = new Warrior(player.getColor());
         matrix[position.getX()][position.getY()] = warrior;
@@ -100,26 +79,32 @@ public class Game {
         player.deCreaseGold(warrior.getCost());
     }
 
-    public void createArcher(Position position, Player player) {
-        Archer archer = new Archer(player.getColor());
-        matrix[position.getX()][position.getY()] = archer;
-        player.getUnitList().add(archer);
-        player.deCreaseGold(archer.getCost());
-    }
+    public Unit createUnit(int optionSelected, Player player) {
 
-    public void createPaladin(Position position, Player player) {
-        Paladin paladin = new Paladin(player.getColor());
-        matrix[position.getX()][position.getY()] = paladin;
-        player.getUnitList().add(paladin);
-        player.deCreaseGold(paladin.getCost());
-    }
+        Unit unit = null;
 
-    /*public void addUnit(Unit unit, Position position, Player player) {
-        unit.setColor(player.getColor());
-        matrix[position.getX()][position.getY()] = unit;
-        player.getUnitList().add(unit);
-        player.deCreaseGold(unit.getCost());
-    }*/
+        switch (optionSelected) {
+            case 3: unit = new Warrior(player.getColor());
+                    break;
+
+            case 4: unit = new Archer(player.getColor());
+                    break;
+
+            case 5: unit = new Paladin(player.getColor());
+                    break;
+
+            case 6: unit = new MediCamp(player.getColor());
+                    break;
+
+            case 7: unit = new Archery(player.getColor());
+                    break;
+
+            case 8: unit = new Stables(player.getColor());
+                    break;
+        }
+
+        return unit;
+    }
 
     public void createStartingUnits() {
         createCastle(new Position(0, 0), redPlayer);
