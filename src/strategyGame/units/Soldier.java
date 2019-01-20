@@ -3,7 +3,7 @@ package strategyGame.units;
 
 public class Soldier extends Unit {
 
-    protected static int STEPRANGE;
+    protected int STEPRANGE;
     protected int steppesLeft;
     protected int attackRange;
     protected int damage;
@@ -42,6 +42,9 @@ public class Soldier extends Unit {
         }
     }
 
+    public void freshStart() {
+        steppesLeft = STEPRANGE;
+    }
     //endregion
 
     public String toString() {

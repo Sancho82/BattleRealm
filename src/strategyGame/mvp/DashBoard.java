@@ -109,7 +109,7 @@ public class DashBoard implements MainContract.Presenter {
                     view.visualDisplayer();
                     view.setPlayerBoard(player);
                     view.removeHighLight(game.getSelectedPosition(), 3);
-                    view.highLightRange(game.getSelectedPosition(), ((Building) (selectedUnit)).getCreateRange(), view.getColors().getOcean());
+                    view.highLightRange(game.getSelectedPosition(), ((Building) (selectedUnit)).getCreateRange(), view.getColors().getLife());
 
                 } else {
                     view.setTipBoard("You need to deploy unit closer.");
@@ -208,7 +208,7 @@ public class DashBoard implements MainContract.Presenter {
                 if (unit.getCanCreate()) {
                     if (unit instanceof Castle) {
                         view.optionButtonsHighlighter(optionSelected);
-                        view.highLightRange(game.getSelectedPosition(), ((Building) (unit)).getCreateRange(), view.getColors().getOcean());
+                        view.highLightRange(game.getSelectedPosition(), ((Building) (unit)).getCreateRange(), view.getColors().getLife());
                         view.setTipBoardDefault();
 
                     } else {
@@ -227,7 +227,7 @@ public class DashBoard implements MainContract.Presenter {
                 if (unit.getCanCreate()) {
                     if (unit instanceof Archery) {
                         view.optionButtonsHighlighter(optionSelected);
-                        view.highLightRange(game.getSelectedPosition(), ((Building) (unit)).getCreateRange(), view.getColors().getOcean());
+                        view.highLightRange(game.getSelectedPosition(), ((Building) (unit)).getCreateRange(), view.getColors().getLife());
                         view.setTipBoardDefault();
 
                     } else {
@@ -246,7 +246,7 @@ public class DashBoard implements MainContract.Presenter {
                 if (unit.getCanCreate()) {
                     if (unit instanceof Stables) {
                         view.optionButtonsHighlighter(optionSelected);
-                        view.highLightRange(game.getSelectedPosition(), ((Building) (unit)).getCreateRange(), view.getColors().getOcean());
+                        view.highLightRange(game.getSelectedPosition(), ((Building) (unit)).getCreateRange(), view.getColors().getLife());
                         view.setTipBoardDefault();
 
                     } else {

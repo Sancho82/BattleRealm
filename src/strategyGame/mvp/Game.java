@@ -119,7 +119,14 @@ public class Game {
     public void activatePlayer(Player player) {
         player.increaseGold();
         for (int i = 0; i < player.getUnitList().size(); i++) {
-            player.getUnitList().get(i).setAvailable();
+            Unit unit = player.getUnitList().get(i);
+            unit.setAvailable();
+            if (unit instanceof Soldier) {
+                ((Soldier)(unit)).freshStart();
+
+            } else if (unit instanceof MediCamp) {
+                ((MediCamp)(unit)).heal(player);
+            }
         }
     }
 

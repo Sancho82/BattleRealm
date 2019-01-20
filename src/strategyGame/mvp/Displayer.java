@@ -184,7 +184,7 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
         tipBoard.setVerticalAlignment(SwingConstants.TOP);
         tipBoard.setForeground(Color.white);
         tipBoard.setOpaque(true);
-        tipBoard.setBackground(colors.getFog());
+        tipBoard.setBackground(colors.getOcean());
         battlePanel.add(tipBoard);
 
         playerBoard = new JLabel();
@@ -195,7 +195,7 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
         playerBoard.setVerticalAlignment(SwingConstants.TOP);
         playerBoard.setForeground(Color.white);
         playerBoard.setOpaque(true);
-        playerBoard.setBackground(colors.getFog());
+        playerBoard.setBackground(colors.getOcean());
         battlePanel.add(playerBoard);
 
         unitBoard = new JLabel();
@@ -206,7 +206,7 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
         unitBoard.setVerticalAlignment(SwingConstants.TOP);
         unitBoard.setForeground(Color.white);
         unitBoard.setOpaque(true);
-        unitBoard.setBackground(colors.getFog());
+        unitBoard.setBackground(colors.getOcean());
         battlePanel.add(unitBoard);
 
         setTipBoardDefault();
@@ -296,6 +296,12 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
             for (int j = 0; j < size; j++) {
                 if (dashBoard.getGame().getMatrix()[i][j] != null) {
                     buttons[j][i].setIcon(dashBoard.getGame().getMatrix()[i][j].getIcon());
+                    if (dashBoard.getGame().getMatrix()[i][j].getColor().equals("Red")) {
+                        buttons[j][i].setBackground(colors.getPeach());
+
+                    } else if (dashBoard.getGame().getMatrix()[i][j].getColor().equals("Blue")) {
+                        buttons[j][i].setBackground(colors.getFog());
+                    }
 
                 } else {
                     buttons[j][i].setIcon(null);
@@ -325,8 +331,17 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 Unit unit = dashBoard.getGame().getMatrix()[i][j];
-                if (unit != null && unit.getIsSelected()) {
-                    buttons[j][i].setBackground(Color.orange);
+                if (unit != null) {
+                    if (unit.getIsSelected()) {
+                        buttons[j][i].setBackground(Color.orange);
+
+                    } else if (unit.getColor().equals("Red")){
+                        buttons[j][i].setBackground(colors.getPeach());
+
+                    } else if (unit.getColor().equals("Blue")) {
+                        buttons[j][i].setBackground(colors.getFog());
+
+                    }
 
                 } else {
                     buttons[j][i].setBackground(colors.getGrass());
@@ -367,27 +382,27 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
                 break;
 
             case 3:
-                createWarrior.setBackground(colors.getOcean());
+                createWarrior.setBackground(colors.getLife());
                 break;
 
             case 4:
-                createArcher.setBackground(colors.getOcean());
+                createArcher.setBackground(colors.getLife());
                 break;
 
             case 5:
-                createPaladin.setBackground(colors.getOcean());
+                createPaladin.setBackground(colors.getLife());
                 break;
 
             case 6:
-                createMediCamp.setBackground(colors.getOcean());
+                createMediCamp.setBackground(colors.getLife());
                 break;
 
             case 7:
-                createArchery.setBackground(colors.getOcean());
+                createArchery.setBackground(colors.getLife());
                 break;
 
             case 8:
-                createStables.setBackground(colors.getOcean());
+                createStables.setBackground(colors.getLife());
                 break;
         }
 
@@ -396,9 +411,9 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
 
     @Override
     public void optionButtonsDefaultColorSetter() {
-        attack.setBackground(colors.getSolar());
-        move.setBackground(colors.getSolar());
-        endTurn.setBackground(colors.getSolar());
+        attack.setBackground(colors.getGold());
+        move.setBackground(colors.getGold());
+        endTurn.setBackground(colors.getGold());
         createWarrior.setBackground(colors.getTrepp());
         createArcher.setBackground(colors.getTrepp());
         createPaladin.setBackground(colors.getTrepp());
