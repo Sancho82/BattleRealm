@@ -36,6 +36,14 @@ public class Player {
 
     //region Setters
 
+    public void addToUnitList(Unit unit) {
+        unitList.add(unit);
+    }
+
+    public void removeFromUnitList(Unit unit) {
+        unitList.remove(unit);
+    }
+
     public void increaseGold() {
         gold += 50;
     }

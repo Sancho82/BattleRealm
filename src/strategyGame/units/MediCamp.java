@@ -21,7 +21,7 @@ public class MediCamp extends Building implements Healer {
         createRange = 0;
     }
 
-    public void heal(Player player){
+    public void healAll(Player player){
         for (int i = 0; i < player.getUnitList().size(); i++) {
             player.getUnitList().get(i).heal();
         }

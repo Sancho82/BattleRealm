@@ -87,6 +87,10 @@ public abstract class Unit {
         }
     }
 
+    public void takeDamage(int damage) {
+        hp -= damage;
+    }
+
     public void setAvailable() {
         isAvailable = true;
     }

@@ -1,5 +1,6 @@
 package strategyGame.mvp;
 
+import javafx.geometry.Pos;
 import strategyGame.units.*;
 
 import java.util.ArrayList;
@@ -55,14 +56,16 @@ public class Game {
 
     public void createCastle(Position position, Player player) {
         Castle castle = new Castle(player.getColor());
-        matrix[position.getX()][position.getY()] = castle;
-        player.getUnitList().add(castle);
+        setUnit(castle, position);
+        // matrix[position.getX()][position.getY()] = castle;
+        player.addToUnitList(castle);
     }
 
     public void createWarrior(Position position, Player player) {
-        Warrior warrior = new Warrior(player.getColor());
-        matrix[position.getX()][position.getY()] = warrior;
-        player.getUnitList().add(warrior);
+        Unit warrior = new Warrior(player.getColor());
+        setUnit(warrior, position);
+        // matrix[position.getX()][position.getY()] = warrior;
+        player.addToUnitList(warrior);
     }
 
     public Unit createUnit(int optionSelected, Player player) {
@@ -106,9 +109,19 @@ public class Game {
 
     //endregion
 
+
+    //region Setters
+
     public void setSelectedPosition(Position position) {
         selectedPosition = position;
     }
+
+    public void setUnit(Unit unit, Position position) {
+        matrix[position.getX()][position.getY()] = unit;
+    }
+
+    //endregion
+
 
     public void nextPlayer() {
         deActivatePlayer(playerList.get(currentPlayerIndex));
@@ -125,7 +138,7 @@ public class Game {
                 ((Soldier)(unit)).freshStart();
 
             } else if (unit instanceof MediCamp) {
-                ((MediCamp)(unit)).heal(player);
+                ((MediCamp)(unit)).healAll(player);
             }
         }
     }
@@ -145,4 +158,11 @@ public class Game {
         unit.deselect();
     }
 
+    public void attack(Soldier attacker, Unit target) {
+        target.takeDamage(attacker.getDamage());
+    }
+
+    public boolean checkIfUnitisAlive(Unit unit) {
+        return unit.getHp() > 0;
+    }
 }

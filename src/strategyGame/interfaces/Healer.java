@@ -4,5 +4,5 @@ import strategyGame.mvp.Player;
 
 public interface Healer {
 
-    void heal(Player player);
+    void healAll(Player player);
 }

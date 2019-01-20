@@ -305,6 +305,7 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
 
                 } else {
                     buttons[j][i].setIcon(null);
+                    buttons[j][i].setBackground(colors.getGrass());
                 }
             }
         }

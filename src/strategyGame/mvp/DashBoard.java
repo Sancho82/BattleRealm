@@ -46,43 +46,61 @@ public class DashBoard implements MainContract.Presenter {
     @Override
     public void clickField(Position position) {
         view.setTipBoardDefault();
-        Unit unit = game.getMatrix()[position.getX()][position.getY()];
+        Unit clickedUnit = game.getMatrix()[position.getX()][position.getY()];
         Player player = game.getPlayerList().get(game.getCurrentPlayerIndex());
-        if (unit != null) {
-            if (unit.getIsAvailable()) {
+        if (clickedUnit != null) {
+            if (clickedUnit.getIsAvailable()) {
                 setOptionSelected(-1);
                 view.optionButtonsDefaultColorSetter();
-                if (!unit.getIsSelected()) {
+                if (!clickedUnit.getIsSelected()) {
                     if (game.getSelectedPosition() != null) {
-                        Unit previous = game.getMatrix()[game.getSelectedPosition().getX()][game.getSelectedPosition().getY()];
-                        game.deSelectUnit(previous);
+                        Unit selectedUnit = game.getMatrix()[game.getSelectedPosition().getX()][game.getSelectedPosition().getY()];
+                        game.deSelectUnit(selectedUnit);
                     }
 
                     game.setSelectedPosition(position);
-                    game.selectUnit(unit);
-                    view.setUnitBoard(unit);
+                    game.selectUnit(clickedUnit);
+                    view.setUnitBoard(clickedUnit);
 
                 } else {
-                    game.deSelectUnit(unit);
+                    game.deSelectUnit(clickedUnit);
                     game.setSelectedPosition(null);
                     view.setUnitBoardDefault();
                 }
 
                 view.showSelectedUnit();
 
+            } else if (game.getSelectedPosition() != null) {
+                Unit selectedUnit = game.getMatrix()[game.getSelectedPosition().getX()][game.getSelectedPosition().getY()];
+                if (selectedUnit instanceof Soldier) {
+                    if (!((Soldier) (selectedUnit)).getHasAttacked()) {
+                        if (isWithinRange(position, ((Soldier) (selectedUnit)).getAttackRange())) {
+                            game.attack((Soldier) (selectedUnit), clickedUnit);
+                            ((Soldier) selectedUnit).useAttack();
+                            if (!game.checkIfUnitisAlive(clickedUnit)) {
+                                game.setUnit(null, position);
+                                view.visualDisplayer();
+                            }
+                        } else {
+                            view.setTipBoard("Target is too far.");
+                        }
+
+                    } else {
+                        view.setTipBoard("Unit has already attacked.");
+                    }
+
+                }
+
             } else {
                 view.setTipBoard("You cannot select this unit.");
+
             }
 
         } else if (game.getSelectedPosition() != null) {
             Unit selectedUnit = game.getMatrix()[game.getSelectedPosition().getX()][game.getSelectedPosition().getY()];
             if (selectedUnit.getCanMove()) {
                 if (((Soldier) (selectedUnit)).getSteppesLeft() > 0) {
-                    int distX = Math.abs(position.getX() - game.getSelectedPosition().getX());
-                    int distY = Math.abs(position.getY() - game.getSelectedPosition().getY());
-                    int stepcost = differenceDecider(distX, distY);
-
-                    if ((((Soldier) (selectedUnit)).getSteppesLeft() >= stepcost)) {
+                    if (isWithinRange(position, ((Soldier) (selectedUnit)).getSteppesLeft())) {
 
                         moveUnit(game.getSelectedPosition(), position);
                         game.setSelectedPosition(position);
@@ -100,11 +118,7 @@ public class DashBoard implements MainContract.Presenter {
                 }
 
             } else if (optionSelected > 2) {
-                int distX = Math.abs(position.getX() - game.getSelectedPosition().getX());
-                int distY = Math.abs(position.getY() - game.getSelectedPosition().getY());
-                int plannedCreateDistance = differenceDecider(distX, distY);
-
-                if (plannedCreateDistance <= ((Building) (selectedUnit)).getCreateRange()) {
+                if (isWithinRange(position, ((Building) (selectedUnit)).getCreateRange())) {
                     addUnit(position);
                     view.visualDisplayer();
                     view.setPlayerBoard(player);
@@ -130,10 +144,10 @@ public class DashBoard implements MainContract.Presenter {
         Unit unit = game.createUnit(optionSelected, player);
 
         if (player.getGold() > unit.getCost()) {
-            game.getMatrix()[position.getX()][position.getY()] = unit;
-            game.getMatrix()[position.getX()][position.getY()].setAvailable();
-            player.getUnitList().add(game.getMatrix()[position.getX()][position.getY()]);
-            player.deCreaseGold(game.getMatrix()[position.getX()][position.getY()].getCost());
+            unit.setAvailable();
+            game.setUnit(unit, position);
+            player.addToUnitList(unit);
+            player.deCreaseGold(unit.getCost());
 
         } else {
             view.setTipBoard("You don't have enough gold.");
@@ -148,15 +162,21 @@ public class DashBoard implements MainContract.Presenter {
         int stepcost = differenceDecider(distX, distY);
         ((Soldier) (unit)).reduceSteppes(stepcost);
 
-        game.getMatrix()[to.getX()][to.getY()] = unit;
-        game.getMatrix()[from.getX()][from.getY()] = null;
+        game.setUnit(unit, to);
+        game.setUnit(null, from);
+
     }
 
     public int differenceDecider(int a, int b) {
-        if (a > b) {
-            return a;
-        }
-        return b;
+        return a > b ? a : b;
+    }
+
+    public boolean isWithinRange(Position position, int range) {
+        int distanceX = Math.abs(position.getX() - game.getSelectedPosition().getX());
+        int distanceY = Math.abs(position.getY() - game.getSelectedPosition().getY());
+        int distance = differenceDecider(distanceX, distanceY);
+
+        return range >= distance;
     }
 
     public void optionsHandler() {

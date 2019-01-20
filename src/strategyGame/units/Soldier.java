@@ -7,11 +7,13 @@ public class Soldier extends Unit {
     protected int steppesLeft;
     protected int attackRange;
     protected int damage;
+    protected boolean hasAttacked;
 
     public Soldier(String color) {
         super(color);
         canMove = true;
         canAttack = true;
+        hasAttacked = false;
     }
 
     //region Getters
@@ -32,6 +34,10 @@ public class Soldier extends Unit {
         return damage;
     }
 
+    public boolean getHasAttacked() {
+        return hasAttacked;
+    }
+
     //endregion
 
     //region Setters
@@ -42,8 +48,13 @@ public class Soldier extends Unit {
         }
     }
 
+    public void useAttack() {
+        hasAttacked = true;
+    }
+
     public void freshStart() {
         steppesLeft = STEPRANGE;
+        hasAttacked = false;
     }
     //endregion
 
