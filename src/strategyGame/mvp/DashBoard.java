@@ -80,6 +80,14 @@ public class DashBoard implements MainContract.Presenter {
                             if (!game.checkIfUnitisAlive(clickedUnit)) {
                                 game.setUnit(null, position);
                                 view.visualDisplayer();
+                                if (optionSelected == 0) {
+                                   view.highLightRange(game.getSelectedPosition(), ((Soldier) selectedUnit).getAttackRange(), view.getColors().getAlarm());
+
+                                } else if (optionSelected == 1) {
+                                    view.highLightRange(game.getSelectedPosition(), ((Soldier) selectedUnit).getSteppesLeft(), view.getColors().getRoast());
+
+                                }
+
                             }
                         } else {
                             view.setTipBoard("Target is too far.");
@@ -186,6 +194,7 @@ public class DashBoard implements MainContract.Presenter {
             view.setTipBoardDefault();
             view.setUnitBoardDefault();
             setOptionSelected(-1);
+            view.optionButtonsDefaultColorSetter();
             if (game.getSelectedPosition() != null) {
                 game.setSelectedPosition(null);
             }
