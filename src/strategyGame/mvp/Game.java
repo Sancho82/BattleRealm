@@ -1,6 +1,5 @@
 package strategyGame.mvp;
 
-import javafx.geometry.Pos;
 import strategyGame.units.*;
 
 import java.util.ArrayList;
@@ -54,20 +53,6 @@ public class Game {
 
     //region Creators
 
-    public void createCastle(Position position, Player player) {
-        Castle castle = new Castle(player.getColor());
-        setUnit(castle, position);
-        // matrix[position.getX()][position.getY()] = castle;
-        player.addToUnitList(castle);
-    }
-
-    public void createWarrior(Position position, Player player) {
-        Unit warrior = new Warrior(player.getColor());
-        setUnit(warrior, position);
-        // matrix[position.getX()][position.getY()] = warrior;
-        player.addToUnitList(warrior);
-    }
-
     public Unit createUnit(int optionSelected, Player player) {
 
         Unit unit = null;
@@ -90,21 +75,29 @@ public class Game {
 
             case 8: unit = new Stables(player.getColor());
                     break;
+
+            case 9: unit = new Castle((player.getColor()));
         }
 
         return unit;
     }
 
-    public void createStartingUnits() {
-        createCastle(new Position(0, 0), playerList.get(0));
-        createWarrior(new Position(0, 1), playerList.get(0));
-        createWarrior(new Position(1, 0), playerList.get(0));
-        createWarrior(new Position(1, 1), playerList.get(0));
+    public void createStartingUnit(int type, Position position, Player player) {
+        Unit unit = createUnit(type, player);
+        player.getUnitList().add(unit);
+        matrix[position.getX()][position.getY()] = unit;
+    }
 
-        createCastle(new Position(9, 9), playerList.get(1));
-        createWarrior(new Position(8, 9), playerList.get(1));
-        createWarrior(new Position(9, 8), playerList.get(1));
-        createWarrior(new Position(8, 8), playerList.get(1));
+    public void createStartingUnits() {
+        createStartingUnit(9, new Position(0,0), playerList.get(0));
+        createStartingUnit(3, new Position(0,1), playerList.get(0));
+        createStartingUnit(3, new Position(1,0), playerList.get(0));
+        createStartingUnit(3, new Position(1,1), playerList.get(0));
+
+        createStartingUnit(9, new Position(9,9), playerList.get(1));
+        createStartingUnit(3, new Position(9,8), playerList.get(1));
+        createStartingUnit(3, new Position(8,9), playerList.get(1));
+        createStartingUnit(3, new Position(8,8), playerList.get(1));
     }
 
     //endregion
@@ -162,7 +155,7 @@ public class Game {
         target.takeDamage(attacker.getDamage());
     }
 
-    public boolean checkIfUnitisAlive(Unit unit) {
+    public boolean checkIfUnitIsAlive(Unit unit) {
         return unit.getHp() > 0;
     }
 }

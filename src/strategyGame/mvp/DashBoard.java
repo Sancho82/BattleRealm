@@ -77,7 +77,7 @@ public class DashBoard implements MainContract.Presenter {
                         if (isWithinRange(position, ((Soldier) (selectedUnit)).getAttackRange())) {
                             game.attack((Soldier) (selectedUnit), clickedUnit);
                             ((Soldier) selectedUnit).useAttack();
-                            if (!game.checkIfUnitisAlive(clickedUnit)) {
+                            if (!game.checkIfUnitIsAlive(clickedUnit)) {
                                 game.setUnit(null, position);
                                 view.visualDisplayer();
                                 if (optionSelected == 0) {
