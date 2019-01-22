@@ -29,6 +29,8 @@ public interface MainContract {
         void setTipBoard(String text);
         void setTipBoardDefault();
 
+        void toolTipSetter();
+
     }
 
     interface Presenter {
@@ -36,6 +38,8 @@ public interface MainContract {
         void optionsHandler();
         void addUnit(Position position);
         void moveUnit(Position from, Position to);
+        int differenceDecider(int a, int b);
+        boolean isWithinRange(Position position, int range);
         Game getGame();
         int getOptionSelected();
         void setOptionSelected(int b);

@@ -1,6 +1,7 @@
 package strategyGame.mvp;
 
 import strategyGame.colors.Colors;
+import strategyGame.units.Soldier;
 import strategyGame.units.Unit;
 import strategyGame.units.Warrior;
 
@@ -287,6 +288,9 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
         int x = Integer.valueOf(coords[1]);
         int y = Integer.valueOf(coords[0]);
 
+        Unit unit = dashBoard.getGame().getMatrix()[x][y];
+        JButton button = buttons[y][x];
+
         dashBoard.clickField(new Position(x, y));
     }
 
@@ -306,6 +310,28 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
                 } else {
                     buttons[j][i].setIcon(null);
                     buttons[j][i].setBackground(colors.getGrass());
+                }
+            }
+        }
+    }
+
+    @Override
+    public void toolTipSetter() {
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                Unit unit = dashBoard.getGame().getMatrix()[i][j];
+                if (unit != null) {
+                    if (unit.getHp() == unit.getMAX_HP()) {
+                        if (unit instanceof Soldier) buttons[j][i].setToolTipText("Healty");
+                        else buttons[j][i].setToolTipText("Undamaged");
+
+                    } else if (unit.getHp() < unit.getMAX_HP() && unit.getHp() >= unit.getMAX_HP() * 0.5) {
+                        if (unit instanceof Soldier) buttons[j][i].setToolTipText("Injured");
+                        else buttons[j][i].setToolTipText("Damaged");
+
+                    } else {
+                       buttons[j][i].setToolTipText("Weak");
+                    }
                 }
             }
         }
@@ -441,6 +467,7 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
         }
     }
 
+    @Override
     public void removeHighLight(Position position, int range) {
         int x = position.getX();
         int y = position.getY();

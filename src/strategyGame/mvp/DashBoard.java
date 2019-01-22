@@ -101,7 +101,6 @@ public class DashBoard implements MainContract.Presenter {
 
             } else {
                 view.setTipBoard("You cannot select this unit.");
-
             }
 
         } else if (game.getSelectedPosition() != null) {
@@ -142,7 +141,7 @@ public class DashBoard implements MainContract.Presenter {
                 view.setTipBoard("This unit cannot move.");
             }
         }
-
+        view.toolTipSetter();
         view.consoleDisplayer();
     }
 
