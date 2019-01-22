@@ -188,17 +188,7 @@ public class DashBoard implements MainContract.Presenter {
 
     public void optionsHandler() {
         if (optionSelected == 2) {
-            game.nextPlayer();
-            view.setPlayerBoard(game.getPlayerList().get(game.getCurrentPlayerIndex()));
-            view.setTipBoardDefault();
-            view.setUnitBoardDefault();
-            setOptionSelected(-1);
-            view.optionButtonsDefaultColorSetter();
-            if (game.getSelectedPosition() != null) {
-                game.setSelectedPosition(null);
-            }
-            view.showSelectedUnit();
-
+            option2();
 
         } else if (game.getSelectedPosition() != null) {
             int x = game.getSelectedPosition().getX();
@@ -211,87 +201,121 @@ public class DashBoard implements MainContract.Presenter {
                 view.optionButtonsDefaultColorSetter();
 
             } else if (optionSelected == 0) {
-                if (unit.getCanAttack()) {
-                    view.optionButtonsHighlighter(optionSelected);
-                    view.highLightRange(game.getSelectedPosition(), ((Soldier) (unit)).getAttackRange(), view.getColors().getAlarm());
-                    view.setTipBoardDefault();
-
-                } else {
-                    view.setTipBoard("Buildings have no attack-range.");
-                    setOptionSelected(-1);
-                }
+               option0(unit);
 
             } else if (optionSelected == 1) {
-                if (unit.getCanMove()) {
-                    view.optionButtonsHighlighter(optionSelected);
-                    view.highLightRange(game.getSelectedPosition(), ((Soldier) (unit)).getSteppesLeft(), view.getColors().getRoast());
-                    view.setTipBoardDefault();
-
-                } else {
-                    view.setTipBoard("Buildings have no move-range.");
-                    setOptionSelected(-1);
-                }
+                option1(unit);
 
             } else if (optionSelected == 3 || optionSelected == 6 || optionSelected == 7 || optionSelected == 8) {
-                if (unit.getCanCreate()) {
-                    if (unit instanceof Castle) {
-                        view.optionButtonsHighlighter(optionSelected);
-                        view.highLightRange(game.getSelectedPosition(), ((Building) (unit)).getCreateRange(), view.getColors().getLife());
-                        view.setTipBoardDefault();
-
-                    } else {
-                        view.setTipBoard("Building cannot create Warriors.");
-                        setOptionSelected(-1);
-                        view.optionButtonsDefaultColorSetter();
-                    }
-
-                } else {
-                    view.setTipBoard("This unit cannot create units.");
-                    view.optionButtonsDefaultColorSetter();
-                    setOptionSelected(-1);
-                }
+                option3678(unit);
 
             } else if (optionSelected == 4) {
-                if (unit.getCanCreate()) {
-                    if (unit instanceof Archery) {
-                        view.optionButtonsHighlighter(optionSelected);
-                        view.highLightRange(game.getSelectedPosition(), ((Building) (unit)).getCreateRange(), view.getColors().getLife());
-                        view.setTipBoardDefault();
-
-                    } else {
-                        view.setTipBoard("This unit cannot create Archers.");
-                        setOptionSelected(-1);
-                        view.optionButtonsDefaultColorSetter();
-                    }
-
-                } else {
-                    view.setTipBoard("This unit cannot create units.");
-                    setOptionSelected(-1);
-                    view.optionButtonsDefaultColorSetter();
-                }
+                option4(unit);
 
             } else if (optionSelected == 5) {
-                if (unit.getCanCreate()) {
-                    if (unit instanceof Stables) {
-                        view.optionButtonsHighlighter(optionSelected);
-                        view.highLightRange(game.getSelectedPosition(), ((Building) (unit)).getCreateRange(), view.getColors().getLife());
-                        view.setTipBoardDefault();
-
-                    } else {
-                        view.setTipBoard("This unit cannot create Paladins.");
-                        setOptionSelected(-1);
-                        view.optionButtonsDefaultColorSetter();
-                    }
-
-                } else {
-                    view.setTipBoard("This unit cannot create units.");
-                    setOptionSelected(-1);
-                    view.optionButtonsDefaultColorSetter();
-                }
+                option5(unit);
 
             } else {
                 view.setTipBoard("No unit selected.");
             }
         }
+    }
+
+    public void option0(Unit unit) {
+        if (unit.getCanAttack()) {
+            view.optionButtonsHighlighter(optionSelected);
+            view.highLightRange(game.getSelectedPosition(), ((Soldier) (unit)).getAttackRange(), view.getColors().getAlarm());
+            view.setTipBoardDefault();
+
+        } else {
+            view.setTipBoard("Buildings have no attack-range.");
+            setOptionSelected(-1);
+        }
+    }
+
+    public void option1(Unit unit) {
+        if (unit.getCanMove()) {
+            view.optionButtonsHighlighter(optionSelected);
+            view.highLightRange(game.getSelectedPosition(), ((Soldier) (unit)).getSteppesLeft(), view.getColors().getRoast());
+            view.setTipBoardDefault();
+
+        } else {
+            view.setTipBoard("Buildings have no move-range.");
+            setOptionSelected(-1);
+        }
+    }
+
+    public void option2() {
+        game.nextPlayer();
+        view.setPlayerBoard(game.getPlayerList().get(game.getCurrentPlayerIndex()));
+        view.setTipBoardDefault();
+        view.setUnitBoardDefault();
+        setOptionSelected(-1);
+        view.optionButtonsDefaultColorSetter();
+        if (game.getSelectedPosition() != null) {
+            game.setSelectedPosition(null);
+        }
+        view.showSelectedUnit();
+    }
+
+    public void option3678(Unit unit) {
+        if (unit.getCanCreate()) {
+            if (unit instanceof Castle) {
+                view.optionButtonsHighlighter(optionSelected);
+                view.highLightRange(game.getSelectedPosition(), ((Building) (unit)).getCreateRange(), view.getColors().getLife());
+                view.setTipBoardDefault();
+
+            } else {
+                view.setTipBoard("Building cannot create Warriors.");
+                setOptionSelected(-1);
+                view.optionButtonsDefaultColorSetter();
+            }
+
+        } else {
+            view.setTipBoard("This unit cannot create units.");
+            view.optionButtonsDefaultColorSetter();
+            setOptionSelected(-1);
+        }
+    }
+
+    public void option4(Unit unit) {
+        if (unit.getCanCreate()) {
+            if (unit instanceof Archery) {
+                view.optionButtonsHighlighter(optionSelected);
+                view.highLightRange(game.getSelectedPosition(), ((Building) (unit)).getCreateRange(), view.getColors().getLife());
+                view.setTipBoardDefault();
+
+            } else {
+                view.setTipBoard("This unit cannot create Archers.");
+                setOptionSelected(-1);
+                view.optionButtonsDefaultColorSetter();
+            }
+
+        } else {
+            view.setTipBoard("This unit cannot create units.");
+            setOptionSelected(-1);
+            view.optionButtonsDefaultColorSetter();
+        }
+    }
+
+    public void option5(Unit unit) {
+        if (unit.getCanCreate()) {
+            if (unit instanceof Stables) {
+                view.optionButtonsHighlighter(optionSelected);
+                view.highLightRange(game.getSelectedPosition(), ((Building) (unit)).getCreateRange(), view.getColors().getLife());
+                view.setTipBoardDefault();
+
+            } else {
+                view.setTipBoard("This unit cannot create Paladins.");
+                setOptionSelected(-1);
+                view.optionButtonsDefaultColorSetter();
+            }
+
+        } else {
+            view.setTipBoard("This unit cannot create units.");
+            setOptionSelected(-1);
+            view.optionButtonsDefaultColorSetter();
+        }
+
     }
 }

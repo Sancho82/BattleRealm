@@ -322,7 +322,7 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
                 Unit unit = dashBoard.getGame().getMatrix()[i][j];
                 if (unit != null) {
                     if (unit.getHp() == unit.getMAX_HP()) {
-                        if (unit instanceof Soldier) buttons[j][i].setToolTipText("Healty");
+                        if (unit instanceof Soldier) buttons[j][i].setToolTipText("Uninjured");
                         else buttons[j][i].setToolTipText("Undamaged");
 
                     } else if (unit.getHp() < unit.getMAX_HP() && unit.getHp() >= unit.getMAX_HP() * 0.5) {
