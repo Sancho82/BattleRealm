@@ -14,7 +14,7 @@ public class MediCamp extends Building implements Healer {
         icon = new ImageIcon(getClass().getResource("../icons/MediCamp_Grey.png"));
         MAX_HP = 50;
         hp = MAX_HP;
-        cost = 150;
+        cost = 100;
         canMove = false;
         canAttack = false;
         canCreate = false;

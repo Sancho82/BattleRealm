@@ -1,0 +1,121 @@
+/*
+    @Override
+    public void clickField(Position position) {
+        view.setTipBoardDefault();
+        Unit[][] matrix = game.getMatrix();
+        int actX = position.getX();
+        int actY = position.getY();
+        Unit clickedUnit = matrix[actX][actY];
+        Player player = game.getPlayerList().get(game.getCurrentPlayerIndex());
+        if (clickedUnit != null) {
+            if (clickedUnit.getIsAvailable()) {
+                setOptionSelected(-1);
+                view.optionButtonsDefaultColorSetter();
+                if (!clickedUnit.getIsSelected()) {
+                    if (game.getSelectedPosition() != null) {
+                        int selX = game.getSelectedPosition().getX();
+                        int selY = game.getSelectedPosition().getY();
+                        Unit selectedUnit = matrix[selX][selY];
+                        game.deSelectUnit(selectedUnit);
+                    }
+
+                    game.setSelectedPosition(position);
+                    game.selectUnit(clickedUnit);
+                    view.setUnitBoard(clickedUnit);
+
+                } else {
+                    game.deSelectUnit(clickedUnit);
+                    game.setSelectedPosition(null);
+                    view.setUnitBoardDefault();
+                }
+
+                view.showSelectedUnit(matrix);
+
+            } else if (game.getSelectedPosition() != null) {
+                int selX = game.getSelectedPosition().getX();
+                int selY = game.getSelectedPosition().getY();
+                Unit selectedUnit = game.getMatrix()[selX][selY];
+                if (selectedUnit instanceof Soldier) {
+                    if (!((Soldier) (selectedUnit)).getHasAttacked()) {
+                        if (isWithinRange(position, ((Soldier) (selectedUnit)).getAttackRange())) {
+                            game.attack((Soldier) (selectedUnit), clickedUnit);
+                            ((Soldier) selectedUnit).useAttack();
+                            if (!game.checkIfUnitIsAlive(clickedUnit)) {
+                                game.setUnit(null, position);
+                                game.removeUnitFromOwnersList(clickedUnit);
+                                view.visualDisplayer();
+                                if (game.isGameOver()) {
+                                    view.finalMessage(game.returnWinner().getName());
+                                    System.out.println(game.isGameOver());
+
+                                } else if (optionSelected == 0) {
+                                   view.highLightRange(matrix, game.getSelectedPosition(),
+                                           ((Soldier) selectedUnit).getAttackRange(), view.getColors().getBleed(), view.getColors().getAlarm());
+
+                                } else if (optionSelected == 1) {
+                                    view.highLightRange(matrix, game.getSelectedPosition(),
+                                            ((Soldier) selectedUnit).getSteppesLeft(), view.getColors().getBleed(), view.getColors().getRoast());
+
+                                }
+
+                            }
+                        } else {
+                            view.setTipBoard("Target is too far.");
+                        }
+
+                    } else {
+                        view.setTipBoard("Unit has already attacked.");
+                    }
+
+                }
+
+            } else {
+                view.setTipBoard("You cannot select this unit.");
+            }
+
+        } else if (game.getSelectedPosition() != null) {
+            int selX = game.getSelectedPosition().getX();
+            int selY = game.getSelectedPosition().getY();
+            Unit selectedUnit = matrix[selX][selY];
+            if (selectedUnit.getCanMove()) {
+                if (((Soldier) (selectedUnit)).getSteppesLeft() > 0) {
+                    if (isWithinRange(position, ((Soldier) (selectedUnit)).getSteppesLeft())) {
+
+                        moveUnit(game.getSelectedPosition(), position);
+                        game.setSelectedPosition(position);
+                        view.setUnitBoard(selectedUnit);
+                        view.showSelectedUnit(matrix);
+                        view.visualDisplayer();
+                        optionsHandler();
+
+                    } else {
+                        view.setTipBoard("Destination is too far.");
+                    }
+
+                } else {
+                    view.setTipBoard("This unit is too tired.");
+                }
+
+            } else if (optionSelected > 2) {
+                if (isWithinRange(position, ((Building) (selectedUnit)).getCreateRange())) {
+                    addUnit(position);
+                    view.visualDisplayer();
+                    view.setPlayerBoard(player);
+                    view.showSelectedUnit(matrix);
+                    view.highLightRange(matrix, game.getSelectedPosition(),
+                            ((Building) (selectedUnit)).getCreateRange(), view.getColors().getLife(), view.getColors().getLife());
+
+                } else {
+                    view.setTipBoard("You need to deploy unit closer.");
+                }
+
+
+            } else {
+                view.setTipBoard("This unit cannot move.");
+            }
+        }
+
+        view.toolTipSetter();
+        view.consoleDisplayer();
+    }
+*/

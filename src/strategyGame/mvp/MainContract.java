@@ -11,14 +11,13 @@ public interface MainContract {
     interface View {
         void visualDisplayer();
         void consoleDisplayer();
-        void showSelectedUnit(Unit[][] matrix);
 
         void optionButtonsLoader();
         void optionButtonsHighlighter(int selection);
         void optionButtonsDefaultColorSetter();
 
         void highLightRange(Unit[][] matrix, Position position, int range, Color color1, Color color2);
-        // void removeHighLight(Unit[][] matrix, Position position, int range);
+        void showSelectedUnit(Unit[][] matrix);
 
         Colors getColors();
 
@@ -49,5 +48,4 @@ public interface MainContract {
         void setOptionSelected(int b);
         void showActivePlayerStats();
     }
-
 }

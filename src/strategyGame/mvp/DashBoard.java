@@ -6,6 +6,7 @@ public class DashBoard implements MainContract.Presenter {
 
     private Game game;
     private MainContract.View view;
+    private ClickFieldHelpersMains cFHMains;
 
     private int optionSelected;
 
@@ -14,6 +15,8 @@ public class DashBoard implements MainContract.Presenter {
         this.view = view;
 
         optionSelected = -1;
+
+        cFHMains = new ClickFieldHelpersMains();
     }
 
     //region Getters
@@ -42,122 +45,30 @@ public class DashBoard implements MainContract.Presenter {
 
     //endregion
 
-
     @Override
     public void clickField(Position position) {
+
         view.setTipBoardDefault();
         Unit[][] matrix = game.getMatrix();
         int actX = position.getX();
         int actY = position.getY();
         Unit clickedUnit = matrix[actX][actY];
-        Player player = game.getPlayerList().get(game.getCurrentPlayerIndex());
+
         if (clickedUnit != null) {
             if (clickedUnit.getIsAvailable()) {
-                setOptionSelected(-1);
-                view.optionButtonsDefaultColorSetter();
-                if (!clickedUnit.getIsSelected()) {
-                    if (game.getSelectedPosition() != null) {
-                        int selX = game.getSelectedPosition().getX();
-                        int selY = game.getSelectedPosition().getY();
-                        Unit selectedUnit = matrix[selX][selY];
-                        game.deSelectUnit(selectedUnit);
-                    }
-
-                    game.setSelectedPosition(position);
-                    game.selectUnit(clickedUnit);
-                    view.setUnitBoard(clickedUnit);
-
-                } else {
-                    game.deSelectUnit(clickedUnit);
-                    game.setSelectedPosition(null);
-                    view.setUnitBoardDefault();
-                }
-
-                view.showSelectedUnit(matrix);
+                cFHMains.clUnNotNullAndAv(position, view, this, game);
 
             } else if (game.getSelectedPosition() != null) {
-                int selX = game.getSelectedPosition().getX();
-                int selY = game.getSelectedPosition().getY();
-                Unit selectedUnit = game.getMatrix()[selX][selY];
-                if (selectedUnit instanceof Soldier) {
-                    if (!((Soldier) (selectedUnit)).getHasAttacked()) {
-                        if (isWithinRange(position, ((Soldier) (selectedUnit)).getAttackRange())) {
-                            game.attack((Soldier) (selectedUnit), clickedUnit);
-                            ((Soldier) selectedUnit).useAttack();
-                            if (!game.checkIfUnitIsAlive(clickedUnit)) {
-                                game.setUnit(null, position);
-                                game.removeUnitFromOwnersList(clickedUnit);
-                                view.visualDisplayer();
-                                if (game.isGameOver()) {
-                                    view.finalMessage(game.returnWinner().getName());
-                                    System.out.println(game.isGameOver());
-
-                                } else if (optionSelected == 0) {
-                                   view.highLightRange(matrix, game.getSelectedPosition(),
-                                           ((Soldier) selectedUnit).getAttackRange(), view.getColors().getBleed(), view.getColors().getAlarm());
-
-                                } else if (optionSelected == 1) {
-                                    view.highLightRange(matrix, game.getSelectedPosition(),
-                                            ((Soldier) selectedUnit).getSteppesLeft(), view.getColors().getBleed(), view.getColors().getRoast());
-
-                                }
-
-                            }
-                        } else {
-                            view.setTipBoard("Target is too far.");
-                        }
-
-                    } else {
-                        view.setTipBoard("Unit has already attacked.");
-                    }
-
-                }
+                cFHMains.clUnNotNullNotAvButSelPosNotNull(position, view, this, game);
 
             } else {
-                view.setTipBoard("You cannot select this unit.");
+                 view.setTipBoard("You cannot select this unit.");
+
             }
 
         } else if (game.getSelectedPosition() != null) {
-            int selX = game.getSelectedPosition().getX();
-            int selY = game.getSelectedPosition().getY();
-            Unit selectedUnit = matrix[selX][selY];
-            if (selectedUnit.getCanMove()) {
-                if (((Soldier) (selectedUnit)).getSteppesLeft() > 0) {
-                    if (isWithinRange(position, ((Soldier) (selectedUnit)).getSteppesLeft())) {
+            cFHMains.clUnNullButSelPosNotNull(position, view, this, game);
 
-                        moveUnit(game.getSelectedPosition(), position);
-                        game.setSelectedPosition(position);
-                        view.setUnitBoard(selectedUnit);
-                        view.showSelectedUnit(matrix);
-                        view.visualDisplayer();
-                        optionsHandler();
-
-                    } else {
-                        view.setTipBoard("Destination is too far.");
-                    }
-
-                } else {
-                    view.setTipBoard("This unit is too tired.");
-                }
-
-            } else if (optionSelected > 2) {
-                if (isWithinRange(position, ((Building) (selectedUnit)).getCreateRange())) {
-                    addUnit(position);
-                    view.visualDisplayer();
-                    view.setPlayerBoard(player);
-                    view.showSelectedUnit(matrix);
-                    // view.removeHighLight(matrix, game.getSelectedPosition(), 3);
-                    view.highLightRange(matrix, game.getSelectedPosition(),
-                            ((Building) (selectedUnit)).getCreateRange(), view.getColors().getLife(), view.getColors().getLife());
-
-                } else {
-                    view.setTipBoard("You need to deploy unit closer.");
-                }
-
-
-            } else {
-                view.setTipBoard("This unit cannot move.");
-            }
         }
 
         view.toolTipSetter();
@@ -223,10 +134,10 @@ public class DashBoard implements MainContract.Presenter {
             Unit unit = game.getMatrix()[x][y];
 
             view.showSelectedUnit(game.getMatrix());
-            // view.removeHighLight(game.getMatrix(), game.getSelectedPosition(), 3);
 
             if (optionSelected == -1) {
                 view.optionButtonsDefaultColorSetter();
+                view.setTipBoardDefault();
 
             } else if (optionSelected == 0) {
                option0(unit);
@@ -292,13 +203,39 @@ public class DashBoard implements MainContract.Presenter {
     public void option3678(Unit unit) {
         if (unit.getCanCreate()) {
             if (unit instanceof Castle) {
+                if (optionSelected == 3) {
+                    view.setTipBoard("Warriors cost 40 Gold.");
+
+                } else if (optionSelected == 6) {
+                    view.setTipBoard("Medicamp costs 100 Gold.");
+
+                } else if (optionSelected == 7) {
+                    view.setTipBoard("Archery costs 150 Gold.");
+
+                } else if (optionSelected == 8) {
+                    view.setTipBoard("Stables cost 200 Gold.");
+
+                }
+
                 view.optionButtonsHighlighter(optionSelected);
                 view.highLightRange(game.getMatrix(), game.getSelectedPosition(),
                         ((Building) (unit)).getCreateRange(), view.getColors().getLife(), view.getColors().getLife());
-                view.setTipBoardDefault();
 
             } else {
-                view.setTipBoard("Building cannot create Warriors.");
+                if (optionSelected == 3) {
+                    view.setTipBoard("Building cannot create Warriors.");
+
+                } else if (optionSelected == 6) {
+                    view.setTipBoard("Building cannot create Medicamp.");
+
+                } else if (optionSelected == 7) {
+                    view.setTipBoard("Building cannot create Archery.");
+
+                } else if (optionSelected == 8) {
+                    view.setTipBoard("Building cannot create Stables.");
+
+                }
+
                 setOptionSelected(-1);
                 view.optionButtonsDefaultColorSetter();
             }
@@ -316,7 +253,7 @@ public class DashBoard implements MainContract.Presenter {
                 view.optionButtonsHighlighter(optionSelected);
                 view.highLightRange(game.getMatrix(), game.getSelectedPosition(),
                         ((Building) (unit)).getCreateRange(), view.getColors().getLife(), view.getColors().getLife());
-                view.setTipBoardDefault();
+                view.setTipBoard("Archers cost 70 Gold.");
 
             } else {
                 view.setTipBoard("This unit cannot create Archers.");
@@ -337,7 +274,7 @@ public class DashBoard implements MainContract.Presenter {
                 view.optionButtonsHighlighter(optionSelected);
                 view.highLightRange(game.getMatrix(), game.getSelectedPosition(),
                         ((Building) (unit)).getCreateRange(), view.getColors().getLife(), view.getColors().getLife());
-                view.setTipBoardDefault();
+                view.setTipBoard("Paladins cost 120 Gold.");
 
             } else {
                 view.setTipBoard("This unit cannot create Paladins.");
