@@ -8,7 +8,7 @@ public class Stables extends Building {
         super(color);
         name = "Stables";
         prefix = "ST";
-        icon = new ImageIcon(getClass().getResource("../icons/Stables1_Sq.png"));
+        icon = new ImageIcon(getClass().getResource("../icons/Stables_Grey.png"));
         MAX_HP = 100;
         hp = MAX_HP;
         cost = 200;

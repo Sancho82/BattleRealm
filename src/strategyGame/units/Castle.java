@@ -10,8 +10,8 @@ public class Castle extends Building {
         super(color);
         name = "Castle";
         prefix = "CT";
-        icon = new ImageIcon(getClass().getResource("../icons/Castle_Sq.png"));
-        MAX_HP = 300;
+        icon = new ImageIcon(getClass().getResource("../icons/Castle_Grey.png"));
+        MAX_HP = 10;
         hp = MAX_HP;
         cost = 200;
         canMove = false;

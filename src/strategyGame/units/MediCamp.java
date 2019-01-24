@@ -11,8 +11,8 @@ public class MediCamp extends Building implements Healer {
         super(color);
         name = "MediCamp";
         prefix = "MC";
-        icon = new ImageIcon(getClass().getResource("../icons/MediCamp1_Sq.png"));
-        MAX_HP = 80;
+        icon = new ImageIcon(getClass().getResource("../icons/MediCamp_Grey.png"));
+        MAX_HP = 50;
         hp = MAX_HP;
         cost = 150;
         canMove = false;

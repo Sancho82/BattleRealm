@@ -3,7 +3,6 @@ package strategyGame.mvp;
 import strategyGame.colors.Colors;
 import strategyGame.units.Soldier;
 import strategyGame.units.Unit;
-import strategyGame.units.Warrior;
 
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
@@ -11,7 +10,6 @@ import javax.swing.border.SoftBevelBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLOutput;
 
 public class Displayer extends JFrame implements ActionListener, MainContract.View {
 
@@ -27,6 +25,10 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
     private JLabel playerBoard;
     private JLabel tipBoard;
 
+    private JPanel introPanel;
+    private JButton introButton;
+    private JLabel introLabel;
+
     private Colors colors;
 
     private JButton attack;
@@ -39,6 +41,7 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
     private JButton createArchery;
     private JButton createStables;
 
+
     public Displayer() {
         dashBoard = new DashBoard(this);
         size = dashBoard.getGame().getSize();
@@ -49,7 +52,7 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
         colors = new Colors();
 
         setTitle("Battlefield");
-        setBounds(0,0, 1165, 820);
+        setBounds(0,0, 1800, 1000);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
@@ -57,12 +60,11 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
         battlePanel.setLayout(null);
         battlePanel.setBackground(colors.getDrape());
         battlePanel.setBorder(new SoftBevelBorder(SoftBevelBorder.LOWERED));
-        add(battlePanel);
 
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 JButton button = new JButton();
-                button.setBounds(65 + i * 65, 65 + j * 65, 60, 60);
+                button.setBounds(150 + i * 75, 100 + j * 75, 70, 70);
                 button.setFont(new Font("Arial", Font.BOLD, 20));
                 button.setBackground(colors.getGrass());
                 button.setBorder(new SoftBevelBorder(SoftBevelBorder.RAISED));
@@ -75,7 +77,7 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
         }
 
         attack = new JButton();
-        attack.setBounds(775, 195, 305, 60);
+        attack.setBounds(1050, 250, 305, 70);
         attack.setFont(new Font("Verdana", Font.BOLD, 25));
         attack.setBorder(new SoftBevelBorder(SoftBevelBorder.RAISED));
         attack.setText("Attackrange");
@@ -86,7 +88,7 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
         });
 
         move = new JButton();
-        move.setBounds(775, 260, 305, 60);
+        move.setBounds(1050, 325, 305, 70);
         move.setFont(new Font("Verdana", Font.BOLD, 25));
         move.setBorder(new SoftBevelBorder(SoftBevelBorder.RAISED));
         move.setText("Moverange");
@@ -97,7 +99,7 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
         });
 
         endTurn = new JButton();
-        endTurn.setBounds(775, 650, 305, 60);
+        endTurn.setBounds(1050, 775, 305, 70);
         endTurn.setFont(new Font("Verdana", Font.BOLD, 25));
         endTurn.setBorder(new SoftBevelBorder(SoftBevelBorder.RAISED));
         endTurn.setText("End Turn");
@@ -108,7 +110,7 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
         });
 
         createWarrior = new JButton();
-        createWarrior.setBounds(775, 325, 150, 60);
+        createWarrior.setBounds(1050, 400, 150, 70);
         createWarrior.setFont(new Font("Verdana", Font.BOLD, 15));
         createWarrior.setBorder(new SoftBevelBorder(SoftBevelBorder.RAISED));
         createWarrior.setText("Create Warrior");
@@ -119,7 +121,7 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
         });
 
         createArcher = new JButton();
-        createArcher.setBounds(775, 390, 150, 60);
+        createArcher.setBounds(1050, 475, 150, 70);
         createArcher.setFont(new Font("Verdana", Font.BOLD, 15));
         createArcher.setBorder(new SoftBevelBorder(SoftBevelBorder.RAISED));
         createArcher.setText("Create Archer");
@@ -131,7 +133,7 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
 
 
         createPaladin = new JButton();
-        createPaladin.setBounds(775, 455, 150, 60);
+        createPaladin.setBounds(1050, 550, 150, 70);
         createPaladin.setFont(new Font("Verdana", Font.BOLD, 15));
         createPaladin.setBorder(new SoftBevelBorder(SoftBevelBorder.RAISED));
         createPaladin.setText("Create Paladin");
@@ -142,7 +144,7 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
         });
 
         createMediCamp = new JButton();
-        createMediCamp.setBounds(930, 325, 150, 60);
+        createMediCamp.setBounds(1205, 400, 150, 70);
         createMediCamp.setFont(new Font("Verdana", Font.BOLD, 15));
         createMediCamp.setBorder(new SoftBevelBorder(SoftBevelBorder.RAISED));
         createMediCamp.setText("Create Medicamp");
@@ -153,7 +155,7 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
         });
 
         createArchery = new JButton();
-        createArchery.setBounds(930, 390, 150, 60);
+        createArchery.setBounds(1205, 475, 150, 70);
         createArchery.setFont(new Font("Verdana", Font.BOLD, 15));
         createArchery.setBorder(new SoftBevelBorder(SoftBevelBorder.RAISED));
         createArchery.setText("Create Archery");
@@ -164,7 +166,7 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
         });
 
         createStables = new JButton();
-        createStables.setBounds(930, 455, 150, 60);
+        createStables.setBounds(1205, 550, 150, 70);
         createStables.setFont(new Font("Verdana", Font.BOLD, 15));
         createStables.setBorder(new SoftBevelBorder(SoftBevelBorder.RAISED));
         createStables.setText("Create Stables");
@@ -178,7 +180,7 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
         optionButtonsDefaultColorSetter();
 
         tipBoard = new JLabel();
-        tipBoard.setBounds(775, 65, 305, 60);
+        tipBoard.setBounds(1050, 100, 305, 70);
         tipBoard.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
         tipBoard.setFont(new Font("Verdana", Font.BOLD, 15));
         tipBoard.setHorizontalAlignment(SwingConstants.LEFT);
@@ -189,7 +191,7 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
         battlePanel.add(tipBoard);
 
         playerBoard = new JLabel();
-        playerBoard.setBounds(775, 130, 305, 60);
+        playerBoard.setBounds(1050, 175, 305, 70);
         playerBoard.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
         playerBoard.setFont(new Font("Verdana", Font.BOLD, 15));
         playerBoard.setHorizontalAlignment(SwingConstants.LEFT);
@@ -200,7 +202,7 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
         battlePanel.add(playerBoard);
 
         unitBoard = new JLabel();
-        unitBoard.setBounds(775, 520, 305, 125);
+        unitBoard.setBounds(1050, 625, 305, 145);
         unitBoard.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
         unitBoard.setFont(new Font("Verdana", Font.BOLD, 15));
         unitBoard.setHorizontalAlignment(SwingConstants.LEFT);
@@ -214,8 +216,34 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
         dashBoard.showActivePlayerStats();
         setUnitBoardDefault();
 
-        consoleDisplayer();
-        visualDisplayer();
+        introPanel = new JPanel();
+        introPanel.setLayout(null);
+        introPanel.setBackground(Color.lightGray);
+        introPanel.setBorder(new SoftBevelBorder(SoftBevelBorder.LOWERED));
+
+        introLabel = new JLabel();
+        introLabel.setBounds(0, 0, 1800, 1000);
+        introLabel.setOpaque(true);
+        introLabel.setForeground(Color.white);
+        introLabel.setIcon(new ImageIcon(getClass().getResource("../icons/Intro_Background.png")));
+        introLabel.setFont(new Font("Verdana", Font.BOLD, 15));
+        introLabel.setText("Welcome!");
+
+        introButton = new JButton("OK");
+        introButton.setBounds(850, 850, 100, 50);
+        introButton.setBorder(new SoftBevelBorder(SoftBevelBorder.LOWERED));
+
+        introPanel.add(introLabel);
+        introPanel.add(introButton);
+        add(introPanel);
+
+        introButton.addActionListener(e -> {
+            remove(introPanel);
+            add(battlePanel);
+            consoleDisplayer();
+            visualDisplayer();
+            repaint();
+        });
 
     }
 
@@ -354,10 +382,10 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
     }
 
     @Override
-    public void showSelectedUnit() {
+    public void showSelectedUnit(Unit[][] matrix) {
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
-                Unit unit = dashBoard.getGame().getMatrix()[i][j];
+                Unit unit = matrix[i][j];
                 if (unit != null) {
                     if (unit.getIsSelected()) {
                         buttons[j][i].setBackground(Color.orange);
@@ -451,13 +479,14 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
     }
 
     @Override
-    public void highLightRange(Position position, int range, Color color) {
+    public void highLightRange(Unit[][] matrix, Position position, int range, Color color) {
         int x = position.getX();
         int y = position.getY();
         for (int i = x - range; i <= x + range; i++) {
             for (int j = y - range; j <= y + range; j++) {
                 if (i > -1 && j > -1 && i < 10 && j < 10) {
-                    Unit unit = dashBoard.getGame().getMatrix()[i][j];
+                    Unit unit = matrix[i][j];
+                    //Unit unit = dashBoard.getGame().getMatrix()[i][j];
                     Player player = dashBoard.getGame().getPlayerList().get(dashBoard.getGame().getCurrentPlayerIndex());
                     if (unit == null || !unit.getColor().equals(player.getColor())) {
                         buttons[j][i].setBackground(color);
@@ -468,16 +497,23 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
     }
 
     @Override
-    public void removeHighLight(Position position, int range) {
+    public void removeHighLight(Unit[][] matrix, Position position, int range) {
         int x = position.getX();
         int y = position.getY();
         for (int i = x - range; i <= x + range; i++) {
             for (int j = y - range; j <= y + range; j++) {
                 if (i > -1 && j > -1 && i < 10 && j < 10) {
                     buttons[j][i].setBackground(Color.orange);
-                    showSelectedUnit();
+                    showSelectedUnit(matrix);
                 }
             }
         }
+    }
+
+    @Override
+    public void finalMessage(String playerName) {
+        String message = "Congratulations " + playerName + " player, you won the game!";
+        JOptionPane.showMessageDialog(null, message );
+        System.exit(0);
     }
 }

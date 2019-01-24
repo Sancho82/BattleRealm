@@ -113,6 +113,12 @@ public class Game {
         matrix[position.getX()][position.getY()] = unit;
     }
 
+    public void removeUnitFromOwnersList(Unit unit) {
+        Player player = playerList.get((currentPlayerIndex + 1) % playerList.size());
+        if (unit.getColor().equals(player.getColor()))
+        player.getUnitList().remove(unit);
+    }
+
     //endregion
 
 
@@ -157,5 +163,15 @@ public class Game {
 
     public boolean checkIfUnitIsAlive(Unit unit) {
         return unit.getHp() > 0;
+    }
+
+    public boolean isGameOver() {
+        Player player = playerList.get((currentPlayerIndex + 1) % playerList.size());
+        return (!(player.getUnitList().get(0) instanceof Castle));
+    }
+
+    public Player returnWinner() {
+        if (!(playerList.get(0).getUnitList().get(0) instanceof Castle)) {return playerList.get(0);}
+        else {return playerList.get(1);}
     }
 }

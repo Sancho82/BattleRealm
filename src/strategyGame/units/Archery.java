@@ -8,7 +8,7 @@ public class Archery extends Building {
         super(color);
         name = "Archery";
         prefix = "AR";
-        icon = new ImageIcon(getClass().getResource("../icons/Archery1_Sq.png"));
+        icon = new ImageIcon(getClass().getResource("../icons/Archery_Grey.png"));
         MAX_HP = 100;
         hp = MAX_HP;
         cost = 150;

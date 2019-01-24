@@ -46,7 +46,10 @@ public class DashBoard implements MainContract.Presenter {
     @Override
     public void clickField(Position position) {
         view.setTipBoardDefault();
-        Unit clickedUnit = game.getMatrix()[position.getX()][position.getY()];
+        Unit[][] matrix = game.getMatrix();
+        int actX = position.getX();
+        int actY = position.getY();
+        Unit clickedUnit = matrix[actX][actY];
         Player player = game.getPlayerList().get(game.getCurrentPlayerIndex());
         if (clickedUnit != null) {
             if (clickedUnit.getIsAvailable()) {
@@ -54,7 +57,9 @@ public class DashBoard implements MainContract.Presenter {
                 view.optionButtonsDefaultColorSetter();
                 if (!clickedUnit.getIsSelected()) {
                     if (game.getSelectedPosition() != null) {
-                        Unit selectedUnit = game.getMatrix()[game.getSelectedPosition().getX()][game.getSelectedPosition().getY()];
+                        int selX = game.getSelectedPosition().getX();
+                        int selY = game.getSelectedPosition().getY();
+                        Unit selectedUnit = matrix[selX][selY];
                         game.deSelectUnit(selectedUnit);
                     }
 
@@ -68,10 +73,12 @@ public class DashBoard implements MainContract.Presenter {
                     view.setUnitBoardDefault();
                 }
 
-                view.showSelectedUnit();
+                view.showSelectedUnit(matrix);
 
             } else if (game.getSelectedPosition() != null) {
-                Unit selectedUnit = game.getMatrix()[game.getSelectedPosition().getX()][game.getSelectedPosition().getY()];
+                int selX = game.getSelectedPosition().getX();
+                int selY = game.getSelectedPosition().getY();
+                Unit selectedUnit = game.getMatrix()[selX][selY];
                 if (selectedUnit instanceof Soldier) {
                     if (!((Soldier) (selectedUnit)).getHasAttacked()) {
                         if (isWithinRange(position, ((Soldier) (selectedUnit)).getAttackRange())) {
@@ -79,12 +86,17 @@ public class DashBoard implements MainContract.Presenter {
                             ((Soldier) selectedUnit).useAttack();
                             if (!game.checkIfUnitIsAlive(clickedUnit)) {
                                 game.setUnit(null, position);
+                                game.removeUnitFromOwnersList(clickedUnit);
                                 view.visualDisplayer();
-                                if (optionSelected == 0) {
-                                   view.highLightRange(game.getSelectedPosition(), ((Soldier) selectedUnit).getAttackRange(), view.getColors().getAlarm());
+                                if (game.isGameOver()) {
+                                    view.finalMessage(game.returnWinner().getName());
+                                    System.out.println(game.isGameOver());
+
+                                } else if (optionSelected == 0) {
+                                   view.highLightRange(matrix, game.getSelectedPosition(), ((Soldier) selectedUnit).getAttackRange(), view.getColors().getAlarm());
 
                                 } else if (optionSelected == 1) {
-                                    view.highLightRange(game.getSelectedPosition(), ((Soldier) selectedUnit).getSteppesLeft(), view.getColors().getRoast());
+                                    view.highLightRange(matrix, game.getSelectedPosition(), ((Soldier) selectedUnit).getSteppesLeft(), view.getColors().getRoast());
 
                                 }
 
@@ -104,7 +116,9 @@ public class DashBoard implements MainContract.Presenter {
             }
 
         } else if (game.getSelectedPosition() != null) {
-            Unit selectedUnit = game.getMatrix()[game.getSelectedPosition().getX()][game.getSelectedPosition().getY()];
+            int selX = game.getSelectedPosition().getX();
+            int selY = game.getSelectedPosition().getY();
+            Unit selectedUnit = matrix[selX][selY];
             if (selectedUnit.getCanMove()) {
                 if (((Soldier) (selectedUnit)).getSteppesLeft() > 0) {
                     if (isWithinRange(position, ((Soldier) (selectedUnit)).getSteppesLeft())) {
@@ -112,7 +126,7 @@ public class DashBoard implements MainContract.Presenter {
                         moveUnit(game.getSelectedPosition(), position);
                         game.setSelectedPosition(position);
                         view.setUnitBoard(selectedUnit);
-                        view.showSelectedUnit();
+                        view.showSelectedUnit(matrix);
                         view.visualDisplayer();
                         optionsHandler();
 
@@ -129,8 +143,8 @@ public class DashBoard implements MainContract.Presenter {
                     addUnit(position);
                     view.visualDisplayer();
                     view.setPlayerBoard(player);
-                    view.removeHighLight(game.getSelectedPosition(), 3);
-                    view.highLightRange(game.getSelectedPosition(), ((Building) (selectedUnit)).getCreateRange(), view.getColors().getLife());
+                    view.removeHighLight(matrix, game.getSelectedPosition(), 3);
+                    view.highLightRange(matrix, game.getSelectedPosition(), ((Building) (selectedUnit)).getCreateRange(), view.getColors().getLife());
 
                 } else {
                     view.setTipBoard("You need to deploy unit closer.");
@@ -141,6 +155,7 @@ public class DashBoard implements MainContract.Presenter {
                 view.setTipBoard("This unit cannot move.");
             }
         }
+
         view.toolTipSetter();
         view.consoleDisplayer();
     }
@@ -195,7 +210,7 @@ public class DashBoard implements MainContract.Presenter {
             int y = game.getSelectedPosition().getY();
             Unit unit = game.getMatrix()[x][y];
 
-            view.removeHighLight(game.getSelectedPosition(), 3);
+            view.removeHighLight(game.getMatrix(), game.getSelectedPosition(), 3);
 
             if (optionSelected == -1) {
                 view.optionButtonsDefaultColorSetter();
@@ -224,7 +239,7 @@ public class DashBoard implements MainContract.Presenter {
     public void option0(Unit unit) {
         if (unit.getCanAttack()) {
             view.optionButtonsHighlighter(optionSelected);
-            view.highLightRange(game.getSelectedPosition(), ((Soldier) (unit)).getAttackRange(), view.getColors().getAlarm());
+            view.highLightRange(game.getMatrix(), game.getSelectedPosition(), ((Soldier) (unit)).getAttackRange(), view.getColors().getAlarm());
             view.setTipBoardDefault();
 
         } else {
@@ -236,7 +251,7 @@ public class DashBoard implements MainContract.Presenter {
     public void option1(Unit unit) {
         if (unit.getCanMove()) {
             view.optionButtonsHighlighter(optionSelected);
-            view.highLightRange(game.getSelectedPosition(), ((Soldier) (unit)).getSteppesLeft(), view.getColors().getRoast());
+            view.highLightRange(game.getMatrix(), game.getSelectedPosition(), ((Soldier) (unit)).getSteppesLeft(), view.getColors().getRoast());
             view.setTipBoardDefault();
 
         } else {
@@ -255,14 +270,14 @@ public class DashBoard implements MainContract.Presenter {
         if (game.getSelectedPosition() != null) {
             game.setSelectedPosition(null);
         }
-        view.showSelectedUnit();
+        view.showSelectedUnit(game.getMatrix());
     }
 
     public void option3678(Unit unit) {
         if (unit.getCanCreate()) {
             if (unit instanceof Castle) {
                 view.optionButtonsHighlighter(optionSelected);
-                view.highLightRange(game.getSelectedPosition(), ((Building) (unit)).getCreateRange(), view.getColors().getLife());
+                view.highLightRange(game.getMatrix(), game.getSelectedPosition(), ((Building) (unit)).getCreateRange(), view.getColors().getLife());
                 view.setTipBoardDefault();
 
             } else {
@@ -282,7 +297,7 @@ public class DashBoard implements MainContract.Presenter {
         if (unit.getCanCreate()) {
             if (unit instanceof Archery) {
                 view.optionButtonsHighlighter(optionSelected);
-                view.highLightRange(game.getSelectedPosition(), ((Building) (unit)).getCreateRange(), view.getColors().getLife());
+                view.highLightRange(game.getMatrix(), game.getSelectedPosition(), ((Building) (unit)).getCreateRange(), view.getColors().getLife());
                 view.setTipBoardDefault();
 
             } else {
@@ -302,7 +317,7 @@ public class DashBoard implements MainContract.Presenter {
         if (unit.getCanCreate()) {
             if (unit instanceof Stables) {
                 view.optionButtonsHighlighter(optionSelected);
-                view.highLightRange(game.getSelectedPosition(), ((Building) (unit)).getCreateRange(), view.getColors().getLife());
+                view.highLightRange(game.getMatrix(), game.getSelectedPosition(), ((Building) (unit)).getCreateRange(), view.getColors().getLife());
                 view.setTipBoardDefault();
 
             } else {

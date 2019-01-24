@@ -7,17 +7,23 @@ import java.util.List;
 
 public class Player {
 
+    private String name;
     private String color;
     private int gold;
     private List<Unit> unitList;
 
     public Player(String color) {
+        this.name = "Opponent";
         this.color = color;
         gold = 2150;
         unitList = new ArrayList<>();
     }
 
     //region Getters
+
+    public String getName() {
+        return name;
+    }
 
     public String getColor() {
         return color;
@@ -35,6 +41,10 @@ public class Player {
 
 
     //region Setters
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public void addToUnitList(Unit unit) {
         unitList.add(unit);
@@ -55,7 +65,8 @@ public class Player {
     //endregion
 
     public String toString() {
-        return "<html><font color=white><Strong>Player:&nbsp</Strong></font>" + color + "<br>" +
+        return "<html><font color=white><Strong>Name:&nbsp</Strong></font>" + name + "<br>" +
+                "<font color=white><Strong>Color:&nbsp</Strong></font>" + color + "<br>" +
                 "<font color=white><Strong>Gold:&nbsp</Strong></font>" + gold + "<br>" +
                 "</html>";
     }

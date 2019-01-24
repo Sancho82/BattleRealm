@@ -11,14 +11,14 @@ public interface MainContract {
     interface View {
         void visualDisplayer();
         void consoleDisplayer();
-        void showSelectedUnit();
+        void showSelectedUnit(Unit[][] matrix);
 
         void optionButtonsLoader();
         void optionButtonsHighlighter(int selection);
         void optionButtonsDefaultColorSetter();
 
-        void highLightRange(Position position, int range, Color color);
-        void removeHighLight(Position position, int range);
+        void highLightRange(Unit[][] matrix, Position position, int range, Color color);
+        void removeHighLight(Unit[][] matrix, Position position, int range);
 
         Colors getColors();
 
@@ -30,6 +30,8 @@ public interface MainContract {
         void setTipBoardDefault();
 
         void toolTipSetter();
+
+        void finalMessage(String playername);
 
     }
 
