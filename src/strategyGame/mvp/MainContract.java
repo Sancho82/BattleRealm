@@ -17,8 +17,8 @@ public interface MainContract {
         void optionButtonsHighlighter(int selection);
         void optionButtonsDefaultColorSetter();
 
-        void highLightRange(Unit[][] matrix, Position position, int range, Color color);
-        void removeHighLight(Unit[][] matrix, Position position, int range);
+        void highLightRange(Unit[][] matrix, Position position, int range, Color color1, Color color2);
+        // void removeHighLight(Unit[][] matrix, Position position, int range);
 
         Colors getColors();
 
@@ -31,6 +31,7 @@ public interface MainContract {
 
         void toolTipSetter();
 
+        void startBattle();
         void finalMessage(String playername);
 
     }
@@ -38,6 +39,7 @@ public interface MainContract {
     interface Presenter {
         void clickField(Position position);
         void optionsHandler();
+        void startGame(String player1, String player2);
         void addUnit(Position position);
         void moveUnit(Position from, Position to);
         int differenceDecider(int a, int b);

@@ -26,8 +26,6 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
     private JLabel tipBoard;
 
     private JPanel introPanel;
-    private JButton introButton;
-    private JLabel introLabel;
 
     private Colors colors;
 
@@ -216,33 +214,43 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
         dashBoard.showActivePlayerStats();
         setUnitBoardDefault();
 
-        introPanel = new JPanel();
-        introPanel.setLayout(null);
-        introPanel.setBackground(Color.lightGray);
-        introPanel.setBorder(new SoftBevelBorder(SoftBevelBorder.LOWERED));
-
-        introLabel = new JLabel();
+        JLabel introLabel = new JLabel();
         introLabel.setBounds(0, 0, 1800, 1000);
         introLabel.setOpaque(true);
-        introLabel.setForeground(Color.white);
         introLabel.setIcon(new ImageIcon(getClass().getResource("../icons/Intro_Background.png")));
-        introLabel.setFont(new Font("Verdana", Font.BOLD, 15));
-        introLabel.setText("Welcome!");
 
-        introButton = new JButton("OK");
-        introButton.setBounds(850, 850, 100, 50);
-        introButton.setBorder(new SoftBevelBorder(SoftBevelBorder.LOWERED));
+        introPanel = new JPanel();
+        introPanel.setLayout(null);
+        introPanel.setBorder(new SoftBevelBorder(SoftBevelBorder.LOWERED));
+
+        JTextField player1 = new JTextField();
+        player1.setBounds(500, 370, 200, 30);
+        player1.setFont(new Font("Verdana", Font.BOLD, 15));
+        player1.setBackground(colors.getAlarm());
+        player1.setForeground(Color.white);
+
+        JTextField player2 = new JTextField();
+        player2.setBounds(1000, 370, 200, 30);
+        player2.setFont(new Font("Verdana", Font.BOLD, 15));
+        player2.setBackground(colors.getOcean());
+        player2.setForeground(Color.white);
+
+        JButton startButton = new JButton("Start");
+        startButton.setBounds(800, 860, 100, 50);
+        startButton.setFont(new Font("Verdana", Font.BOLD, 17));
+        startButton.setBorder(new SoftBevelBorder(SoftBevelBorder.LOWERED));
+        startButton.setForeground(Color.white);
+        startButton.setBackground(colors.getFog());
 
         introPanel.add(introLabel);
-        introPanel.add(introButton);
+        introPanel.add(player1);
+        introPanel.add(player2);
+        introPanel.add(startButton);
         add(introPanel);
+        repaint();
 
-        introButton.addActionListener(e -> {
-            remove(introPanel);
-            add(battlePanel);
-            consoleDisplayer();
-            visualDisplayer();
-            repaint();
+        startButton.addActionListener(e -> {
+            dashBoard.startGame(player1.getText(), player2.getText());
         });
 
     }
@@ -323,6 +331,15 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
     }
 
     @Override
+    public void startBattle() {
+        remove(introPanel);
+        add(battlePanel);
+        consoleDisplayer();
+        visualDisplayer();
+        repaint();
+    }
+
+    @Override
     public void visualDisplayer() {
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
@@ -376,30 +393,6 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
 
                 } else {
                     System.out.print("XX ");
-                }
-            }
-        }
-    }
-
-    @Override
-    public void showSelectedUnit(Unit[][] matrix) {
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
-                Unit unit = matrix[i][j];
-                if (unit != null) {
-                    if (unit.getIsSelected()) {
-                        buttons[j][i].setBackground(Color.orange);
-
-                    } else if (unit.getColor().equals("Red")){
-                        buttons[j][i].setBackground(colors.getPeach());
-
-                    } else if (unit.getColor().equals("Blue")) {
-                        buttons[j][i].setBackground(colors.getFog());
-
-                    }
-
-                } else {
-                    buttons[j][i].setBackground(colors.getGrass());
                 }
             }
         }
@@ -479,7 +472,32 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
     }
 
     @Override
-    public void highLightRange(Unit[][] matrix, Position position, int range, Color color) {
+    public void showSelectedUnit(Unit[][] matrix) {
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                buttons[j][i].setBorder(BorderFactory.createRaisedSoftBevelBorder());
+                Unit unit = matrix[i][j];
+                if (unit != null) {
+                    if (unit.getIsSelected()) {
+                        buttons[j][i].setBackground(Color.orange);
+
+                    } else if (unit.getColor().equals("Red")){
+                        buttons[j][i].setBackground(colors.getPeach());
+
+                    } else if (unit.getColor().equals("Blue")) {
+                        buttons[j][i].setBackground(colors.getFog());
+
+                    }
+
+                } else {
+                    buttons[j][i].setBackground(colors.getGrass());
+                }
+            }
+        }
+    }
+
+    @Override
+    public void highLightRange(Unit[][] matrix, Position position, int range, Color color1, Color color2) {
         int x = position.getX();
         int y = position.getY();
         for (int i = x - range; i <= x + range; i++) {
@@ -488,27 +506,31 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
                     Unit unit = matrix[i][j];
                     //Unit unit = dashBoard.getGame().getMatrix()[i][j];
                     Player player = dashBoard.getGame().getPlayerList().get(dashBoard.getGame().getCurrentPlayerIndex());
-                    if (unit == null || !unit.getColor().equals(player.getColor())) {
-                        buttons[j][i].setBackground(color);
+                    if (unit == null) {
+                        buttons[j][i].setBackground(color2);
+                        buttons[j][i].setBorder(BorderFactory.createSoftBevelBorder(0, color2, color2));
+
+                    } else if (!unit.getColor().equals(player.getColor())) {
+                        buttons[j][i].setBackground(color1);
                     }
                 }
             }
         }
     }
 
-    @Override
+    /*@Override
     public void removeHighLight(Unit[][] matrix, Position position, int range) {
         int x = position.getX();
         int y = position.getY();
         for (int i = x - range; i <= x + range; i++) {
             for (int j = y - range; j <= y + range; j++) {
                 if (i > -1 && j > -1 && i < 10 && j < 10) {
-                    buttons[j][i].setBackground(Color.orange);
+                    //buttons[j][i].setBackground(Color.orange);
                     showSelectedUnit(matrix);
                 }
             }
         }
-    }
+    }*/
 
     @Override
     public void finalMessage(String playerName) {
