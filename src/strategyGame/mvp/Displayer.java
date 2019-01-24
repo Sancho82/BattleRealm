@@ -26,6 +26,7 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
     private JLabel tipBoard;
 
     private JPanel introPanel;
+    private JPanel exitPanel;
 
     private Colors colors;
 
@@ -217,7 +218,7 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
         JLabel introLabel = new JLabel();
         introLabel.setBounds(0, 0, 1800, 1000);
         introLabel.setOpaque(true);
-        introLabel.setIcon(new ImageIcon(getClass().getResource("../icons/Intro_Background.png")));
+        introLabel.setIcon(new ImageIcon(getClass().getResource("../wallpapers/Background_Intro.png")));
 
         introPanel = new JPanel();
         introPanel.setLayout(null);
@@ -323,9 +324,6 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
 
         int x = Integer.valueOf(coords[1]);
         int y = Integer.valueOf(coords[0]);
-
-        Unit unit = dashBoard.getGame().getMatrix()[x][y];
-        JButton button = buttons[y][x];
 
         dashBoard.clickField(new Position(x, y));
     }
@@ -504,7 +502,6 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
             for (int j = y - range; j <= y + range; j++) {
                 if (i > -1 && j > -1 && i < 10 && j < 10) {
                     Unit unit = matrix[i][j];
-                    //Unit unit = dashBoard.getGame().getMatrix()[i][j];
                     Player player = dashBoard.getGame().getPlayerList().get(dashBoard.getGame().getCurrentPlayerIndex());
                     if (unit == null) {
                         buttons[j][i].setBackground(color2);
@@ -518,24 +515,51 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
         }
     }
 
-    /*@Override
-    public void removeHighLight(Unit[][] matrix, Position position, int range) {
-        int x = position.getX();
-        int y = position.getY();
-        for (int i = x - range; i <= x + range; i++) {
-            for (int j = y - range; j <= y + range; j++) {
-                if (i > -1 && j > -1 && i < 10 && j < 10) {
-                    //buttons[j][i].setBackground(Color.orange);
-                    showSelectedUnit(matrix);
-                }
-            }
-        }
-    }*/
-
     @Override
-    public void finalMessage(String playerName) {
-        String message = "Congratulations " + playerName + " player, you won the game!";
-        JOptionPane.showMessageDialog(null, message );
-        System.exit(0);
+    public void finalMessage(String winnerName) {
+        String message = "Congratulations " + winnerName + ", \r\nyou won the game!";
+
+        exitPanel = new JPanel();
+        exitPanel.setLayout(null);
+        exitPanel.setBorder(new SoftBevelBorder(SoftBevelBorder.LOWERED));
+
+        JLabel exitMessageLabel = new JLabel();
+        exitMessageLabel.setBounds(600, 150, 700, 50);
+        exitMessageLabel.setFont(new Font("Verdana", Font.ITALIC, 30));
+        exitMessageLabel.setForeground(Color.black);
+        exitMessageLabel.setText(message);
+
+        JLabel exitlabel = new JLabel();
+        exitlabel.setBounds(0, 0, 1800, 1000);
+        exitlabel.setOpaque(true);
+        exitlabel.setIcon(new ImageIcon(getClass().getResource("../wallpapers/Background_Victory.png")));
+
+        JButton okButton = new JButton("Ok");
+        okButton.setBounds(800, 860, 100, 50);
+        okButton.setFont(new Font("Verdana", Font.BOLD, 17));
+        okButton.setBorder(new SoftBevelBorder(SoftBevelBorder.LOWERED));
+        okButton.setForeground(Color.white);
+        okButton.setBackground(colors.getFog());
+
+        exitPanel.add(exitMessageLabel);
+        exitPanel.add(exitlabel);
+        exitPanel.add(okButton);
+        remove(battlePanel);
+        repaint();
+        add(exitPanel);
+
+        new Thread(() -> {
+            try {
+                    Thread.sleep(5000);
+                    System.exit(0);
+            } catch (InterruptedException e) {
+                    e.printStackTrace();
+            }
+        }).start();
+
+        okButton.addActionListener(e -> {
+
+        });
+        //System.exit(0);
     }
 }

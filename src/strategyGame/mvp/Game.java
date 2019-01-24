@@ -171,7 +171,7 @@ public class Game {
     }
 
     public Player returnWinner() {
-        if (!(playerList.get(0).getUnitList().get(0) instanceof Castle)) {return playerList.get(0);}
-        else {return playerList.get(1);}
+        if (!(playerList.get(0).getUnitList().get(0) instanceof Castle)) {return playerList.get(1);}
+        else {return playerList.get(0);}
     }
 }
