@@ -8,12 +8,14 @@ public class Stables extends Building {
         super(color);
         name = "Stables";
         prefix = "ST";
-        icon = new ImageIcon(getClass().getResource("../icons/Stables_Grey.png"));
         MAX_HP = 100;
         hp = MAX_HP;
         cost = 200;
         canMove = false;
         canAttack = false;
         canCreate = true;
+
+        if (color.equals("Red")) { icon = new ImageIcon(getClass().getResource("../icons/Stables_Red.png")); }
+        else if (color.equals("Blue")) { icon = new ImageIcon(getClass().getResource("../icons/Stables_Blue.png")); }
     }
 }

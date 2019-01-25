@@ -8,7 +8,6 @@ public class Paladin extends Soldier {
         super(color);
         name = "Paladin";
         prefix = "Pa";
-        icon = new ImageIcon(getClass().getResource("../icons/Paladin_Grey.png"));
         MAX_HP = 64 + (int)(Math.random() * 5 + 1);
         hp = MAX_HP;
         cost = 120;
@@ -16,5 +15,8 @@ public class Paladin extends Soldier {
         steppesLeft = STEPRANGE;
         attackRange = 1;
         damage = 39 + (int)(Math.random() * 10 + 1);
+
+        if (color.equals("Red")) { icon = new ImageIcon(getClass().getResource("../icons/Paladin_Red.png")); }
+        else if (color.equals("Blue")) { icon = new ImageIcon(getClass().getResource("../icons/Paladin_Blue.png")); }
     }
 }

@@ -1,8 +1,7 @@
 package strategyGame.mvp;
 
 import strategyGame.colors.Colors;
-import strategyGame.units.Soldier;
-import strategyGame.units.Unit;
+import strategyGame.units.*;
 
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;

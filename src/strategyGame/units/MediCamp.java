@@ -11,7 +11,6 @@ public class MediCamp extends Building implements Healer {
         super(color);
         name = "MediCamp";
         prefix = "MC";
-        icon = new ImageIcon(getClass().getResource("../icons/MediCamp_Grey.png"));
         MAX_HP = 50;
         hp = MAX_HP;
         cost = 100;
@@ -19,6 +18,9 @@ public class MediCamp extends Building implements Healer {
         canAttack = false;
         canCreate = false;
         createRange = 0;
+
+        if (color.equals("Red")) { icon = new ImageIcon(getClass().getResource("../icons/Medicamp_Red.png")); }
+        else if (color.equals("Blue")) { icon = new ImageIcon(getClass().getResource("../icons/Medicamp_Blue.png")); }
     }
 
     public void healAll(Player player){

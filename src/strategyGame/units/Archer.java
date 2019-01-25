@@ -8,7 +8,6 @@ public class Archer extends Soldier {
         super(color);
         name = "Archer";
         prefix = "Ar";
-        icon = new ImageIcon(getClass().getResource("../icons/Archer_Grey.png"));
         MAX_HP = 24 + (int)(Math.random() * 5 + 1);
         hp = MAX_HP;
         cost = 70;
@@ -16,5 +15,8 @@ public class Archer extends Soldier {
         steppesLeft = STEPRANGE;
         attackRange = 4;
         damage = 34 + (int)(Math.random() * 5 + 1);
+
+        if (color.equals("Red")) { icon = new ImageIcon(getClass().getResource("../icons/Archer_Red.png")); }
+        else if (color.equals("Blue")) { icon = new ImageIcon(getClass().getResource("../icons/Archer_Blue.png")); }
     }
 }
