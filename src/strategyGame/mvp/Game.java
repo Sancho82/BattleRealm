@@ -167,23 +167,10 @@ public class Game {
 
     public boolean isGameOver() {
         Player player = playerList.get((currentPlayerIndex + 1) % playerList.size());
-        return (!(player.getUnitList().get(0) instanceof Castle));
+        return (player.getUnitList().size() == 0 || !(player.getUnitList().get(0) instanceof Castle));
     }
 
     public String returnWinner() {
-        try {
-            if (playerList.get(0).getUnitList().size() == 0 || !(playerList.get(0).getUnitList().get(0) instanceof Castle)) {
-                return playerList.get(1).getName();
-            }
-
-            else if (playerList.get(1).getUnitList().size() == 0 || !(playerList.get(1).getUnitList().get(0) instanceof Castle)) {
-                return playerList.get(0).getName();
-            }
-
-        } catch (NullPointerException ne) {
-            ne.printStackTrace();
-        }
-
-        return "";
+        return playerList.get(getCurrentPlayerIndex()).getName();
     }
 }

@@ -47,6 +47,8 @@ public class DashBoard implements MainContract.Presenter {
 
     @Override
     public void clickField(Position position) {
+        System.out.println("\n\n" + game.getPlayerList().get(0).getUnitList().get(0).getName());
+        System.out.println(game.getPlayerList().get(1).getUnitList().get(0).getName());
 
         view.setTipBoardDefault();
         Unit[][] matrix = game.getMatrix();

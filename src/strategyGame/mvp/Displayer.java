@@ -218,7 +218,7 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
         wallpaperLabel.setBounds(0, 0, 1800, 1000);
         wallpaperLabel.setBorder(new SoftBevelBorder(SoftBevelBorder.LOWERED));
         wallpaperLabel.setIcon(new ImageIcon(getClass().getResource("../wallpapers/Background_Game.png")));
-        wallpaperLabel.setLayout(new FlowLayout());
+        // wallpaperLabel.setLayout(new FlowLayout());
         wallpaperLabel.setOpaque(true);
         battlePanel.add(wallpaperLabel);
 
