@@ -21,6 +21,7 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
     private JButton[][] buttons;
     private JButton[] optionButtons;
 
+    private JLabel wallpaperLabel;
     private JLabel unitBoard;
     private JLabel playerBoard;
     private JLabel tipBoard;
@@ -50,7 +51,7 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
 
         colors = new Colors();
 
-        setTitle("Battlefield");
+        setTitle("Battlerealm");
         setBounds(0,0, 1800, 1000);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -59,6 +60,7 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
         battlePanel.setLayout(null);
         battlePanel.setBackground(colors.getDrape());
         battlePanel.setBorder(new SoftBevelBorder(SoftBevelBorder.LOWERED));
+        battlePanel.setOpaque(true);
 
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
@@ -211,6 +213,15 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
         unitBoard.setBackground(colors.getOcean());
         battlePanel.add(unitBoard);
 
+        wallpaperLabel = new JLabel();
+        wallpaperLabel.setLayout(null);
+        wallpaperLabel.setBounds(0, 0, 1800, 1000);
+        wallpaperLabel.setBorder(new SoftBevelBorder(SoftBevelBorder.LOWERED));
+        wallpaperLabel.setIcon(new ImageIcon(getClass().getResource("../wallpapers/Background_Game.png")));
+        wallpaperLabel.setLayout(new FlowLayout());
+        wallpaperLabel.setOpaque(true);
+        battlePanel.add(wallpaperLabel);
+
         setTipBoardDefault();
         dashBoard.showActivePlayerStats();
         setUnitBoardDefault();
@@ -243,10 +254,10 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
         startButton.setForeground(Color.white);
         startButton.setBackground(colors.getFog());
 
+        introPanel.add(startButton);
         introPanel.add(introLabel);
         introPanel.add(player1);
         introPanel.add(player2);
-        introPanel.add(startButton);
         add(introPanel);
         repaint();
 
@@ -332,9 +343,9 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
     public void startBattle() {
         remove(introPanel);
         add(battlePanel);
+        repaint();
         consoleDisplayer();
         visualDisplayer();
-        repaint();
     }
 
     @Override
@@ -534,16 +545,8 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
         exitlabel.setOpaque(true);
         exitlabel.setIcon(new ImageIcon(getClass().getResource("../wallpapers/Background_Victory.png")));
 
-        JButton okButton = new JButton("Ok");
-        okButton.setBounds(800, 860, 100, 50);
-        okButton.setFont(new Font("Verdana", Font.BOLD, 17));
-        okButton.setBorder(new SoftBevelBorder(SoftBevelBorder.LOWERED));
-        okButton.setForeground(Color.white);
-        okButton.setBackground(colors.getFog());
-
         exitPanel.add(exitMessageLabel);
         exitPanel.add(exitlabel);
-        exitPanel.add(okButton);
         remove(battlePanel);
         repaint();
         add(exitPanel);
@@ -556,10 +559,5 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
                     e.printStackTrace();
             }
         }).start();
-
-        okButton.addActionListener(e -> {
-
-        });
-        //System.exit(0);
     }
 }

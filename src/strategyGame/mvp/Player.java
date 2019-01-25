@@ -15,7 +15,7 @@ public class Player {
     public Player(String color) {
         this.name = "Opponent";
         this.color = color;
-        gold = 2150;
+        gold = 1450;
         unitList = new ArrayList<>();
     }
 
