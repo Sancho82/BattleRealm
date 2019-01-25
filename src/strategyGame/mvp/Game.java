@@ -170,8 +170,20 @@ public class Game {
         return (!(player.getUnitList().get(0) instanceof Castle));
     }
 
-    public Player returnWinner() {
-        if (!(playerList.get(0).getUnitList().get(0) instanceof Castle)) {return playerList.get(1);}
-        else {return playerList.get(0);}
+    public String returnWinner() {
+        try {
+            if (playerList.get(0).getUnitList().size() == 0 || !(playerList.get(0).getUnitList().get(0) instanceof Castle)) {
+                return playerList.get(1).getName();
+            }
+
+            else if (playerList.get(1).getUnitList().size() == 0 || !(playerList.get(1).getUnitList().get(0) instanceof Castle)) {
+                return playerList.get(0).getName();
+            }
+
+        } catch (NullPointerException ne) {
+            ne.printStackTrace();
+        }
+
+        return "";
     }
 }

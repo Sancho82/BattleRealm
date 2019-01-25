@@ -55,7 +55,7 @@ public class ClickFieldHelpersMains {
                             game.removeUnitFromOwnersList(clickedUnit);
                             view.visualDisplayer();
                             if (game.isGameOver()) {
-                                view.finalMessage(game.returnWinner().getName());
+                                view.finalMessage(game.returnWinner());
                                 System.out.println(game.isGameOver());
 
                             } else if (dashboard.getOptionSelected() == 0) {
