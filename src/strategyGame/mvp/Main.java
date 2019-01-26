@@ -12,6 +12,8 @@ public class Main {
         EventQueue.invokeLater(() -> {
                 Displayer displayer = new Displayer();
                 displayer.setVisible(true);
+
+            System.out.println(displayer.getButtons()[9][9].getX() + 75);
         });
 
         Music music = new Music();

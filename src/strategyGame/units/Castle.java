@@ -10,7 +10,7 @@ public class Castle extends Building {
         super(color);
         name = "Castle";
         prefix = "CT";
-        MAX_HP = 10;
+        MAX_HP = 150;
         hp = MAX_HP;
         cost = 200;
         canMove = false;

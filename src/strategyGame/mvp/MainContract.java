@@ -3,6 +3,7 @@ package strategyGame.mvp;
 import strategyGame.colors.Colors;
 import strategyGame.units.Unit;
 
+import javax.swing.*;
 import java.awt.*;
 
 
@@ -19,6 +20,12 @@ public interface MainContract {
         void highLightRange(Unit[][] matrix, Position position, int range, Color color1, Color color2);
         void showSelectedUnit(Unit[][] matrix);
 
+        public MainContract.Presenter getDashBoard();
+        public JPanel getBattlePanel();
+        public JButton[][] getButtons();
+        public JLabel getUnitBoard();
+        public JLabel getPlayerBoard();
+        public JLabel getTipBoard();
         Colors getColors();
 
         void setUnitBoard(Unit unit);
@@ -27,6 +34,10 @@ public interface MainContract {
         void setPlayerBoardDefault();
         void setTipBoard(String text);
         void setTipBoardDefault();
+        void setDescriptionBoard(String text);
+        void setDescriptionBoardDeafault();
+        void setIllustrationBoard(Icon icon);
+        void setIllustrationBoardDefault();
 
         void toolTipSetter();
 

@@ -11,7 +11,7 @@ public class Warrior extends Soldier {
         MAX_HP = 34 + (int)(Math.random() * 10 + 1);
         hp = MAX_HP;
         cost = 40;
-        STEPRANGE = 5;
+        STEPRANGE = 2;
         steppesLeft = STEPRANGE;
         attackRange = 1;
         damage = 19 + (int)(Math.random() * 10 + 1);
