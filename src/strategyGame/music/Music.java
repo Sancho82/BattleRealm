@@ -1,4 +1,4 @@
-package strategyGame.Music;
+package strategyGame.music;
 
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;

@@ -1,8 +1,7 @@
 package strategyGame.mvp;
 
-import strategyGame.Music.Music;
+import strategyGame.music.Music;
 
-import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 
@@ -18,6 +17,6 @@ public class Main {
 
         Music music = new Music();
         music.playMusic(new File(
-                "D:\\java\\Strategy_Game\\src\\strategyGame\\music\\Fantasy_Celtic_Music_Spirit_of_the_Wild.wav"));
+                "D:\\java\\Battle_Realm\\src\\strategyGame\\music\\Fantasy_Celtic_Music_Spirit_of_the_Wild.wav"));
    }
 }
