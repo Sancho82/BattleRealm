@@ -14,6 +14,7 @@ public class ClickFieldHelpersMains {
         Unit clickedUnit = matrix[actX][actY];
         dashboard.setOptionSelected(-1);
         view.optionButtonsDefaultColorSetter();
+        view.illustrationDisplayer(clickedUnit);
         if (!clickedUnit.getIsSelected()) {
             if (game.getSelectedPosition() != null) {
                 int selX = game.getSelectedPosition().getX();
@@ -29,6 +30,7 @@ public class ClickFieldHelpersMains {
         } else {
             game.deSelectUnit(clickedUnit);
             game.setSelectedPosition(null);
+            view.setIllustrationBoardDefault();
             view.setUnitBoardDefault();
         }
 

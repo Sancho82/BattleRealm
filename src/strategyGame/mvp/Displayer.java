@@ -233,24 +233,9 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
         illustrationBoard.setVerticalAlignment(SwingConstants.TOP);
         illustrationBoard.setForeground(Color.white);
         illustrationBoard.setOpaque(true);
-        illustrationBoard.setBackground(colors.getLife());
+        // illustrationBoard.setBackground(colors.getLife());
+        illustrationBoard.setIcon(new ImageIcon(getClass().getResource("../illustrations/BackGround_IllustrationBoard.png")));
         battlePanel.add(illustrationBoard);
-
-        /*JButton test = new JButton();
-        test.setBounds(900, 100, 70, 70);
-        battlePanel.add(test);
-
-        JButton test2 = new JButton();
-        test2.setBounds(1285, 100, 70, 70);
-        battlePanel.add(test2);
-
-        JButton test3 = new JButton();
-        test3.setBounds(1725, 100, 70, 70);
-        battlePanel.add(test3);
-
-        JButton test4 = new JButton();
-        test4.setBounds(1650, 100, 70, 70);
-        battlePanel.add(test4);*/
 
         wallpaperLabel = new JLabel();
         wallpaperLabel.setLayout(null);
@@ -264,6 +249,7 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
         setTipBoardDefault();
         dashBoard.showActivePlayerStats();
         setUnitBoardDefault();
+        setIllustrationBoardDefault();
         setDescriptionBoardDeafault();
 
         JLabel introLabel = new JLabel();
@@ -378,10 +364,9 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
     public void setDescriptionBoardDeafault() {descriptionBoard.setText("DescriptionBoard");}
 
     @Override
-    public void setIllustrationBoard(Icon icon) {illustrationBoard.setIcon(icon);}
-
-    @Override
-    public void setIllustrationBoardDefault() {illustrationBoard.setIcon(null);}
+    public void setIllustrationBoardDefault() {
+        illustrationBoard.setIcon(new ImageIcon(getClass().getResource("../illustrations/Background_IllustrationBoard.png")));
+    }
 
     //endregion
 
@@ -444,6 +429,22 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
                     }
                 }
             }
+        }
+    }
+
+    @Override
+    public void illustrationDisplayer(Unit unit) {
+        if (unit instanceof Warrior) {
+            illustrationBoard.setIcon(new ImageIcon(getClass().getResource("../illustrations/Warrior_Illustration.png")));
+
+        } else if (unit instanceof Archer) {
+            illustrationBoard.setIcon(new ImageIcon(getClass().getResource("../illustrations/Archer_Illustration.png")));
+
+        } else if (unit instanceof Paladin) {
+            illustrationBoard.setIcon(new ImageIcon(getClass().getResource("../illustrations/Paladin_Illustration.png")));
+
+        } else {
+            setIllustrationBoardDefault();
         }
     }
 

@@ -12,6 +12,7 @@ public interface MainContract {
     interface View {
         void visualDisplayer();
         void consoleDisplayer();
+        void illustrationDisplayer(Unit unit);
 
         void optionButtonsLoader();
         void optionButtonsHighlighter(int selection);
@@ -36,7 +37,6 @@ public interface MainContract {
         void setTipBoardDefault();
         void setDescriptionBoard(String text);
         void setDescriptionBoardDeafault();
-        void setIllustrationBoard(Icon icon);
         void setIllustrationBoardDefault();
 
         void toolTipSetter();
