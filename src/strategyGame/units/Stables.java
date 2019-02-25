@@ -15,7 +15,7 @@ public class Stables extends Building {
         canAttack = false;
         canCreate = true;
 
-        if (color.equals("Red")) { icon = new ImageIcon(getClass().getResource("../icons/Stables_Red.png")); }
-        else if (color.equals("Blue")) { icon = new ImageIcon(getClass().getResource("../icons/Stables_Blue.png")); }
+        if (color.equals("Red")) { icon = new ImageIcon(getClass().getResource("../pictures/icons/Stables_Red.png")); }
+        else if (color.equals("Blue")) { icon = new ImageIcon(getClass().getResource("../pictures/icons/Stables_Blue.png")); }
     }
 }

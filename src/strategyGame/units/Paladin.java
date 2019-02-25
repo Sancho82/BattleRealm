@@ -16,7 +16,7 @@ public class Paladin extends Soldier {
         attackRange = 1;
         damage = 39 + (int)(Math.random() * 10 + 1);
 
-        if (color.equals("Red")) { icon = new ImageIcon(getClass().getResource("../icons/Paladin_Red.png")); }
-        else if (color.equals("Blue")) { icon = new ImageIcon(getClass().getResource("../icons/Paladin_Blue.png")); }
+        if (color.equals("Red")) { icon = new ImageIcon(getClass().getResource("../pictures/icons/Paladin_Red.png")); }
+        else if (color.equals("Blue")) { icon = new ImageIcon(getClass().getResource("../pictures/icons/Paladin_Blue.png")); }
     }
 }

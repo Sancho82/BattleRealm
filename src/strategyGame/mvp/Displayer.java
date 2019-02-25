@@ -4,6 +4,7 @@ import strategyGame.colors.Colors;
 import strategyGame.units.*;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.SoftBevelBorder;
 import java.awt.*;
@@ -205,6 +206,7 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
 
         unitBoard = new JLabel();
         unitBoard.setBounds(975, 625, 305, 145);
+        // unitBoard.setBorder(new EmptyBorder(0, 10, 0, 0));
         unitBoard.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
         unitBoard.setFont(new Font("Verdana", Font.BOLD, 15));
         unitBoard.setHorizontalAlignment(SwingConstants.LEFT);
@@ -234,14 +236,14 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
         illustrationBoard.setForeground(Color.white);
         illustrationBoard.setOpaque(true);
         // illustrationBoard.setBackground(colors.getLife());
-        illustrationBoard.setIcon(new ImageIcon(getClass().getResource("../illustrations/BackGround_IllustrationBoard.png")));
+        illustrationBoard.setIcon(new ImageIcon(getClass().getResource("../pictures/illustrations/BackGround_IllustrationBoard.png")));
         battlePanel.add(illustrationBoard);
 
         wallpaperLabel = new JLabel();
         wallpaperLabel.setLayout(null);
         wallpaperLabel.setBounds(0, 0, 1800, 1000);
         wallpaperLabel.setBorder(new SoftBevelBorder(SoftBevelBorder.LOWERED));
-        wallpaperLabel.setIcon(new ImageIcon(getClass().getResource("../wallpapers/Background_Game.png")));
+        wallpaperLabel.setIcon(new ImageIcon(getClass().getResource("../pictures/wallpapers/Background_Game.png")));
         wallpaperLabel.setOpaque(true);
         battlePanel.add(wallpaperLabel);
 
@@ -255,7 +257,7 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
         JLabel introLabel = new JLabel();
         introLabel.setBounds(0, 0, 1800, 1000);
         introLabel.setOpaque(true);
-        introLabel.setIcon(new ImageIcon(getClass().getResource("../wallpapers/Background_Intro.png")));
+        introLabel.setIcon(new ImageIcon(getClass().getResource("../pictures/wallpapers/Background_Intro.png")));
 
         introPanel = new JPanel();
         introPanel.setLayout(null);
@@ -365,7 +367,7 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
 
     @Override
     public void setIllustrationBoardDefault() {
-        illustrationBoard.setIcon(new ImageIcon(getClass().getResource("../illustrations/Background_IllustrationBoard.png")));
+        illustrationBoard.setIcon(new ImageIcon(getClass().getResource("../pictures/illustrations/Background_IllustrationBoard.png")));
     }
 
     //endregion
@@ -435,13 +437,13 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
     @Override
     public void illustrationDisplayer(Unit unit) {
         if (unit instanceof Warrior) {
-            illustrationBoard.setIcon(new ImageIcon(getClass().getResource("../illustrations/Warrior_Illustration.png")));
+            illustrationBoard.setIcon(new ImageIcon(getClass().getResource("../pictures/illustrations/Warrior_Illustration.png")));
 
         } else if (unit instanceof Archer) {
-            illustrationBoard.setIcon(new ImageIcon(getClass().getResource("../illustrations/Archer_Illustration.png")));
+            illustrationBoard.setIcon(new ImageIcon(getClass().getResource("../pictures/illustrations/Archer_Illustration.png")));
 
         } else if (unit instanceof Paladin) {
-            illustrationBoard.setIcon(new ImageIcon(getClass().getResource("../illustrations/Paladin_Illustration.png")));
+            illustrationBoard.setIcon(new ImageIcon(getClass().getResource("../pictures/illustrations/Paladin_Illustration.png")));
 
         } else {
             setIllustrationBoardDefault();
@@ -600,7 +602,7 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
         JLabel exitlabel = new JLabel();
         exitlabel.setBounds(0, 0, 1800, 1000);
         exitlabel.setOpaque(true);
-        exitlabel.setIcon(new ImageIcon(getClass().getResource("../wallpapers/Background_Victory.png")));
+        exitlabel.setIcon(new ImageIcon(getClass().getResource("../pictures/wallpapers/Background_Victory.png")));
 
         exitPanel.add(exitMessageLabel);
         exitPanel.add(exitlabel);

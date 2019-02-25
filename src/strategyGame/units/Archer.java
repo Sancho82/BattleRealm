@@ -16,7 +16,7 @@ public class Archer extends Soldier {
         attackRange = 4;
         damage = 34 + (int)(Math.random() * 5 + 1);
 
-        if (color.equals("Red")) { icon = new ImageIcon(getClass().getResource("../icons/Archer_Red.png")); }
-        else if (color.equals("Blue")) { icon = new ImageIcon(getClass().getResource("../icons/Archer_Blue.png")); }
+        if (color.equals("Red")) { icon = new ImageIcon(getClass().getResource("../pictures/icons/Archer_Red.png")); }
+        else if (color.equals("Blue")) { icon = new ImageIcon(getClass().getResource("../pictures/icons/Archer_Blue.png")); }
     }
 }

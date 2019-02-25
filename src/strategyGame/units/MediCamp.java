@@ -19,8 +19,8 @@ public class MediCamp extends Building implements Healer {
         canCreate = false;
         createRange = 0;
 
-        if (color.equals("Red")) { icon = new ImageIcon(getClass().getResource("../icons/Medicamp_Red.png")); }
-        else if (color.equals("Blue")) { icon = new ImageIcon(getClass().getResource("../icons/Medicamp_Blue.png")); }
+        if (color.equals("Red")) { icon = new ImageIcon(getClass().getResource("../pictures/icons/Medicamp_Red.png")); }
+        else if (color.equals("Blue")) { icon = new ImageIcon(getClass().getResource("../pictures/icons/Medicamp_Blue.png")); }
     }
 
     public void healAll(Player player){

@@ -16,8 +16,8 @@ public class Warrior extends Soldier {
         attackRange = 1;
         damage = 19 + (int)(Math.random() * 10 + 1);
 
-        if (color.equals("Red")) { icon = new ImageIcon(getClass().getResource("../icons/Warrior_Red.png")); }
-        else if (color.equals("Blue")) { icon = new ImageIcon(getClass().getResource("../icons/Warrior_Blue.png")); }
+        if (color.equals("Red")) { icon = new ImageIcon(getClass().getResource("../pictures/icons/Warrior_Red.png")); }
+        else if (color.equals("Blue")) { icon = new ImageIcon(getClass().getResource("../pictures/icons/Warrior_Blue.png")); }
 
 
 }

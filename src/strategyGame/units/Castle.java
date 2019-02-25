@@ -17,7 +17,7 @@ public class Castle extends Building {
         canAttack = false;
         canCreate = true;
 
-        if (color.equals("Red")) { icon = new ImageIcon(getClass().getResource("../icons/Castle_Red.png")); }
-        else if (color.equals("Blue")) { icon = new ImageIcon(getClass().getResource("../icons/Castle_Blue.png")); }
+        if (color.equals("Red")) { icon = new ImageIcon(getClass().getResource("../pictures/icons/Castle_Red.png")); }
+        else if (color.equals("Blue")) { icon = new ImageIcon(getClass().getResource("../pictures/icons/Castle_Blue.png")); }
     }
 }

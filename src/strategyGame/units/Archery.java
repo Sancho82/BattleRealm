@@ -15,7 +15,7 @@ public class Archery extends Building {
         canAttack = false;
         canCreate = true;
 
-        if (color.equals("Red")) { icon = new ImageIcon(getClass().getResource("../icons/Archery_Red.png")); }
-        else if (color.equals("Blue")) { icon = new ImageIcon(getClass().getResource("../icons/Archery_Blue.png")); }
+        if (color.equals("Red")) { icon = new ImageIcon(getClass().getResource("../pictures/icons/Archery_Red.png")); }
+        else if (color.equals("Blue")) { icon = new ImageIcon(getClass().getResource("../pictures/icons/Archery_Blue.png")); }
     }
 }
