@@ -90,7 +90,7 @@ public class DashBoard implements MainContract.Presenter {
         Player player = game.getPlayerList().get(game.getCurrentPlayerIndex());
         Unit unit = game.createUnit(optionSelected, player);
 
-        if (player.getGold() > unit.getCost()) {
+        if (player.getGold() >= unit.getCost()) {
             unit.setAvailable();
             game.setUnit(unit, position);
             player.addToUnitList(unit);
