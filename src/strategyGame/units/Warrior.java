@@ -18,7 +18,5 @@ public class Warrior extends Soldier {
 
         if (color.equals("Red")) { icon = new ImageIcon(getClass().getResource("../pictures/icons/Warrior_Red.png")); }
         else if (color.equals("Blue")) { icon = new ImageIcon(getClass().getResource("../pictures/icons/Warrior_Blue.png")); }
-
-
-}
+    }
 }
