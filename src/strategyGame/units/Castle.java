@@ -1,7 +1,5 @@
 package strategyGame.units;
 
-import strategyGame.mvp.Main;
-
 import javax.swing.*;
 
 public class Castle extends Building {

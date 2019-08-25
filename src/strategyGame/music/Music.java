@@ -12,9 +12,7 @@ public class Music {
             Clip clip = AudioSystem.getClip();
             clip.open(AudioSystem.getAudioInputStream(music));
             clip.start();
-            Thread.sleep(1000000);
-
-
+            Thread.sleep(246000);
 
         } catch (Exception e) {
             e.printStackTrace();

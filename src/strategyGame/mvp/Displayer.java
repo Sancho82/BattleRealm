@@ -4,7 +4,6 @@ import strategyGame.colors.Colors;
 import strategyGame.units.*;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.SoftBevelBorder;
 import java.awt.*;
