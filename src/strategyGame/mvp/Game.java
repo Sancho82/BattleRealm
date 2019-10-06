@@ -70,7 +70,7 @@ public class Game {
             case 5: unit = player.getColor().equals("Red") ? new Paladin(player.getColor(), icons.getRedPaladin()) : new Paladin(player.getColor(), icons.getBluePaladin());
                     break;
 
-            case 6: unit = player.getColor().equals("Red") ? new Medicamp(player.getColor(), icons.getRedMedicamp()) : new Medicamp(player.getColor(), icons.getBlueMedicamp());
+            case 6: unit = player.getColor().equals("Red") ? new MediCamp(player.getColor(), icons.getRedMedicamp()) : new MediCamp(player.getColor(), icons.getBlueMedicamp());
                     break;
 
             case 7: unit = player.getColor().equals("Red") ? new Archery(player.getColor(), icons.getRedArchery()) : new Archery(player.getColor(), icons.getBlueArchery());
@@ -139,8 +139,8 @@ public class Game {
             if (unit instanceof Soldier) {
                 ((Soldier)(unit)).freshStart();
 
-            } else if (unit instanceof Medicamp) {
-                ((Medicamp)(unit)).healAll(player);
+            } else if (unit instanceof MediCamp) {
+                ((MediCamp)(unit)).healAll(player);
             }
         }
     }
