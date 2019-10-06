@@ -4,8 +4,8 @@ import javax.swing.*;
 
 public class Castle extends Building {
 
-    public Castle(String color) {
-        super(color);
+    public Castle(String color, Icon icon) {
+        super(color, icon);
         name = "Castle";
         prefix = "CT";
         MAX_HP = 150;
@@ -14,8 +14,5 @@ public class Castle extends Building {
         canMove = false;
         canAttack = false;
         canCreate = true;
-
-        if (color.equals("Red")) { icon = new ImageIcon(getClass().getResource("../pictures/icons/Castle_Red.png")); }
-        else if (color.equals("Blue")) { icon = new ImageIcon(getClass().getResource("../pictures/icons/Castle_Blue.png")); }
     }
 }

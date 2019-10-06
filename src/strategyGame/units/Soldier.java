@@ -1,6 +1,8 @@
 package strategyGame.units;
 
 
+import javax.swing.*;
+
 public class Soldier extends Unit {
 
     protected int STEPRANGE;
@@ -9,8 +11,8 @@ public class Soldier extends Unit {
     protected int damage;
     protected boolean hasAttacked;
 
-    public Soldier(String color) {
-        super(color);
+    public Soldier(String color, Icon icon) {
+        super(color, icon);
         canMove = true;
         canAttack = true;
         hasAttacked = false;

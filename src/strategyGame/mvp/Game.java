@@ -1,5 +1,6 @@
 package strategyGame.mvp;
 
+import strategyGame.pictures.Icons;
 import strategyGame.units.*;
 
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ public class Game {
 
     private int size;
     private Unit[][] matrix;
+    private Icons icons;
     private Position selectedPosition;
     private int currentPlayerIndex;
 
@@ -18,6 +20,7 @@ public class Game {
     public Game() {
         size = 10;
         matrix = new Unit[size][size];
+        icons = new Icons();
         playerList = new ArrayList<>();
         playerList.add(new Player("Red"));
         playerList.add(new Player("Blue"));
@@ -58,25 +61,25 @@ public class Game {
         Unit unit = null;
 
         switch (optionSelected) {
-            case 3: unit = new Warrior(player.getColor());
+            case 3: unit = player.getColor().equals("Red") ? new Warrior(player.getColor(), icons.getRedWarrior()) : new Warrior(player.getColor(), icons.getBlueWarrior());
                     break;
 
-            case 4: unit = new Archer(player.getColor());
+            case 4: unit = player.getColor().equals("Red") ? new Archer(player.getColor(), icons.getRedArcher()) : new Archer(player.getColor(), icons.getBlueArcher());
                     break;
 
-            case 5: unit = new Paladin(player.getColor());
+            case 5: unit = player.getColor().equals("Red") ? new Paladin(player.getColor(), icons.getRedPaladin()) : new Paladin(player.getColor(), icons.getBluePaladin());
                     break;
 
-            case 6: unit = new MediCamp(player.getColor());
+            case 6: unit = player.getColor().equals("Red") ? new Medicamp(player.getColor(), icons.getRedMedicamp()) : new Castle(player.getColor(), icons.getBlueMedicamp());
                     break;
 
-            case 7: unit = new Archery(player.getColor());
+            case 7: unit = player.getColor().equals("Red") ? new Archery(player.getColor(), icons.getRedArchery()) : new Archery(player.getColor(), icons.getBlueArchery());
                     break;
 
-            case 8: unit = new Stables(player.getColor());
+            case 8: unit = player.getColor().equals("Red") ? new Stables(player.getColor(), icons.getRedStables()) : new Stables(player.getColor(), icons.getBlueStables());
                     break;
 
-            case 9: unit = new Castle((player.getColor()));
+            case 9: unit = player.getColor().equals("Red") ? new Castle(player.getColor(), icons.getRedCastle()) : new Castle(player.getColor(), icons.getBlueCastle());
         }
 
         return unit;
@@ -136,8 +139,8 @@ public class Game {
             if (unit instanceof Soldier) {
                 ((Soldier)(unit)).freshStart();
 
-            } else if (unit instanceof MediCamp) {
-                ((MediCamp)(unit)).healAll(player);
+            } else if (unit instanceof Medicamp) {
+                ((Medicamp)(unit)).healAll(player);
             }
         }
     }

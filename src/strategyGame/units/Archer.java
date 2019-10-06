@@ -4,8 +4,8 @@ import javax.swing.*;
 
 public class Archer extends Soldier {
 
-    public Archer(String color) {
-        super(color);
+    public Archer(String color, Icon icon) {
+        super(color, icon);
         name = "Archer";
         prefix = "Ar";
         MAX_HP = 24 + (int)(Math.random() * 5 + 1);

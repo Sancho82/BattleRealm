@@ -362,7 +362,7 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
     public void setDescriptionBoard(String text) {descriptionBoard.setText(text);}
 
     @Override
-    public void setDescriptionBoardDeafault() {descriptionBoard.setText("DescriptionBoard");}
+    public void setDescriptionBoardDeafault() {descriptionBoard.setText("Description Board");}
 
     @Override
     public void setIllustrationBoardDefault() {
@@ -386,7 +386,7 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
         remove(introPanel);
         add(battlePanel);
         repaint();
-        consoleDisplayer();
+        // consoleDisplayer();
         visualDisplayer();
     }
 

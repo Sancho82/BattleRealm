@@ -4,8 +4,8 @@ import javax.swing.*;
 
 public class Archery extends Building {
 
-    public Archery (String color) {
-        super(color);
+    public Archery (String color, Icon icon) {
+        super(color, icon);
         name = "Archery";
         prefix = "AR";
         MAX_HP = 100;
@@ -14,8 +14,5 @@ public class Archery extends Building {
         canMove = false;
         canAttack = false;
         canCreate = true;
-
-        if (color.equals("Red")) { icon = new ImageIcon(getClass().getResource("../pictures/icons/Archery_Red.png")); }
-        else if (color.equals("Blue")) { icon = new ImageIcon(getClass().getResource("../pictures/icons/Archery_Blue.png")); }
     }
 }

@@ -17,8 +17,9 @@ public abstract class Unit {
     protected boolean canAttack;
     protected boolean canCreate;
 
-    public Unit(String color) {
+    public Unit(String color, Icon icon) {
         this.color = color;
+        this.icon = icon;
         isSelected = false;
         isAvailable = false;
     }

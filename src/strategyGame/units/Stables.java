@@ -4,8 +4,8 @@ import javax.swing.*;
 
 public class Stables extends Building {
 
-    public Stables (String color) {
-        super(color);
+    public Stables (String color, Icon icon) {
+        super(color, icon);
         name = "Stables";
         prefix = "ST";
         MAX_HP = 100;
@@ -14,8 +14,5 @@ public class Stables extends Building {
         canMove = false;
         canAttack = false;
         canCreate = true;
-
-        if (color.equals("Red")) { icon = new ImageIcon(getClass().getResource("../pictures/icons/Stables_Red.png")); }
-        else if (color.equals("Blue")) { icon = new ImageIcon(getClass().getResource("../pictures/icons/Stables_Blue.png")); }
     }
 }

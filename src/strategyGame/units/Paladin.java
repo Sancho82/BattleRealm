@@ -4,8 +4,8 @@ import javax.swing.*;
 
 public class Paladin extends Soldier {
 
-    public Paladin(String color) {
-        super(color);
+    public Paladin(String color, Icon icon) {
+        super(color, icon);
         name = "Paladin";
         prefix = "Pa";
         MAX_HP = 64 + (int)(Math.random() * 5 + 1);
@@ -15,8 +15,5 @@ public class Paladin extends Soldier {
         steppesLeft = STEPRANGE;
         attackRange = 1;
         damage = 39 + (int)(Math.random() * 10 + 1);
-
-        if (color.equals("Red")) { icon = new ImageIcon(getClass().getResource("../pictures/icons/Paladin_Red.png")); }
-        else if (color.equals("Blue")) { icon = new ImageIcon(getClass().getResource("../pictures/icons/Paladin_Blue.png")); }
     }
 }
