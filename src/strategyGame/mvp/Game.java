@@ -61,25 +61,32 @@ public class Game {
         Unit unit = null;
 
         switch (optionSelected) {
-            case 3: unit = player.getColor().equals("Red") ? new Warrior(player.getColor(), icons.getRedWarrior()) : new Warrior(player.getColor(), icons.getBlueWarrior());
-                    break;
+            case 3:
+                unit = player.getColor().equals("Red") ? new Warrior(player.getColor(), icons.getRedWarrior()) : new Warrior(player.getColor(), icons.getBlueWarrior());
+                break;
 
-            case 4: unit = player.getColor().equals("Red") ? new Archer(player.getColor(), icons.getRedArcher()) : new Archer(player.getColor(), icons.getBlueArcher());
-                    break;
+            case 4:
+                unit = player.getColor().equals("Red") ? new Archer(player.getColor(), icons.getRedArcher()) : new Archer(player.getColor(), icons.getBlueArcher());
+                break;
 
-            case 5: unit = player.getColor().equals("Red") ? new Paladin(player.getColor(), icons.getRedPaladin()) : new Paladin(player.getColor(), icons.getBluePaladin());
-                    break;
+            case 5:
+                unit = player.getColor().equals("Red") ? new Paladin(player.getColor(), icons.getRedPaladin()) : new Paladin(player.getColor(), icons.getBluePaladin());
+                break;
 
-            case 6: unit = player.getColor().equals("Red") ? new MediCamp(player.getColor(), icons.getRedMedicamp()) : new MediCamp(player.getColor(), icons.getBlueMedicamp());
-                    break;
+            case 6:
+                unit = player.getColor().equals("Red") ? new MediCamp(player.getColor(), icons.getRedMedicamp()) : new MediCamp(player.getColor(), icons.getBlueMedicamp());
+                break;
 
-            case 7: unit = player.getColor().equals("Red") ? new Archery(player.getColor(), icons.getRedArchery()) : new Archery(player.getColor(), icons.getBlueArchery());
-                    break;
+            case 7:
+                unit = player.getColor().equals("Red") ? new Archery(player.getColor(), icons.getRedArchery()) : new Archery(player.getColor(), icons.getBlueArchery());
+                break;
 
-            case 8: unit = player.getColor().equals("Red") ? new Stables(player.getColor(), icons.getRedStables()) : new Stables(player.getColor(), icons.getBlueStables());
-                    break;
+            case 8:
+                unit = player.getColor().equals("Red") ? new Stables(player.getColor(), icons.getRedStables()) : new Stables(player.getColor(), icons.getBlueStables());
+                break;
 
-            case 9: unit = player.getColor().equals("Red") ? new Castle(player.getColor(), icons.getRedCastle()) : new Castle(player.getColor(), icons.getBlueCastle());
+            case 9:
+                unit = player.getColor().equals("Red") ? new Castle(player.getColor(), icons.getRedCastle()) : new Castle(player.getColor(), icons.getBlueCastle());
         }
 
         return unit;
@@ -92,15 +99,15 @@ public class Game {
     }
 
     public void createStartingUnits() {
-        createStartingUnit(9, new Position(0,0), playerList.get(0));
-        createStartingUnit(3, new Position(0,1), playerList.get(0));
-        createStartingUnit(3, new Position(1,0), playerList.get(0));
-        createStartingUnit(3, new Position(1,1), playerList.get(0));
+        createStartingUnit(9, new Position(0, 0), playerList.get(0));
+        createStartingUnit(3, new Position(0, 1), playerList.get(0));
+        createStartingUnit(3, new Position(1, 0), playerList.get(0));
+        createStartingUnit(3, new Position(1, 1), playerList.get(0));
 
-        createStartingUnit(9, new Position(9,9), playerList.get(1));
-        createStartingUnit(3, new Position(9,8), playerList.get(1));
-        createStartingUnit(3, new Position(8,9), playerList.get(1));
-        createStartingUnit(3, new Position(8,8), playerList.get(1));
+        createStartingUnit(9, new Position(9, 9), playerList.get(1));
+        createStartingUnit(3, new Position(9, 8), playerList.get(1));
+        createStartingUnit(3, new Position(8, 9), playerList.get(1));
+        createStartingUnit(3, new Position(8, 8), playerList.get(1));
     }
 
     //endregion
@@ -119,7 +126,7 @@ public class Game {
     public void removeUnitFromOwnersList(Unit unit) {
         Player player = playerList.get((currentPlayerIndex + 1) % playerList.size());
         if (unit.getColor().equals(player.getColor()))
-        player.getUnitList().remove(unit);
+            player.getUnitList().remove(unit);
     }
 
     //endregion
@@ -137,10 +144,10 @@ public class Game {
             Unit unit = player.getUnitList().get(i);
             unit.setAvailable();
             if (unit instanceof Soldier) {
-                ((Soldier)(unit)).freshStart();
+                ((Soldier) (unit)).freshStart();
 
             } else if (unit instanceof MediCamp) {
-                ((MediCamp)(unit)).healAll(player);
+                ((MediCamp) (unit)).healAll(player);
             }
         }
     }

@@ -4,7 +4,7 @@ import javax.swing.*;
 
 public class Archery extends Building {
 
-    public Archery (String color, Icon icon) {
+    public Archery(String color, Icon icon) {
         super(color, icon);
         name = "Archery";
         prefix = "AR";

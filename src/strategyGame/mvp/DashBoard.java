@@ -61,7 +61,7 @@ public class DashBoard implements MainContract.Presenter {
                 cFHMains.clUnNotNullNotAvButSelPosNotNull(position, view, this, game);
 
             } else {
-                 view.setTipBoard("You cannot select this unit.");
+                view.setTipBoard("You cannot select this unit.");
 
             }
 
@@ -139,7 +139,7 @@ public class DashBoard implements MainContract.Presenter {
                 view.setTipBoardDefault();
 
             } else if (optionSelected == 0) {
-               option0(unit);
+                option0(unit);
 
             } else if (optionSelected == 1) {
                 option1(unit);
@@ -177,7 +177,7 @@ public class DashBoard implements MainContract.Presenter {
         if (unit.getCanMove()) {
             view.optionButtonsHighlighter(optionSelected);
             view.highLightRange(game.getMatrix(), game.getSelectedPosition(),
-                    ((Soldier) (unit)).getSteppesLeft(), view.getColors().getBleed(), view. getColors().getRoast());
+                    ((Soldier) (unit)).getSteppesLeft(), view.getColors().getBleed(), view.getColors().getRoast());
             view.setTipBoardDefault();
 
         } else {

@@ -4,7 +4,7 @@ import javax.swing.*;
 
 public class Stables extends Building {
 
-    public Stables (String color, Icon icon) {
+    public Stables(String color, Icon icon) {
         super(color, icon);
         name = "Stables";
         prefix = "ST";

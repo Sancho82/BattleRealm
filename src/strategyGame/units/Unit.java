@@ -76,13 +76,11 @@ public abstract class Unit {
 
     //endregion
 
-
     //region Setters
 
     public void heal() {
         if (MAX_HP - hp > 0 && MAX_HP - hp < 10) {
             hp = MAX_HP;
-
         } else if (MAX_HP - hp > 0) {
             hp += 10;
         }

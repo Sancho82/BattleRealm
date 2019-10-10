@@ -53,7 +53,7 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
         colors = new Colors();
 
         setTitle("Battlerealm");
-        setBounds(0,0, 1820, 1000);
+        setBounds(0, 0, 1820, 1000);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
@@ -296,30 +296,6 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
 
     //region Getters
 
-    public MainContract.Presenter getDashBoard() {
-        return dashBoard;
-    }
-
-    public JPanel getBattlePanel() {
-        return battlePanel;
-    }
-
-    public JButton[][] getButtons() {
-        return buttons;
-    }
-
-    public JLabel getUnitBoard() {
-        return unitBoard;
-    }
-
-    public JLabel getPlayerBoard() {
-        return playerBoard;
-    }
-
-    public JLabel getTipBoard() {
-        return tipBoard;
-    }
-
     public Colors getColors() {
         return colors;
     }
@@ -359,10 +335,14 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
     }
 
     @Override
-    public void setDescriptionBoard(String text) {descriptionBoard.setText(text);}
+    public void setDescriptionBoard(String text) {
+        descriptionBoard.setText(text);
+    }
 
     @Override
-    public void setDescriptionBoardDeafault() {descriptionBoard.setText("Description Board");}
+    public void setDescriptionBoardDeafault() {
+        descriptionBoard.setText("Description Board");
+    }
 
     @Override
     public void setIllustrationBoardDefault() {
@@ -426,7 +406,7 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
                         else buttons[j][i].setToolTipText("Damaged");
 
                     } else {
-                       buttons[j][i].setToolTipText("Weak");
+                        buttons[j][i].setToolTipText("Weak");
                     }
                 }
             }
@@ -548,7 +528,7 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
                     if (unit.getIsSelected()) {
                         buttons[j][i].setBackground(Color.orange);
 
-                    } else if (unit.getColor().equals("Red")){
+                    } else if (unit.getColor().equals("Red")) {
                         buttons[j][i].setBackground(colors.getPeach());
 
                     } else if (unit.getColor().equals("Blue")) {
@@ -611,10 +591,10 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
 
         new Thread(() -> {
             try {
-                    Thread.sleep(5000);
-                    System.exit(0);
+                Thread.sleep(5000);
+                System.exit(0);
             } catch (InterruptedException e) {
-                    e.printStackTrace();
+                e.printStackTrace();
             }
         }).start();
     }
