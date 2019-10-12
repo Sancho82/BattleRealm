@@ -74,7 +74,7 @@ public class Game {
                 break;
 
             case 6:
-                unit = player.getColor().equals("Red") ? new Medicamp(player.getColor(), icons.getRedMedicamp()) : new Medicamp(player.getColor(), icons.getBlueMedicamp());
+                unit = player.getColor().equals("Red") ? new MediCamp(player.getColor(), icons.getRedMedicamp()) : new MediCamp(player.getColor(), icons.getBlueMedicamp());
                 break;
 
             case 7:
@@ -146,8 +146,8 @@ public class Game {
             if (unit instanceof Soldier) {
                 ((Soldier) (unit)).freshStart();
 
-            } else if (unit instanceof Medicamp) {
-                ((Medicamp) (unit)).healAll(player);
+            } else if (unit instanceof MediCamp) {
+                ((MediCamp) (unit)).healAll(player);
             }
         }
     }

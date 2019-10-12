@@ -6,9 +6,9 @@ import strategyGame.interfaces.Healer;
 
 import javax.swing.*;
 
-public class Medicamp extends Building implements Healer {
+public class MediCamp extends Building implements Healer {
 
-    public Medicamp(String color, Icon icon) {
+    public MediCamp(String color, Icon icon) {
         super(color, icon);
         name = "Medicamp";
         prefix = "MC";
