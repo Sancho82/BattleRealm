@@ -2,7 +2,7 @@ package strategyGame.pictures;
 
 import javax.swing.*;
 
-public class Icons {
+public class IconConsts {
 
     private final Icon redCastle = new ImageIcon(getClass().getResource("../pictures/icons/Castle_Red.png"));
     private final Icon blueCastle = new ImageIcon(getClass().getResource("../pictures/icons/Castle_Blue.png"));

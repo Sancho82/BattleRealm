@@ -1,6 +1,8 @@
 package strategyGame.mvp;
 
 import strategyGame.colors.Colors;
+import strategyGame.pictures.IllustrationConsts;
+import strategyGame.pictures.WallpaperConsts;
 import strategyGame.units.*;
 
 import javax.swing.*;
@@ -38,7 +40,7 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
     private JButton createWarrior;
     private JButton createArcher;
     private JButton createPaladin;
-    private JButton createMediCamp;
+    private JButton createMedicamp;
     private JButton createArchery;
     private JButton createStables;
 
@@ -82,7 +84,7 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
         attack.setBounds(975, 250, 305, 70);
         attack.setFont(new Font("Verdana", Font.BOLD, 25));
         attack.setBorder(new SoftBevelBorder(SoftBevelBorder.RAISED));
-        attack.setText("Attackrange");
+        attack.setText("Attack Range");
         battlePanel.add(attack);
         attack.addActionListener(e -> {
             dashBoard.setOptionSelected(dashBoard.getOptionSelected() == 0 ? -1 : 0);
@@ -93,7 +95,7 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
         move.setBounds(975, 325, 305, 70);
         move.setFont(new Font("Verdana", Font.BOLD, 25));
         move.setBorder(new SoftBevelBorder(SoftBevelBorder.RAISED));
-        move.setText("Moverange");
+        move.setText("Move Range");
         battlePanel.add(move);
         move.addActionListener(e -> {
             dashBoard.setOptionSelected(dashBoard.getOptionSelected() == 1 ? -1 : 1);
@@ -145,13 +147,13 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
             dashBoard.optionsHandler();
         });
 
-        createMediCamp = new JButton();
-        createMediCamp.setBounds(1130, 400, 150, 70);
-        createMediCamp.setFont(new Font("Verdana", Font.BOLD, 15));
-        createMediCamp.setBorder(new SoftBevelBorder(SoftBevelBorder.RAISED));
-        createMediCamp.setText("Create Medicamp");
-        battlePanel.add(createMediCamp);
-        createMediCamp.addActionListener(e -> {
+        createMedicamp = new JButton();
+        createMedicamp.setBounds(1130, 400, 150, 70);
+        createMedicamp.setFont(new Font("Verdana", Font.BOLD, 15));
+        createMedicamp.setBorder(new SoftBevelBorder(SoftBevelBorder.RAISED));
+        createMedicamp.setText("Create Medicamp");
+        battlePanel.add(createMedicamp);
+        createMedicamp.addActionListener(e -> {
             dashBoard.setOptionSelected(dashBoard.getOptionSelected() == 6 ? -1 : 6);
             dashBoard.optionsHandler();
         });
@@ -219,11 +221,11 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
         descriptionBoard.setBounds(1360, 100, 282, 145);
         descriptionBoard.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
         descriptionBoard.setFont(new Font("Verdana", Font.BOLD, 15));
-        descriptionBoard.setHorizontalAlignment(SwingConstants.LEFT);
+        descriptionBoard.setHorizontalAlignment(SwingConstants.LEADING);
         descriptionBoard.setVerticalAlignment(SwingConstants.TOP);
         descriptionBoard.setForeground(Color.white);
         descriptionBoard.setOpaque(true);
-        descriptionBoard.setBackground(colors.getLife());
+        descriptionBoard.setBackground(colors.getOcean());
         battlePanel.add(descriptionBoard);
 
         illustrationBoard = new JLabel();
@@ -235,28 +237,27 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
         illustrationBoard.setForeground(Color.white);
         illustrationBoard.setOpaque(true);
         // illustrationBoard.setBackground(colors.getLife());
-        illustrationBoard.setIcon(new ImageIcon(getClass().getResource("../pictures/illustrations/BackGround_IllustrationBoard.png")));
+        illustrationBoard.setIcon(new ImageIcon(getClass().getResource(WallpaperConsts.BACKGROUND_MAP())));
         battlePanel.add(illustrationBoard);
 
         wallpaperLabel = new JLabel();
         wallpaperLabel.setLayout(null);
         wallpaperLabel.setBounds(0, 0, 1800, 1000);
         wallpaperLabel.setBorder(new SoftBevelBorder(SoftBevelBorder.LOWERED));
-        wallpaperLabel.setIcon(new ImageIcon(getClass().getResource("../pictures/wallpapers/Background_Game.png")));
+        wallpaperLabel.setIcon(new ImageIcon(getClass().getResource(WallpaperConsts.BACKGROUND_GAME())));
         wallpaperLabel.setOpaque(true);
         battlePanel.add(wallpaperLabel);
-
 
         setTipBoardDefault();
         dashBoard.showActivePlayerStats();
         setUnitBoardDefault();
         setIllustrationBoardDefault();
-        setDescriptionBoardDeafault();
+        setDescriptionBoardDefault();
 
         JLabel introLabel = new JLabel();
         introLabel.setBounds(0, 0, 1800, 1000);
         introLabel.setOpaque(true);
-        introLabel.setIcon(new ImageIcon(getClass().getResource("../pictures/wallpapers/Background_Intro.png")));
+        introLabel.setIcon(new ImageIcon(getClass().getResource(WallpaperConsts.BACKGROUND_INTRO())));
 
         introPanel = new JPanel();
         introPanel.setLayout(null);
@@ -340,13 +341,13 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
     }
 
     @Override
-    public void setDescriptionBoardDeafault() {
+    public void setDescriptionBoardDefault() {
         descriptionBoard.setText("Description Board");
     }
 
     @Override
     public void setIllustrationBoardDefault() {
-        illustrationBoard.setIcon(new ImageIcon(getClass().getResource("../pictures/illustrations/Background_IllustrationBoard.png")));
+        illustrationBoard.setIcon(new ImageIcon(getClass().getResource(WallpaperConsts.BACKGROUND_MAP())));
     }
 
     //endregion
@@ -355,8 +356,8 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
     public void actionPerformed(ActionEvent e) {
         String[] coords = e.getActionCommand().split(" ");
 
-        int x = Integer.valueOf(coords[1]);
-        int y = Integer.valueOf(coords[0]);
+        int x = Integer.parseInt(coords[1]);
+        int y = Integer.parseInt(coords[0]);
 
         dashBoard.clickField(new Position(x, y));
     }
@@ -416,13 +417,13 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
     @Override
     public void illustrationDisplayer(Unit unit) {
         if (unit instanceof Warrior) {
-            illustrationBoard.setIcon(new ImageIcon(getClass().getResource("../pictures/illustrations/Warrior_Illustration.png")));
+            illustrationBoard.setIcon(new ImageIcon(getClass().getResource(IllustrationConsts.WARRIOR())));
 
         } else if (unit instanceof Archer) {
-            illustrationBoard.setIcon(new ImageIcon(getClass().getResource("../pictures/illustrations/Archer_Illustration.png")));
+            illustrationBoard.setIcon(new ImageIcon(getClass().getResource(IllustrationConsts.ARCHER())));
 
         } else if (unit instanceof Paladin) {
-            illustrationBoard.setIcon(new ImageIcon(getClass().getResource("../pictures/illustrations/Paladin_Illustration.png")));
+            illustrationBoard.setIcon(new ImageIcon(getClass().getResource(IllustrationConsts.PALADIN())));
 
         } else {
             setIllustrationBoardDefault();
@@ -453,7 +454,7 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
         optionButtons[3] = createWarrior;
         optionButtons[4] = createArcher;
         optionButtons[5] = createPaladin;
-        optionButtons[6] = createMediCamp;
+        optionButtons[6] = createMedicamp;
         optionButtons[7] = createArchery;
         optionButtons[8] = createStables;
     }
@@ -489,7 +490,7 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
                 break;
 
             case 6:
-                createMediCamp.setBackground(colors.getLife());
+                createMedicamp.setBackground(colors.getLife());
                 break;
 
             case 7:
@@ -500,8 +501,6 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
                 createStables.setBackground(colors.getLife());
                 break;
         }
-
-        System.out.println("\n" + dashBoard.getOptionSelected());
     }
 
     @Override
@@ -512,7 +511,7 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
         createWarrior.setBackground(colors.getTrepp());
         createArcher.setBackground(colors.getTrepp());
         createPaladin.setBackground(colors.getTrepp());
-        createMediCamp.setBackground(colors.getTrepp());
+        createMedicamp.setBackground(colors.getTrepp());
         createArchery.setBackground(colors.getTrepp());
         createStables.setBackground(colors.getTrepp());
 
@@ -581,7 +580,7 @@ public class Displayer extends JFrame implements ActionListener, MainContract.Vi
         JLabel exitlabel = new JLabel();
         exitlabel.setBounds(0, 0, 1800, 1000);
         exitlabel.setOpaque(true);
-        exitlabel.setIcon(new ImageIcon(getClass().getResource("../pictures/wallpapers/Background_Victory.png")));
+        exitlabel.setIcon(new ImageIcon(getClass().getResource(WallpaperConsts.BACKGROUND_VICTORY())));
 
         exitPanel.add(exitMessageLabel);
         exitPanel.add(exitlabel);

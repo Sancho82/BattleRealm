@@ -65,9 +65,9 @@ public class Player {
     //endregion
 
     public String toString() {
-        return "<html><font color=white><Strong>Name:&nbsp</Strong></font>" + name + "<br>" +
-                "<font color=white><Strong>Color:&nbsp</Strong></font>" + color + "<br>" +
-                "<font color=white><Strong>Gold:&nbsp</Strong></font>" + gold + "<br>" +
+        return "<html><font color=white><Strong>Name: </Strong></font>" + name + "<br>" +
+                "<font color=white><Strong>Color: </Strong></font>" + color + "<br>" +
+                "<font color=white><Strong>Gold: </Strong></font>" + gold + "<br>" +
                 "</html>";
     }
 }

@@ -1,16 +1,18 @@
 package strategyGame.units;
 
+import strategyGame.descriptions.Descriptions;
 import strategyGame.mvp.Player;
 import strategyGame.interfaces.Healer;
 
 import javax.swing.*;
 
-public class MediCamp extends Building implements Healer {
+public class Medicamp extends Building implements Healer {
 
-    public MediCamp(String color, Icon icon) {
+    public Medicamp(String color, Icon icon) {
         super(color, icon);
         name = "Medicamp";
         prefix = "MC";
+        description = Descriptions.getMedicampDescription();
         MAX_HP = 50;
         hp = MAX_HP;
         cost = 100;

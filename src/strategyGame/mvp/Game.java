@@ -1,6 +1,6 @@
 package strategyGame.mvp;
 
-import strategyGame.pictures.Icons;
+import strategyGame.pictures.IconConsts;
 import strategyGame.units.*;
 
 import java.util.ArrayList;
@@ -11,7 +11,7 @@ public class Game {
 
     private int size;
     private Unit[][] matrix;
-    private Icons icons;
+    private IconConsts icons;
     private Position selectedPosition;
     private int currentPlayerIndex;
 
@@ -20,7 +20,7 @@ public class Game {
     public Game() {
         size = 10;
         matrix = new Unit[size][size];
-        icons = new Icons();
+        icons = new IconConsts();
         playerList = new ArrayList<>();
         playerList.add(new Player("Red"));
         playerList.add(new Player("Blue"));
@@ -74,7 +74,7 @@ public class Game {
                 break;
 
             case 6:
-                unit = player.getColor().equals("Red") ? new MediCamp(player.getColor(), icons.getRedMedicamp()) : new MediCamp(player.getColor(), icons.getBlueMedicamp());
+                unit = player.getColor().equals("Red") ? new Medicamp(player.getColor(), icons.getRedMedicamp()) : new Medicamp(player.getColor(), icons.getBlueMedicamp());
                 break;
 
             case 7:
@@ -146,8 +146,8 @@ public class Game {
             if (unit instanceof Soldier) {
                 ((Soldier) (unit)).freshStart();
 
-            } else if (unit instanceof MediCamp) {
-                ((MediCamp) (unit)).healAll(player);
+            } else if (unit instanceof Medicamp) {
+                ((Medicamp) (unit)).healAll(player);
             }
         }
     }

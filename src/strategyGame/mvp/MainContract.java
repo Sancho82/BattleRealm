@@ -42,7 +42,7 @@ public interface MainContract {
 
         void setDescriptionBoard(String text);
 
-        void setDescriptionBoardDeafault();
+        void setDescriptionBoardDefault();
 
         void setIllustrationBoardDefault();
 

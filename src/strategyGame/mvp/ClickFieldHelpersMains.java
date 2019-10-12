@@ -26,12 +26,14 @@ public class ClickFieldHelpersMains {
             game.setSelectedPosition(position);
             game.selectUnit(clickedUnit);
             view.setUnitBoard(clickedUnit);
+            view.setDescriptionBoard(clickedUnit.getDescription());
 
         } else {
             game.deSelectUnit(clickedUnit);
             game.setSelectedPosition(null);
             view.setIllustrationBoardDefault();
             view.setUnitBoardDefault();
+            view.setDescriptionBoardDefault();
         }
 
         view.showSelectedUnit(matrix);
@@ -82,7 +84,7 @@ public class ClickFieldHelpersMains {
         }
     }
 
-    // when clicked Unit is null but selected positionis not null
+    // when clicked Unit is null, but selected position is not null
     public void clUnNullButSelPosNotNull(Position position, MainContract.View view, MainContract.Presenter dashboard, Game game) {
         Unit[][] matrix = game.getMatrix();
         int selX = game.getSelectedPosition().getX();

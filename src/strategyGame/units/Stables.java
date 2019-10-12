@@ -1,5 +1,7 @@
 package strategyGame.units;
 
+import strategyGame.descriptions.Descriptions;
+
 import javax.swing.*;
 
 public class Stables extends Building {
@@ -8,6 +10,7 @@ public class Stables extends Building {
         super(color, icon);
         name = "Stables";
         prefix = "ST";
+        description = Descriptions.getStablesDescription();
         MAX_HP = 100;
         hp = MAX_HP;
         cost = 200;

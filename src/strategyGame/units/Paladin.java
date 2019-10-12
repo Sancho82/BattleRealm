@@ -1,5 +1,7 @@
 package strategyGame.units;
 
+import strategyGame.descriptions.Descriptions;
+
 import javax.swing.*;
 
 public class Paladin extends Soldier {
@@ -8,6 +10,7 @@ public class Paladin extends Soldier {
         super(color, icon);
         name = "Paladin";
         prefix = "Pa";
+        description = Descriptions.getPaladinDescription();
         MAX_HP = 64 + (int) (Math.random() * 5 + 1);
         hp = MAX_HP;
         cost = 120;

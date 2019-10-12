@@ -7,6 +7,7 @@ public abstract class Unit {
     protected String color;
     protected String name;
     protected String prefix;
+    protected String description;
     protected Icon icon;
     protected int MAX_HP;
     protected int hp;
@@ -36,6 +37,10 @@ public abstract class Unit {
 
     public String getPrefix() {
         return prefix;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     public Icon getIcon() {
@@ -117,9 +122,9 @@ public abstract class Unit {
     //endregion
 
     public String toString() {
-        return "<html><font color=white><Strong>Team:&nbsp</Strong></font>" + color + "<br>" +
-                "<font color=white><Strong>Name:&nbsp</Strong></font>" + name + "<br>" +
-                "<font color=white><Strong>Hp:&nbsp</Strong></font>" + hp +
+        return "<html><font color=white><Strong>Team: </Strong></font>" + color + "<br>" +
+                "<font color=white><Strong>Name: </Strong></font>" + name + "<br>" +
+                "<font color=white><Strong>Hp: </Strong></font>" + hp +
                 "</html>";
     }
 }

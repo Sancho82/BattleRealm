@@ -1,5 +1,7 @@
 package strategyGame.units;
 
+import strategyGame.descriptions.Descriptions;
+
 import javax.swing.*;
 
 public class Archery extends Building {
@@ -8,6 +10,7 @@ public class Archery extends Building {
         super(color, icon);
         name = "Archery";
         prefix = "AR";
+        description = Descriptions.getArcheryDescription();
         MAX_HP = 100;
         hp = MAX_HP;
         cost = 150;
